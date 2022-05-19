@@ -44,26 +44,6 @@
       </tags>
   </entry>
   <entry>
-    <title>认证与授权实现思路</title>
-    <url>/2022/04/24/%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%8E%88%E6%9D%83%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF/</url>
-    <content><![CDATA[<h2 id="认证与授权实现思路"><a href="#认证与授权实现思路" class="headerlink" title="认证与授权实现思路"></a>认证与授权实现思路</h2><p>Spring Security其实就是用<strong>filter</strong>，多请求的路径进行过滤。</p>
-<span id="more"></span>
-
-<p>​	如果系统的模块众多，每个模块都需要就行授权与认证，所以我们选择基于token的形式进行授权与认 证，用户根据用户名密码认证成功，然后获取当前用户角色的一系列权限值，并以用户名为key，权限列 表为value的形式存入redis缓存中，根据用户名相关信息生成token返回，浏览器将token记录到cookie中， 每次调用api接口都默认将token携带到header请求头中，Spring-security解析header头获取token信息，解 析token获取当前用户名，根据用户名就可以从redis中获取权限列表，这样Spring-security就能够判断当前 请求是否有权限访问</p>
-<p><img src="/%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%8E%88%E6%9D%83%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF/image-20220424191422878.png" alt="image-20220424191422878"></p>
-]]></content>
-      <categories>
-        <category>面试</category>
-        <category>面试题</category>
-        <category>权限</category>
-      </categories>
-      <tags>
-        <tag>面试</tag>
-        <tag>面试题</tag>
-        <tag>权限</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>应战秋招总结</title>
     <url>/2022/04/21/%E5%BA%94%E6%88%98%E7%A7%8B%E6%8B%9B%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<h2 id="1、何为秋招？"><a href="#1、何为秋招？" class="headerlink" title="1、何为秋招？"></a>1、何为秋招？</h2><h3 id="1-1、应届生"><a href="#1-1、应届生" class="headerlink" title="1.1、应届生"></a>1.1、应届生</h3><p>暑假：大学生（实习、工作）</p>
@@ -244,6 +224,26 @@
       <tags>
         <tag>面试</tag>
         <tag>招聘</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>认证与授权实现思路</title>
+    <url>/2022/04/24/%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%8E%88%E6%9D%83%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF/</url>
+    <content><![CDATA[<h2 id="认证与授权实现思路"><a href="#认证与授权实现思路" class="headerlink" title="认证与授权实现思路"></a>认证与授权实现思路</h2><p>Spring Security其实就是用<strong>filter</strong>，多请求的路径进行过滤。</p>
+<span id="more"></span>
+
+<p>​	如果系统的模块众多，每个模块都需要就行授权与认证，所以我们选择基于token的形式进行授权与认 证，用户根据用户名密码认证成功，然后获取当前用户角色的一系列权限值，并以用户名为key，权限列 表为value的形式存入redis缓存中，根据用户名相关信息生成token返回，浏览器将token记录到cookie中， 每次调用api接口都默认将token携带到header请求头中，Spring-security解析header头获取token信息，解 析token获取当前用户名，根据用户名就可以从redis中获取权限列表，这样Spring-security就能够判断当前 请求是否有权限访问</p>
+<p><img src="/%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%8E%88%E6%9D%83%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF/image-20220424191422878.png" alt="image-20220424191422878"></p>
+]]></content>
+      <categories>
+        <category>面试</category>
+        <category>面试题</category>
+        <category>权限</category>
+      </categories>
+      <tags>
+        <tag>面试</tag>
+        <tag>面试题</tag>
+        <tag>权限</tag>
       </tags>
   </entry>
 </search>
