@@ -22,6 +22,28 @@
       </tags>
   </entry>
   <entry>
+    <title>java.util.concurrentmodificationexception异常原因和解决方法</title>
+    <url>/2022/04/24/java.util.concurrentmodificationexception%E5%BC%82%E5%B8%B8%E5%8E%9F%E5%9B%A0%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>简单地说下原因，在我那个项目的代码中，遍历的方式是增强 for 循环，在底层使用的也是迭代器。</p>
+<span id="more"></span>
+
+<p>也就是说，是用Itr去遍历的，这个Itr是ArrayList实现的一个遍历接口、内部类。</p>
+<p>但是我在删除的时候是通过ArrayList的remove方法去操作的，不是Itr内部的那个删除方法去操作的。</p>
+<p>那么问题就来了：</p>
+<p>ArrayList的remove方法修改的变量是继承自AbstractList的变量modCount；而Itr的remove方法修改的是自身的变量expectedModCount。这两个变量的作用都是记录修改次数的。</p>
+<p>所以，在用ArrayList的remove方法进行删除操作以后，Itr里面的expectedModCount会与ArrayList的modCount进行比较，二者不相等，所以会抛错。</p>
+<p><img src="https://img-blog.csdnimg.cn/111081d940d648c3b2156c4cb037dd6b.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeTR1bmc=,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="img"></p>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>解决的方法是改成索引遍历,但是需要在删除之后保证索引的正常:</p>
+]]></content>
+      <categories>
+        <category>异常</category>
+      </categories>
+      <tags>
+        <tag>异常</tag>
+        <tag>基础</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>应战秋招总结</title>
     <url>/2022/04/21/%E5%BA%94%E6%88%98%E7%A7%8B%E6%8B%9B%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<h2 id="1、何为秋招？"><a href="#1、何为秋招？" class="headerlink" title="1、何为秋招？"></a>1、何为秋招？</h2><h3 id="1-1、应届生"><a href="#1-1、应届生" class="headerlink" title="1.1、应届生"></a>1.1、应届生</h3><p>暑假：大学生（实习、工作）</p>
@@ -202,28 +224,6 @@
       <tags>
         <tag>面试</tag>
         <tag>招聘</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>java.util.concurrentmodificationexception异常原因和解决方法</title>
-    <url>/2022/04/24/java.util.concurrentmodificationexception%E5%BC%82%E5%B8%B8%E5%8E%9F%E5%9B%A0%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>简单地说下原因，在我那个项目的代码中，遍历的方式是增强 for 循环，在底层使用的也是迭代器。</p>
-<span id="more"></span>
-
-<p>也就是说，是用Itr去遍历的，这个Itr是ArrayList实现的一个遍历接口、内部类。</p>
-<p>但是我在删除的时候是通过ArrayList的remove方法去操作的，不是Itr内部的那个删除方法去操作的。</p>
-<p>那么问题就来了：</p>
-<p>ArrayList的remove方法修改的变量是继承自AbstractList的变量modCount；而Itr的remove方法修改的是自身的变量expectedModCount。这两个变量的作用都是记录修改次数的。</p>
-<p>所以，在用ArrayList的remove方法进行删除操作以后，Itr里面的expectedModCount会与ArrayList的modCount进行比较，二者不相等，所以会抛错。</p>
-<p><img src="https://img-blog.csdnimg.cn/111081d940d648c3b2156c4cb037dd6b.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeTR1bmc=,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="img"></p>
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>解决的方法是改成索引遍历,但是需要在删除之后保证索引的正常:</p>
-]]></content>
-      <categories>
-        <category>异常</category>
-      </categories>
-      <tags>
-        <tag>异常</tag>
-        <tag>基础</tag>
       </tags>
   </entry>
   <entry>
