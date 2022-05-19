@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>java.util.concurrentmodificationexception异常原因和解决方法</title>
+    <url>/2022/04/24/java.util.concurrentmodificationexception%E5%BC%82%E5%B8%B8%E5%8E%9F%E5%9B%A0%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>简单地说下原因，在我那个项目的代码中，遍历的方式是增强 for 循环，在底层使用的也是迭代器。</p>
+<span id="more"></span>
+
+<p>也就是说，是用Itr去遍历的，这个Itr是ArrayList实现的一个遍历接口、内部类。</p>
+<p>但是我在删除的时候是通过ArrayList的remove方法去操作的，不是Itr内部的那个删除方法去操作的。</p>
+<p>那么问题就来了：</p>
+<p>ArrayList的remove方法修改的变量是继承自AbstractList的变量modCount；而Itr的remove方法修改的是自身的变量expectedModCount。这两个变量的作用都是记录修改次数的。</p>
+<p>所以，在用ArrayList的remove方法进行删除操作以后，Itr里面的expectedModCount会与ArrayList的modCount进行比较，二者不相等，所以会抛错。</p>
+<p><img src="https://img-blog.csdnimg.cn/111081d940d648c3b2156c4cb037dd6b.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeTR1bmc=,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="img"></p>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>解决的方法是改成索引遍历,但是需要在删除之后保证索引的正常:</p>
+]]></content>
+      <categories>
+        <category>异常</category>
+      </categories>
+      <tags>
+        <tag>异常</tag>
+        <tag>基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>认证与授权实现思路</title>
+    <url>/2022/04/24/%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%8E%88%E6%9D%83%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF/</url>
+    <content><![CDATA[<h2 id="认证与授权实现思路"><a href="#认证与授权实现思路" class="headerlink" title="认证与授权实现思路"></a>认证与授权实现思路</h2><p>Spring Security其实就是用<strong>filter</strong>，多请求的路径进行过滤。</p>
+<span id="more"></span>
+
+<p>​	如果系统的模块众多，每个模块都需要就行授权与认证，所以我们选择基于token的形式进行授权与认 证，用户根据用户名密码认证成功，然后获取当前用户角色的一系列权限值，并以用户名为key，权限列 表为value的形式存入redis缓存中，根据用户名相关信息生成token返回，浏览器将token记录到cookie中， 每次调用api接口都默认将token携带到header请求头中，Spring-security解析header头获取token信息，解 析token获取当前用户名，根据用户名就可以从redis中获取权限列表，这样Spring-security就能够判断当前 请求是否有权限访问</p>
+<p><img src="/%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%8E%88%E6%9D%83%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF/image-20220424191422878.png" alt="image-20220424191422878"></p>
+]]></content>
+      <categories>
+        <category>面试</category>
+        <category>面试题</category>
+        <category>权限</category>
+      </categories>
+      <tags>
+        <tag>面试</tag>
+        <tag>面试题</tag>
+        <tag>权限</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>应战秋招总结</title>
+    <url>/2022/04/21/%E5%BA%94%E6%88%98%E7%A7%8B%E6%8B%9B%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h2 id="1、何为秋招？"><a href="#1、何为秋招？" class="headerlink" title="1、何为秋招？"></a>1、何为秋招？</h2><h3 id="1-1、应届生"><a href="#1-1、应届生" class="headerlink" title="1.1、应届生"></a>1.1、应届生</h3><p>暑假：大学生（实习、工作）</p>
+<span id="more"></span>
+
+<p>8月、春招！</p>
+<p>应届毕业生！</p>
+<p>2015年级 2019界 2016年级 2020界</p>
+<p>应届毕业生： 大三升大四！</p>
+<p><strong>大三暑假找工作找实习！</strong></p>
+<p>大四：毕业再找！切记、不好！</p>
+<p>2020校招！不收2019届！</p>
+<h3 id="1-2、秋招-x2F-春招-x2F-校招"><a href="#1-2、秋招-x2F-春招-x2F-校招" class="headerlink" title="1.2、秋招&#x2F;春招&#x2F;校招"></a>1.2、秋招&#x2F;春招&#x2F;校招</h3><p>校招： 校园招聘</p>
+<p>流程：网申-笔试-面试（23轮）-录取通知-体检-签三方-毕业！-上班！ 秋招： 7来年一月 7~10，校招核心！</p>
+<p>秋招名额远大于春招！</p>
+<p>招聘信息 宣讲会 招聘会</p>
+<p>春招： 春节到6月 3~4、秋招补录！</p>
+<blockquote>
+<p>网申（不打无准备的仗）</p>
+</blockquote>
+<p>网络在线申请，大型企业！</p>
+<p>注意：填表格！</p>
+<p>开放性问题：优缺点？失败经历？公司的看法？</p>
+<p>一定要仔细？大三时候就一定要准备好！</p>
+<p>复制到记事本！</p>
+<blockquote>
+<p>宣讲会</p>
+</blockquote>
+<p>公司 HR、技术！ 讲解公司的内容、岗位、待遇、Q&amp;A？</p>
+<p>1、开完就走！</p>
+<p>2、现场接受简历</p>
+<p>3、现场接受简历、面试！一分钟（记住你！ 准备60s的自我介绍）</p>
+<p>4、现场接受简历、面试、笔试！</p>
+<p><strong>多跑!</strong></p>
+<blockquote>
+<p>招聘会（多对一）体验一次！</p>
+</blockquote>
+<p>政府: 人力资源组织 ! 现场招聘&#x2F;网络招聘</p>
+<p><strong>现场招聘</strong></p>
+<p>综合&#x2F;理工科&#x2F;经管文科</p>
+<p><strong>准备：</strong></p>
+<p>HR、直接递交简历。现场面试， hR！</p>
+<p>1、简历！</p>
+<p>2、带上U盘！资料文件！防备不时之需</p>
+<p>3、目标确定性： 1000家公司（2~3 公司的信息、岗位需要的职业技能！） 简历是可以改变的！（掌握技能、实习工作经历） 3个公司、3份不一样的（根据公司的需要来定 制！）</p>
+<h3 id="1-3、社招-x2F-海投"><a href="#1-3、社招-x2F-海投" class="headerlink" title="1.3、社招&#x2F;海投"></a>1.3、社招&#x2F;海投</h3><blockquote>
+<p>社招： 社会招聘！ 目标人群： 毕业的人、经验人士！</p>
+</blockquote>
+<p>社招持续存在！</p>
+<p>社招: 校招是有新人培训！社招直接进去就工作！ 一定都是招收有经验的人士！</p>
+<p>参加校招：大四！不要在毕业之后！</p>
+<p>大三~大四！重视校招！</p>
+<p>社招: 猎头、打造知名度（开源项目、博客、媒体影响力！）</p>
+<blockquote>
+<p>海投: 广撒网！</p>
+</blockquote>
+<p>不建议：没有针对！</p>
+<p>百度、阿里：做了准备、历届面试题、实训！</p>
+<p>投的数量多不一定有用！</p>
+<p>不打无准备的仗： 秋招、社招（选定心仪的公司！ 2~3）</p>
+<p>1、集中精力研究这些公司的面试！</p>
+<p>2、努力提升自己的技能！拿到再多的oﬀer ，最终你只能选择一家！ 面试！一开始就选择了！</p>
+<p>100家公司！ 没有人鸟你，自我否定！</p>
+<h2 id="2、秋招信息如何获取？"><a href="#2、秋招信息如何获取？" class="headerlink" title="2、秋招信息如何获取？"></a>2、秋招信息如何获取？</h2><p>秋招：获取秋招信息</p>
+<p>1、公司官网+官方招聘公众号！正规</p>
+<p>2、内推（熟人内部推荐！群里&#x2F;公众号）学长、学姐</p>
+<p>3、牛客网！专业的网站去找咨询！</p>
+<p>牛客求职区：<a href="https://www.nowcoder.com/recommend">https://www.nowcoder.com/recommend</a></p>
+<p>牛客讨论区：<a href="https://www.nowcoder.com/discuss">https://www.nowcoder.com/discuss</a></p>
+<p>校招日程汇总：<a href="https://www.nowcoder.com/school/schedule">https://www.nowcoder.com/school/schedule</a></p>
+<p>大数据：筛选出有用的消息！</p>
+<p>不要超过5家公司！</p>
+<p>百度、阿里、腾讯、美团、京东</p>
+<p><strong>到社会上第一步: 选择</strong></p>
+<p>1、钱多事少离家近 （钱多）</p>
+<p>2、背书，大公司！ 证明！</p>
+<p>3、锻炼自己！<br>工资 、能力对等！</p>
+<h2 id="3、如何备战秋招？"><a href="#3、如何备战秋招？" class="headerlink" title="3、如何备战秋招？"></a>3、如何备战秋招？</h2><h3 id="3-1、简历（ps做简历）"><a href="#3-1、简历（ps做简历）" class="headerlink" title="3.1、简历（ps做简历）"></a>3.1、简历（ps做简历）</h3><p><strong>1、模板！</strong></p>
+<ul>
+<li>word 黑白字！</li>
+<li>一定要找一个稳健的模板（工作相关的模板）</li>
+<li>尽量不要太多（最多2~3张&#x2F; 1张能解决是最好的）</li>
+<li>突出主题（线上发邮件：PDF！不要发word、文 字乱码！）</li>
+<li>颜值高、照片！（大学都去拍摄一组正装的艺术照！）</li>
+<li>不同的公司岗位你要写不同的简历！</li>
+<li>内容：<ul>
+<li>个人信息： 姓名、求职岗位、手机号、邮箱地址（突出显示、一下子就能看到自己的联系方式）</li>
+<li>学校的学历： 毕业院校、本科：直接写本科院校：研究生：本科毕业院校、研究生毕业院校。有的公司敲门砖就是 985&#x2F;211<ul>
+<li>问题：我的学校不够好？ 学校不是最致命的条件、毕业院校不是很好（重点就是 实习经历+项目经历</li>
+</ul>
+</li>
+<li>博客&#x2F;影响力的东西：一定要突出！（价值） 学习一定要产出！</li>
+<li>实习经历：（重中之重）<ul>
+<li>大厂实习经历！最好的！</li>
+<li>假设没有实习经历。 突出项目经历！</li>
+<li>项目经历： 自己在学校做过哪些项目 真实，自己做过哪些项目经历</li>
+<li>切记不要流水账！<ul>
+<li>我做了什么项目</li>
+<li>我在项目中负责那一部分</li>
+<li>在项目开发中遇到了哪些难题 我是怎么处理和解决的！</li>
+</ul>
+</li>
+<li>不要伪造（培训机构出来的人，大部分都会伪造项目经历和工作年龄！）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>校园经历：<ul>
+<li>学生会、社团。自己在学校举办的活动。</li>
+<li>获奖经历。</li>
+<li>奖学金</li>
+</ul>
+</li>
+<li>掌握的技能<ul>
+<li>如实的写</li>
+<li>熟悉、精通（少用精通，最多1~2个精通！）</li>
+<li>面试会通过这个来问你！</li>
+<li>不要在这里给自己挖坑！</li>
+</ul>
+</li>
+</ul>
+<p>2、真实！</p>
+<p>3、措辞！</p>
+<h3 id="3-2、笔试准备"><a href="#3-2、笔试准备" class="headerlink" title="3.2、笔试准备"></a>3.2、笔试准备</h3><p>技术岗（编程和问答！）</p>
+<p>解决方法：看书+练题！多锻炼自己的说话能力！</p>
+<p>练题不要瞎练习：针对性练习题目</p>
+<p>目标：</p>
+<p>找到历届的笔试面试题！ 提前3个月做准备！ 刷题+属性以前的套路！</p>
+<ul>
+<li><p>名企笔试真题练习：<a href="https://www.nowcoder.com/contestRoom">https://www.nowcoder.com/contestRoom</a></p>
+</li>
+<li><p>校招笔试真题汇总：<a href="https://www.nowcoder.com/contestRoom?mutiTagIds=1657">https://www.nowcoder.com/contestRoom?mutiTagIds=1657</a></p>
+</li>
+</ul>
+<p>校招备战学习计划：<a href="https://www.nowcoder.com/studypath/1">https://www.nowcoder.com/studypath/1</a></p>
+<ul>
+<li><p>在线编程：<a href="https://www.nowcoder.com/activity/oj">https://www.nowcoder.com/activity/oj</a></p>
+</li>
+<li><p>剑指oﬀer在线编程：<a href="https://www.nowcoder.com/ta/coding-interviews">https://www.nowcoder.com/ta/coding-interviews</a></p>
+</li>
+</ul>
+<p>不打无准备的仗！</p>
+<p>算法很重要，没有套路，就是多刷题！一定要多花时间研究！</p>
+<p>大学生：4年！</p>
+<p>大一大二就扎实学习基础技能！</p>
+<p>大三了解公司，了解面试，刷题！</p>
+<p>大三暑假：找实习找工作</p>
+<p>大四就是毕业、交朋友、熟悉公司、到社会！</p>
+<h3 id="3-3、面试准备"><a href="#3-3、面试准备" class="headerlink" title="3.3、面试准备"></a>3.3、面试准备</h3><p>多看面经！</p>
+<p>每个公司的面试风格都不同！</p>
+<ul>
+<li><p>牛客讨论区：<a href="https://www.nowcoder.com/discuss">https://www.nowcoder.com/discuss</a></p>
+</li>
+<li><p>各岗位汇总目录：<a href="https://www.nowcoder.com/discuss/167046">https://www.nowcoder.com/discuss/167046</a></p>
+</li>
+<li><p>各公司面经汇总目录：<a href="https://www.nowcoder.com/discuss/161635">https://www.nowcoder.com/discuss/161635</a></p>
+</li>
+</ul>
+<p>1、多看他人的面经？</p>
+<p>2、善于总结自己的面试经验？多分享（交流）</p>
+<p>练手：</p>
+<p>中意大公司，面试很紧张！</p>
+<p>去小公司面试锻炼：慢慢找到自己的不足，锻炼经验，保证自己面试不经常！</p>
+<p>练到自己不紧张不惧怕面试了就可以去自己中意的公司面试！</p>
+<p>要把最好的状态留个最重要的面试！</p>
+<p>面试：不断地打击自信心的过程！</p>
+<p>千万不要对自己失去信心！</p>
+<p>最黑暗时刻、就是黎明前！</p>
+<p>坚持：多找自己的问题，弥补不足，在尝试！</p>
+<h2 id="4、总结"><a href="#4、总结" class="headerlink" title="4、总结"></a>4、总结</h2><p>1、秋招时机，提前批、内推、公众平台、社会招聘、…… 信息很重要！</p>
+<p>2、早些做好自己的职业规划（大三之前）</p>
+<p>3、写一个优秀的简历。不是自我介绍，而是让公司看到简历之后知道为什么需要你！简历是可以有多 份！</p>
+<p>4、笔试和面试尽量提前3个月准备充分！提前了解公司！<br>参考链接：<a href="https://www.bilibili.com/video/BV16C4y1t7Mi%EF%BC%8C%E8%B5%84%E6%BA%90%E6%9D%A5%E8%87%AA**%E7%8B%82%E7%A5%9E%E8%AF%B4**yyds%EF%BC%81">https://www.bilibili.com/video/BV16C4y1t7Mi，资源来自**狂神说**yyds！</a></p>
+]]></content>
+      <categories>
+        <category>面试</category>
+      </categories>
+      <tags>
+        <tag>面试</tag>
+        <tag>招聘</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>No primary or default constructor found for interface java.util.List原因和解决方法</title>
+    <url>/2022/04/24/No%20primary%20or%20default%20constructor%20found%20for%20interface%20java.util.List%E5%8E%9F%E5%9B%A0%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3><p>是list是接口，没有<strong>构造函数</strong></p>
+<span id="more"></span>
+
+<p><strong>解决方法：</strong></p>
+<ul>
+<li>换成ArrayList就可以，</li>
+<li>将List转为Json字符串（JSON.toJSONString(list)），或者加入@RequestBody注解</li>
+<li>目标对象不匹配，用＠RequestParam让他强制匹配</li>
+</ul>
+]]></content>
+      <categories>
+        <category>异常</category>
+      </categories>
+      <tags>
+        <tag>异常</tag>
+        <tag>基础</tag>
+      </tags>
+  </entry>
+</search>
