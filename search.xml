@@ -461,8 +461,8 @@
 
 <p><strong>复杂性分析</strong></p>
 <ul>
-<li>时间复杂度：O(n)<em>O</em>(<em>n</em>)。遍历字符串 <code>s</code> 一遍。</li>
-<li>空间复杂度：O(n)<em>O</em>(<em>n</em>)。额外创建字符数组，长度为 <code>s</code> 的长度的 3 倍。</li>
+<li>时间复杂度：O(n)。遍历字符串 <code>s</code> 一遍。</li>
+<li>空间复杂度：O(n)。额外创建字符数组，长度为 <code>s</code> 的长度的 3 倍。</li>
 </ul>
 ]]></content>
       <categories>
