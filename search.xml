@@ -391,4 +391,44 @@
         <tag>算法</tag>
       </tags>
   </entry>
+  <entry>
+    <title>复杂链表的复制</title>
+    <url>/2022/05/21/%E5%A4%8D%E6%9D%82%E9%93%BE%E8%A1%A8%E7%9A%84%E5%A4%8D%E5%88%B6/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/21/%E5%A4%8D%E6%9D%82%E9%93%BE%E8%A1%A8%E7%9A%84%E5%A4%8D%E5%88%B6/image-20220521182707888.png" class title="examplename"></em></p>
+<p><em><img src="/2022/05/21/%E5%A4%8D%E6%9D%82%E9%93%BE%E8%A1%A8%E7%9A%84%E5%A4%8D%E5%88%B6/image-20220521182758490.png" class title="examplename"></em></p>
+<p><em><img src="/2022/05/21/%E5%A4%8D%E6%9D%82%E9%93%BE%E8%A1%A8%E7%9A%84%E5%A4%8D%E5%88%B6/image-20220521182825269.png" class title="examplename"></em></p>
+<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p>​		本题中因为随机指针的存在，当我们拷贝节点时，「当前节点的随机指针指向的节点」可能还没创建，因此我们需要变换思路。</p>
+<p><strong>1、回溯 + 哈希表</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong></p>
+<ul>
+<li>一个可行方案是，我们利用回溯的方式，让每个节点的拷贝操作相互独立。对于当前节点，我们首先要进行拷贝，然后我们进行「当前节点的后继节点」和「当前节点的随机指针指向的节点」拷贝，拷贝完成后将创建的新节点的指针返回，即可完成当前节点的两指针的赋值。</li>
+</ul>
+</li>
+<li><p><strong>时间复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度：</strong>O(n)，其中 n 是链表的长度。对于每个节点，我们至多访问其「后继节点」和「随机指针指向的节点」各一次，均摊每个点至多被访问两次。</li>
+<li><strong>空间复杂度：</strong>O(n)，其中 n 是链表的长度。为哈希表的空间开销。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<ul>
+<li>&#96;&#96;&#96;java<br>&#x2F;&#x2F; 回溯 + 哈希表<br>class Solution2 {<br>Map&lt;Node, Node&gt; cachedNode &#x3D; new HashMap&lt;Node, Node&gt;();<br><br>public Node copyRandomList(Node head) {<br>    if (head &#x3D;&#x3D; null) {<br>        return null;<br>    }<br>    if (!cachedNode.containsKey(head)) {<br>        Node headNew &#x3D; new Node(head.val);<br>        cachedNode.put(head, headNew);<br>        headNew.next &#x3D; copyRandomList(head.next);<br>        headNew.random &#x3D; copyRandomList(head.random);<br>    }<br>    return cachedNode.get(head);<br>}<br>}<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">**2、迭代 + 节点拆分**（方法很nice）</span><br><span class="line"></span><br><span class="line">- **解题思路：**</span><br><span class="line"></span><br><span class="line">  - *&#123;%asset_img image-20220521183343757.png examplename%&#125;*</span><br><span class="line">  - ![·](https://assets.leetcode-cn.com/solution-static/jianzhi_35/1.png)</span><br><span class="line">  - ![img](https://assets.leetcode-cn.com/solution-static/jianzhi_35/2.png)</span><br><span class="line">  - ![img](https://assets.leetcode-cn.com/solution-static/jianzhi_35/3.png)</span><br><span class="line">  - ![img](https://assets.leetcode-cn.com/solution-static/jianzhi_35/4.png)</span><br><span class="line"></span><br><span class="line">- **复杂度分析：**</span><br><span class="line"></span><br><span class="line">  - 时间复杂度：O(n)，其中 n 是链表的长度。我们只需要遍历该链表三次。</span><br><span class="line">  - 空间复杂度：O(1)。注意返回值不计入空间复杂度</span><br><span class="line"></span><br><span class="line">- **代码：**</span><br><span class="line"></span><br><span class="line">  - ```java</span><br><span class="line">    class Solution &#123;</span><br><span class="line">        public Node copyRandomList(Node head) &#123;</span><br><span class="line">            if (head == null) &#123;</span><br><span class="line">                return head;</span><br><span class="line">            &#125;</span><br><span class="line">            // 完成链表节点的复制</span><br><span class="line">            for (Node cur = head; cur != null; cur = cur.next.next) &#123;</span><br><span class="line">                Node newNode = new Node(cur.val);</span><br><span class="line">                newNode.next = cur.next;</span><br><span class="line">                cur.next = newNode;</span><br><span class="line">            &#125;</span><br><span class="line">    </span><br><span class="line">            // 完成链表复制节点的随机指针复制</span><br><span class="line">            for (Node cur = head;cur != null; cur = cur.next.next) &#123;</span><br><span class="line">                Node newNode = cur.next;</span><br><span class="line">                newNode.random = (cur.random != null)?cur.random.next:null; // cur.random为空，空节点不能.next，否则会报错</span><br><span class="line">            &#125;</span><br><span class="line">            Node headNew = head.next;</span><br><span class="line">            // 将链表一分为二</span><br><span class="line">            for (Node cur = head; cur != null; cur = cur.next) &#123;</span><br><span class="line">                Node newNode = cur.next;</span><br><span class="line">                cur.next = newNode.next;</span><br><span class="line">                newNode.next = (cur.next != null)? cur.next.next:null; // 这里判断同理</span><br><span class="line">            &#125;</span><br><span class="line">    </span><br><span class="line">            return headNew;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>链表</category>
+      </categories>
+      <tags>
+        <tag>面试题</tag>
+        <tag>剑指offer</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
 </search>
