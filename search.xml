@@ -515,7 +515,7 @@
 <li><p><strong>解题思路：</strong></p>
 <ul>
 <li>可遍历数组并通过交换操作，使元素的 索引 与 值 一一对应（即 nums[i]&#x3D;i ）。因而，就能通过索引映射对应的值，起到与字典等价的作用。</li>
-<li><img src="https://pic.leetcode-cn.com/1618146573-bOieFQ-Picture0.png" alt="Picture0.png"></li>
+<li><em><img src="/2022/05/22/%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97/image-20220522080700921.png" class title="examplename"></em></li>
 <li>遍历中，第一次遇到数字 x 时，将其交换至索引 x 处；而当第二次遇到数字 x 时，一定有 nums[x]&#x3D;x ，此时即可得到一组重复数字。</li>
 </ul>
 </li>
