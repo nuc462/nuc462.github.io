@@ -629,7 +629,8 @@
   <entry>
     <title>二维数组中的查找</title>
     <url>/2022/05/23/%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE/</url>
-    <content><![CDATA[<span id="more"></span>
+    <content><![CDATA[<hr>
+<span id="more"></span>
 
 <h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/23/%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE/image-20220523112001365.png" class title="examplename"></em></p>
 <h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p><strong>1、二分查找</strong></p>
