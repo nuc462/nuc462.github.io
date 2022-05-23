@@ -736,4 +736,43 @@
         <tag>算法</tag>
       </tags>
   </entry>
+  <entry>
+    <title>第一个只出现一次的字符</title>
+    <url>/2022/05/23/%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E5%AD%97%E7%AC%A6/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/23/%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E5%AD%97%E7%AC%A6/image-20220523213750652.png" class title="examplename"></em></p>
+<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p><strong>1、使用哈希表存储</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong></p>
+<ul>
+<li>遍历字符串 <code>s</code> ，使用哈希表统计 “各字符数量是否 &gt;1 ”。</li>
+<li>再遍历字符串 <code>s</code> ，在哈希表中找到首个 “数量为 1 的字符”，并返回。</li>
+</ul>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度 O(N) ：</strong> N 为字符串 s 的长度；需遍历 s 两轮，使用 O(N) ；HashMap 查找操作的复杂度为 O(1)；</li>
+<li><strong>空间复杂度 O(1) ：</strong> 由于题目指出 s 只包含小写字母，因此最多有 26 个不同字符，HashMap 存储需占用 O(26) &#x3D; O(1) 的额外空间。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">char</span> <span class="title function_">firstUniqChar</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        HashMap&lt;Character, Boolean&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        <span class="type">char</span>[] array = s.toCharArray();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">char</span> c:</span><br><span class="line">             array) &#123;</span><br><span class="line">            <span class="comment">// 如果遇到重复的，value变为false</span></span><br><span class="line">            map.put(c,!map.containsKey(c));</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 在map中查找第一个为true的</span></span><br><span class="line">        <span class="comment">// 因为hashMap是乱序的，不能直接通过map查找到第一个，而是通过array原来的顺序，进行map查找</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">char</span> c:</span><br><span class="line">             array) &#123;</span><br><span class="line">            <span class="keyword">if</span> (map.get(c)) &#123;</span><br><span class="line">                <span class="keyword">return</span> c;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>2、有序哈希表</strong></p>
+<p>在字符串长度较大、重复字符很多时，“有序哈希表” 解法理论上效率更高。</p>
+<p>解题思路和时间复杂度一样。</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 有序哈希表</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution3</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">char</span> <span class="title function_">firstUniqChar</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        Map&lt;Character, Boolean&gt; map = <span class="keyword">new</span> <span class="title class_">LinkedHashMap</span>&lt;&gt;();</span><br><span class="line">        <span class="type">char</span>[] sc = s.toCharArray();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">char</span> c : sc)</span><br><span class="line">            map.put(c, !map.containsKey(c));</span><br><span class="line">        <span class="comment">// Map的entrySet()方法返回一个实现Map.Entry接口的对象集合。Map.Entry里面包含getKey()和getValue()方法,entrySet实现了Set接口，里面存放的是键值对。一个K对应一个V。</span></span><br><span class="line">        <span class="keyword">for</span>(Map.Entry&lt;Character, Boolean&gt; d : map.entrySet())&#123;</span><br><span class="line">            <span class="keyword">if</span>(d.getValue()) <span class="keyword">return</span> d.getKey();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>查找算法</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>面试题</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
 </search>
