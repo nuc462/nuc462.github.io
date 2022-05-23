@@ -684,4 +684,56 @@
         <tag>权限</tag>
       </tags>
   </entry>
+  <entry>
+    <title>旋转数组的最小数字</title>
+    <url>/2022/05/23/%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B0%E5%AD%97/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/23/%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B0%E5%AD%97/image-20220523193220775.png" class title="examplename"></em></p>
+<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p><strong>1、使用二分法+暴力</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong>寻找旋转数组的最小元素即为寻找 <strong>右排序数组</strong> 的首个元素 nums[x] ，称 x为 <strong>旋转点</strong> 。</p>
+<ul>
+<li><em><img src="/2022/05/23/%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B0%E5%AD%97/image-20220523193434233.png" class title="examplename"></em></li>
+<li><em><img src="/2022/05/23/%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B0%E5%AD%97/image-20220523193527081.png" class title="examplename"></em></li>
+<li><em><img src="/2022/05/23/%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B0%E5%AD%97/image-20220523193553110.png" class title="examplename"></em></li>
+<li><em><img src="/2022/05/23/%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B0%E5%AD%97/image-20220523193607494.png" class title="examplename"></em></li>
+<li><em><img src="/2022/05/23/%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B0%E5%AD%97/image-20220523193631168.png" class title="examplename"></em></li>
+<li><em><img src="/2022/05/23/%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B0%E5%AD%97/image-20220523193645968.png" class title="examplename"></em></li>
+<li><em><img src="/2022/05/23/%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B0%E5%AD%97/image-20220523193706028.png" class title="examplename"></em></li>
+<li><em><img src="/2022/05/23/%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B0%E5%AD%97/image-20220523193721084.png" class title="examplename"></em></li>
+<li><em><img src="/2022/05/23/%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B0%E5%AD%97/image-20220523193737369.png" class title="examplename"></em></li>
+<li><em><img src="/2022/05/23/%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B0%E5%AD%97/image-20220523193753498.png" class title="examplename"></em></li>
+</ul>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度 O(log_2 N) ：</strong> 在特例情况下（例如 [1, 1, 1, 1]），会退化到 O(N)。</li>
+<li><strong>空间复杂度 O(1)：</strong> i , j , mid 变量使用常数大小的额外空间。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 二分法求解</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">minArray</span><span class="params">(<span class="type">int</span>[] numbers)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> numbers.length - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(i &lt; j) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">mid</span> <span class="operator">=</span> i + (j-i) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (numbers[mid] &lt; numbers[j]) &#123;</span><br><span class="line">                j = mid;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span> (numbers[mid] &gt; numbers[j]) &#123;</span><br><span class="line">                i = mid + <span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> j--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> numbers[i];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>补充思考： 为什么本题二分法不用 nums[mid] 和 nums[i] 作比较？</strong></p>
+<p>​	二分目的是判断 mm 在哪个排序数组中，从而缩小区间。而在 nums[m] &gt; nums[i]情况下，无法判断 mm 在哪个排序数组中。本质上是由于 jj 初始值肯定在右排序数组中； i 初始值无法确定在哪个排序数组中。举例如下：</p>
+<blockquote>
+<p>对于以下两示例，当 i &#x3D; 0, j &#x3D; 4, mid &#x3D; 2 时，有 nums[m] &gt; nums[i] ，而结果不同。</p>
+<p>[1, 2, 3, 4 ,5] 旋转点 x &#x3D; 0 ： m 在右排序数组（此示例只有右排序数组）； </p>
+<p>[3, 4, 5, 1 ,2] 旋转点 x &#x3D; 3 ： m 在左排序数组。</p>
+</blockquote>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>查找算法</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>面试题</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
 </search>
