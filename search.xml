@@ -575,7 +575,8 @@
   <entry>
     <title>0～n-1中缺失的数字</title>
     <url>/2022/05/22/0%EF%BD%9En-1%E4%B8%AD%E7%BC%BA%E5%A4%B1%E7%9A%84%E6%95%B0%E5%AD%97/</url>
-    <content><![CDATA[<span id="more"></span>
+    <content><![CDATA[<hr>
+<span id="more"></span>
 
 <h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/22/0%EF%BD%9En-1%E4%B8%AD%E7%BC%BA%E5%A4%B1%E7%9A%84%E6%95%B0%E5%AD%97/image-20220522212717368.png" class title="examplename"></em></p>
 <h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p><strong>1、普通遍历：</strong></p>
