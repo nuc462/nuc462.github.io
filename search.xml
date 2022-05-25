@@ -786,7 +786,7 @@
 <p>Queue<Object> queue &#x3D; new LinkedList&lt;&gt;();</Object></p>
 </blockquote>
 <ul>
-<li><p>add 增加一个元索 如果队列已满，则抛出一个IIIegaISlabEepeplian异常</p>
+<li><p>add 增加一个元素 如果队列已满，则抛出一个IIIegaISlabEepeplian异常</p>
 </li>
 <li><p>remove 移除并返回队列头部的元素 如果队列为空，则抛出一个 NoSuchElementException</p>
 </li>
@@ -989,6 +989,88 @@
       <categories>
         <category>剑指offer</category>
         <category>搜索与回溯</category>
+        <category>广度优先搜索</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>面试题</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>二叉树的镜像</title>
+    <url>/2022/05/25/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%95%9C%E5%83%8F/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/25/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%95%9C%E5%83%8F/image-20220525171630651.png" class title="examplename"></em></p>
+<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p><strong>1、辅助队列（或栈）</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong>利用队列（或栈）遍历树的所有节点 poll，并交换每个 poll 的左 &#x2F; 右子节点。</p>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度 O(N) ：</strong> 其中 N 为二叉树的节点数量，建立二叉树镜像需要遍历树的所有节点，占用 O(N) 时间。</li>
+<li><strong>空间复杂度 O(N) ：</strong> 如下图所示，最差情况下，队列 最多同时存储 (N+1)&#x2F; 2个节点，占用 O(N) 额外空间。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> TreeNode <span class="title function_">mirrorTree</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 初始化队列</span></span><br><span class="line">        Queue&lt;TreeNode&gt; queue  = <span class="keyword">new</span> <span class="title class_">LinkedList</span>() &#123;&#123; add(root); &#125;&#125;;</span><br><span class="line">        <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> queue.size(); i &gt; <span class="number">0</span>; i--) &#123;</span><br><span class="line">                <span class="type">TreeNode</span> <span class="variable">poll</span> <span class="operator">=</span> queue.poll();</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (poll.left != <span class="literal">null</span>) &#123;</span><br><span class="line">                    queue.add(poll.left);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (poll.right != <span class="literal">null</span>) &#123;</span><br><span class="line">                    queue.add(poll.right);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 将左右子节点的位置交换</span></span><br><span class="line">                <span class="type">TreeNode</span> <span class="variable">tmp</span> <span class="operator">=</span> poll.left;</span><br><span class="line">                poll.left = poll.right;</span><br><span class="line">                poll.right = tmp;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>2、递归法</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong>根据二叉树镜像的定义，考虑递归遍历（dfs）二叉树，交换每个节点的左 &#x2F; 右子节点，即可生成二叉树的镜像。</p>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度 O(N)</strong> ： 其中 N 为二叉树的节点数量，建立二叉树镜像需要遍历树的所有节点，占用 O(N)时间。</li>
+<li><strong>空间复杂度 O(N) ：</strong> 最差情况下（当二叉树退化为链表），递归时系统需使用 O(N) 大小的栈空间。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> TreeNode <span class="title function_">mirrorTree</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 通过递归交换子结点的位置</span></span><br><span class="line">        <span class="type">TreeNode</span> <span class="variable">tmp</span> <span class="operator">=</span> root.left;</span><br><span class="line">        root.left = mirrorTree(root.right);</span><br><span class="line">        root.right = mirrorTree(tmp);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>搜索与回溯</category>
+        <category>深度优先搜索</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>面试题</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>树的子结构</title>
+    <url>/2022/05/25/%E6%A0%91%E7%9A%84%E5%AD%90%E7%BB%93%E6%9E%84/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/25/%E6%A0%91%E7%9A%84%E5%AD%90%E7%BB%93%E6%9E%84/image-20220525141933212.png" class title="examplename"></em></p>
+<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p><strong>1、先序遍历 + 包含判断</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong>若树 B 是树 A 的子结构，则子结构的根节点可能为树 A 的任意一个节点。因此，判断树 B 是否是树 A 的子结构，需完成以下两步工作：</p>
+<ol>
+<li>先序遍历树 A 中的每个节点 nA ；（对应函数 isSubStructure(A, B)）</li>
+<li>判断树 AA 中 以 nA 为根节点的子树 是否包含树 B 。（对应函数 recur(A, B)）</li>
+</ol>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li>时间复杂度 O(MN) ： 其中 M,N分别为树 A 和 树 B 的节点数量；先序遍历树 A 占用 O(M) ，每次调用 recur(A, B) 判断占用 O(N) 。</li>
+<li>空间复杂度 O(M) ： 当树 A 和树 B 都退化为链表时，递归调用深度最大。当 M≤N 时，遍历树 A 与递归判断的总递归深度为 M ；当 M&gt;N 时，最差情况为遍历至树 A 叶子节点，此时总递归深度为 M。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 通过前序遍历的深度遍历法的思想</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="comment">// 先序遍历树 A 中的每个节点</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isSubStructure</span><span class="params">(TreeNode A, TreeNode B)</span> &#123;</span><br><span class="line">        <span class="comment">// 1. 判断A和B是否为空，因为约定空树不是任意一个树的子结构，所以直接返回false</span></span><br><span class="line">        <span class="keyword">if</span> (A == <span class="literal">null</span> || B == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 2. 根据前序遍历判断</span></span><br><span class="line">        <span class="keyword">return</span> recur(A,B) || isSubStructure(A.left,B) || isSubStructure(A.right,B);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 判断树 A 中 以 nA 为根节点的子树 是否包含树 B</span></span><br><span class="line">    <span class="type">boolean</span> <span class="title function_">recur</span><span class="params">(TreeNode A, TreeNode B)</span> &#123;</span><br><span class="line">        <span class="comment">// B为空了，说明B的全部结点和A的子节点全部匹配上了</span></span><br><span class="line">        <span class="keyword">if</span> (B == <span class="literal">null</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="comment">// A的结点为空，B的结点不为空；或者A的结点和B的结点不同；都说明不匹配</span></span><br><span class="line">        <span class="keyword">if</span> (A == <span class="literal">null</span> || A.val != B.val) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="comment">// 到这里说明A和B的值相等，接下来判断他们的left和right</span></span><br><span class="line">        <span class="keyword">return</span> recur(A.left,B.left) &amp;&amp; recur(A.right,B.right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>搜索与回溯</category>
+        <category>深度优先搜索</category>
       </categories>
       <tags>
         <tag>剑指offer</tag>
