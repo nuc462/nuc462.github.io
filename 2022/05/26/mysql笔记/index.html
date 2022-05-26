@@ -20,17 +20,19 @@
     var CONFIG = {"hostname":"nuc462.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":"flase"},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="人在做，天在看">
-<meta property="og:type" content="website">
-<meta property="og:title" content="轩辕&amp;小站">
-<meta property="og:url" content="https://nuc462.github.io/categories/%E5%89%91%E6%8C%87offer/%E6%90%9C%E7%B4%A2%E4%B8%8E%E5%9B%9E%E6%BA%AF/index.html">
+  <meta property="og:type" content="article">
+<meta property="og:title" content="mysql笔记">
+<meta property="og:url" content="https://nuc462.github.io/2022/05/26/mysql%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="轩辕&amp;小站">
-<meta property="og:description" content="人在做，天在看">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-05-26T13:49:57.000Z">
+<meta property="article:modified_time" content="2022-05-26T13:52:21.337Z">
 <meta property="article:author" content="wcy">
+<meta property="article:tag" content="基础">
+<meta property="article:tag" content="mysql">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://nuc462.github.io/categories/%E5%89%91%E6%8C%87offer/%E6%90%9C%E7%B4%A2%E4%B8%8E%E5%9B%9E%E6%BA%AF/">
+<link rel="canonical" href="https://nuc462.github.io/2022/05/26/mysql%E7%AC%94%E8%AE%B0/">
 
 
 <script id="page-configurations">
@@ -38,12 +40,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>分类: 搜索与回溯 | 轩辕&小站</title>
+  <title>mysql笔记 | 轩辕&小站</title>
   
 
 
@@ -192,151 +194,125 @@
         <div class="content-wrap">
           
 
-          <div class="content category">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">搜索与回溯
-          <small>分类</small>
-        </h2>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://nuc462.github.io/2022/05/26/mysql%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/author.jpg">
+      <meta itemprop="name" content="wcy">
+      <meta itemprop="description" content="人在做，天在看">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="轩辕&小站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          mysql笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-05-26 21:49:57 / 修改时间：21:52:21" itemprop="dateCreated datePublished" datetime="2022-05-26T21:49:57+08:00">2022-05-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%9F%BA%E7%A1%80/mysql/" itemprop="url" rel="index"><span itemprop="name">mysql</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2022</span>
-    </div>
+        <hr>
+<span id="more"></span>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-05-26T08:45:22+08:00"
-              content="2022-05-26">
-          05-26
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/05/26/%E5%AF%B9%E7%A7%B0%E7%9A%84%E4%BA%8C%E5%8F%89%E6%A0%91/" itemprop="url">
-            <span itemprop="name">对称的二叉树</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-05-25T17:15:16+08:00"
-              content="2022-05-25">
-          05-25
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/05/25/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%95%9C%E5%83%8F/" itemprop="url">
-            <span itemprop="name">二叉树的镜像</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-05-25T14:16:33+08:00"
-              content="2022-05-25">
-          05-25
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/05/25/%E6%A0%91%E7%9A%84%E5%AD%90%E7%BB%93%E6%9E%84/" itemprop="url">
-            <span itemprop="name">树的子结构</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-05-25T09:47:42+08:00"
-              content="2022-05-25">
-          05-25
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/05/25/%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91III/" itemprop="url">
-            <span itemprop="name">从上到下打印二叉树III</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-05-24T17:13:06+08:00"
-              content="2022-05-24">
-          05-24
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/05/24/%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91II/" itemprop="url">
-            <span itemprop="name">从上到下打印二叉树II</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-05-24T15:38:54+08:00"
-              content="2022-05-24">
-          05-24
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/05/24/%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91/" itemprop="url">
-            <span itemprop="name">从上到下打印二叉树</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
+<h1 id="true、false、unknown-和-null"><a href="#true、false、unknown-和-null" class="headerlink" title="true、false、unknown 和 null"></a>true、false、unknown 和 null</h1><p>​		SQL 的保留字中，有很多都被归为谓词一类。例如，“&#x3D;、&lt;、&gt;”等比较谓词，以及 BETWEEN、LIKE、IN、IS NULL 等。</p>
+<p>​		谓词是一种特殊的函数，返回值是<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E7%9C%9F%E5%80%BC&spm=1001.2101.3001.7020">真值</a>。前面提到的每个谓词，返回值都是 <strong>true</strong>、<strong>false</strong> 或者 <strong>unknown</strong>（一般的谓词逻辑里没有<strong>unknown</strong>，但是 SQL 采用的是三值逻辑，因此具有三种真值）。</p>
+<p>​		另外，注意：要想 <strong>和 null 比较</strong> 只能用 <code>is null</code>或者 <code>is not null</code>，这样才会返回true或者false。另外永远记住一点，<strong>null和&lt;,&gt;,&#x3D;,&lt;&gt;这些放在一起结果永远是unknown</strong>，比如如 2&#x3D;null，结果肯定是unknown，而<strong>unknown在三值逻辑中不是true也不是false</strong>，在写where子句的筛选条件时尤其要注意。</p>
+<p><strong>请务必牢记</strong>：</p>
+<ul>
+<li><p>and运算，只要有一边是unknown，另一边是false，那结果就是false，其它情况下，只要任意一边有unknown，结果就是unknown。</p>
+</li>
+<li><p>or运算，只要一边是unknown，那么结果永远就是unknown</p>
+</li>
+<li><p>not unknown 的结果是 unknown</p>
+</li>
+</ul>
 
     </div>
-  </div>
-  
-  
-  
 
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>wcy
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://nuc462.github.io/2022/05/26/mysql%E7%AC%94%E8%AE%B0/" title="mysql笔记">https://nuc462.github.io/2022/05/26/mysql笔记/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%9F%BA%E7%A1%80/" rel="tag"><i class="fa fa-tag"></i>基础</a>
+              <a href="/tags/mysql/" rel="tag"><i class="fa fa-tag"></i>mysql</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/05/26/%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E5%A4%A7%E5%88%A9%E6%B6%A6/" rel="prev" title="股票的最大利润">
+      <i class="fa fa-chevron-left"></i> 股票的最大利润
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
 
@@ -389,6 +365,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#true%E3%80%81false%E3%80%81unknown-%E5%92%8C-null"><span class="nav-number">1.</span> <span class="nav-text">true、false、unknown 和 null</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

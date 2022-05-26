@@ -919,6 +919,7 @@
 ]]></content>
       <categories>
         <category>基础</category>
+        <category>集合</category>
       </categories>
       <tags>
         <tag>基础</tag>
@@ -1284,6 +1285,34 @@
         <tag>剑指offer</tag>
         <tag>面试题</tag>
         <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>mysql笔记</title>
+    <url>/2022/05/26/mysql%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h1 id="true、false、unknown-和-null"><a href="#true、false、unknown-和-null" class="headerlink" title="true、false、unknown 和 null"></a>true、false、unknown 和 null</h1><p>​		SQL 的保留字中，有很多都被归为谓词一类。例如，“&#x3D;、&lt;、&gt;”等比较谓词，以及 BETWEEN、LIKE、IN、IS NULL 等。</p>
+<p>​		谓词是一种特殊的函数，返回值是<a href="https://so.csdn.net/so/search?q=%E7%9C%9F%E5%80%BC&spm=1001.2101.3001.7020">真值</a>。前面提到的每个谓词，返回值都是 <strong>true</strong>、<strong>false</strong> 或者 <strong>unknown</strong>（一般的谓词逻辑里没有<strong>unknown</strong>，但是 SQL 采用的是三值逻辑，因此具有三种真值）。</p>
+<p>​		另外，注意：要想 <strong>和 null 比较</strong> 只能用 <code>is null</code>或者 <code>is not null</code>，这样才会返回true或者false。另外永远记住一点，<strong>null和&lt;,&gt;,&#x3D;,&lt;&gt;这些放在一起结果永远是unknown</strong>，比如如 2&#x3D;null，结果肯定是unknown，而<strong>unknown在三值逻辑中不是true也不是false</strong>，在写where子句的筛选条件时尤其要注意。</p>
+<p><strong>请务必牢记</strong>：</p>
+<ul>
+<li><p>and运算，只要有一边是unknown，另一边是false，那结果就是false，其它情况下，只要任意一边有unknown，结果就是unknown。</p>
+</li>
+<li><p>or运算，只要一边是unknown，那么结果永远就是unknown</p>
+</li>
+<li><p>not unknown 的结果是 unknown</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>基础</category>
+        <category>mysql</category>
+      </categories>
+      <tags>
+        <tag>基础</tag>
+        <tag>mysql</tag>
       </tags>
   </entry>
 </search>
