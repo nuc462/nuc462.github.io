@@ -1132,4 +1132,66 @@
         <tag>算法</tag>
       </tags>
   </entry>
+  <entry>
+    <title></title>
+    <url>/2022/05/26/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/26/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97/image-20220526103227660.png" class title="examplename"></em></p>
+<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p><strong>1、递归法（提交超时）</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong>把 f(n) 问题的计算拆分成 f(n-1) 和 f(n-2) 两个子问题的计算，并递归，以 f(0) 和 f(1) 为终止条件。</p>
+<ul>
+<li>递归法会造成大量的重复计算，比如就计算fib(6)为例来看下</li>
+<li><em><img src="/2022/05/26/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97/image-20220526105439394.png" class title="examplename"></em></li>
+<li>我们看到上面相同颜色的都是重复计算，当n越大，重复的越多</li>
+</ul>
+</li>
+<li><p><strong>时间复杂度分析：</strong></p>
+<ul>
+<li>时间复杂度O(2^n)：二叉树的高度是 n - 1，一个高度为k的二叉树最多可以由 2^k - 1个叶子节点，也就是递归过程函数调用的次数，所以时间复杂度为 O(2^n)。</li>
+<li>空间复杂度 O(n)：就是树的高度。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 递归法1</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">fib</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">2</span>) <span class="keyword">return</span> n;</span><br><span class="line">        <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> fib(n-<span class="number">1</span>);</span><br><span class="line">        <span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> fib(n-<span class="number">2</span>);</span><br><span class="line">        <span class="type">int</span> <span class="variable">c</span> <span class="operator">=</span> (a + b) % <span class="number">1000000007</span>;</span><br><span class="line">        <span class="keyword">return</span> c;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>2、记忆化递归法：</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong>当n越大，重复的越多，所以我们可以使用一个map把计算过的值存起来，每次计算的时候先看map中有没有，如果有就表示计算过，直接从map中取，如果没有就先计算，计算完之后再把结果存到map中。</p>
+</li>
+<li><p><strong>时间复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度O(n)：</strong>每次都只加2，故为O(n+2)，即O(n)</li>
+<li><strong>空间复杂度 O(n)：</strong>就是树的高度。</li>
+</ul>
+</li>
+<li><p><strong>优化代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 递归法2，优化，加入一个map集合用来存储之前算个的</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution3</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">fib</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> fib(n,<span class="keyword">new</span> <span class="title class_">HashMap</span>());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">fib</span><span class="params">(<span class="type">int</span> n,Map&lt;Integer,Integer&gt; map)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">2</span>) <span class="keyword">return</span> n;</span><br><span class="line">        <span class="keyword">if</span> (map.containsKey(n)) <span class="keyword">return</span> map.get(n);</span><br><span class="line">        <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> fib(n-<span class="number">1</span>,map);</span><br><span class="line">        map.put(n-<span class="number">1</span>,a);</span><br><span class="line">        <span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> fib(n-<span class="number">2</span>,map);</span><br><span class="line">        map.put(n-<span class="number">2</span>,b);</span><br><span class="line">        <span class="type">int</span> <span class="variable">c</span> <span class="operator">=</span> (a + b) % <span class="number">1000000007</span>;</span><br><span class="line">        map.put(n,c);</span><br><span class="line">        <span class="keyword">return</span> c;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>3、动态规划法</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong>以斐波那契数列性质 f(n + 1) &#x3D; f(n) + f(n - 1)为转移方程。</p>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度 O(N) ：</strong> 计算 f(n)f(n) 需循环 n 次，每轮循环内计算操作使用 O(1)。</li>
+<li><strong>空间复杂度 O(1) ：</strong> 几个标志变量使用常数大小的额外空间。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 动态规划法</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">fib</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// 记录每次的a+b，避免重复计算</span></span><br><span class="line">        <span class="type">int</span> sum;</span><br><span class="line">        <span class="keyword">while</span> (n-- &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            sum = (a+b) % <span class="number">1000000007</span>;</span><br><span class="line">            a = b;</span><br><span class="line">            b = sum;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>动态规划</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>面试题</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
 </search>
