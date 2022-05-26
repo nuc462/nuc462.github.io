@@ -42,7 +42,7 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">missingNumber</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i&lt;nums.length;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i]!=i) <span class="keyword">return</span> i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 如果是前面是连续的，后面没有东西，则得返回长度;</span></span><br><span class="line">        <span class="keyword">return</span> nums.length;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
-<li><p><strong>时间复杂度分析：</strong></p>
+<li><p><strong>复杂度分析：</strong></p>
 <ul>
 <li><strong>时间复杂度：</strong>O(n)</li>
 <li><strong>空间复杂度：</strong>O(1)</li>
@@ -57,7 +57,7 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 二分法实现，思路就是划分为俩个组，一个是正常的组，一个比自身位置大于1的组，最后left&gt;right,输出</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution3</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">missingNumber</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">right</span> <span class="operator">=</span> nums.length - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (left &lt;= right) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">mid</span> <span class="operator">=</span> left + (right - left) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (nums[mid] &gt; mid) &#123;</span><br><span class="line">                right = mid -<span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> left = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> left;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
-<li><p><strong>时间复杂度分析：</strong></p>
+<li><p><strong>复杂度分析：</strong></p>
 <ul>
 <li><strong>时间复杂度：</strong>O(logn)</li>
 <li><strong>空间复杂度：</strong>O(1)</li>
@@ -132,10 +132,10 @@
 <ul>
 <li><p><strong>解题思路：</strong>将每一行进行二分查找。</p>
 </li>
-<li><p><strong>时间复杂度分析：</strong></p>
+<li><p><strong>复杂度分析：</strong></p>
 <ul>
-<li>时间复杂度O(mlogn)，m为行数，n为列数</li>
-<li>空间复杂度O(1)</li>
+<li>**时间复杂度O(mlogn)**，m为行数，n为列数</li>
+<li><strong>空间复杂度O(1)</strong></li>
 </ul>
 </li>
 <li><p><strong>代码：</strong></p>
@@ -155,10 +155,10 @@
 </li>
 </ul>
 </li>
-<li><p><strong>时间复杂度分析：</strong></p>
+<li><p><strong>复杂度分析：</strong></p>
 <ul>
-<li>时间复杂度O(m+n)，m为行数，n为列数</li>
-<li>空间复杂度O(1)</li>
+<li>**时间复杂度O(m+n)**，m为行数，n为列数</li>
+<li><strong>空间复杂度O(1)</strong></li>
 </ul>
 </li>
 <li><p><strong>代码：</strong></p>
@@ -214,13 +214,13 @@
 </ul>
 <p><strong>2、时间复杂度为O(n)的优化解法</strong></p>
 <ul>
-<li><p>使用迭代（双指针）</p>
+<li><p><strong>使用迭代（双指针）</strong></p>
 <ul>
 <li><p><strong>时间复杂度 O(N) ：</strong> 遍历链表使用线性大小时间。</p>
 </li>
 <li><p><strong>空间复杂度 O(1) ：</strong> 变量 <code>pre</code> 和 <code>cur</code> 使用常数大小额外空间。</p>
 </li>
-<li><p>解题思路：</p>
+<li><p><strong>解题思路：</strong></p>
 <ul>
 <li><em><img src="/2022/05/21/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/image-20220521105437651.png" class title="examplename"></em></li>
 <li><em><img src="/2022/05/21/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/image-20220521105456441.png" class title="examplename"></em></li>
@@ -236,22 +236,22 @@
 <li><em><img src="/2022/05/21/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/image-20220521105616249.png" class title="examplename"></em></li>
 </ul>
 </li>
-<li><p>代码：</p>
+<li><p><strong>代码：</strong></p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution3</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">reverseList</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">prev</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">cur</span> <span class="operator">=</span> head;</span><br><span class="line">        <span class="keyword">while</span>(cur != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="type">ListNode</span> <span class="variable">nextNode</span> <span class="operator">=</span> cur.next;</span><br><span class="line">            cur.next = prev;</span><br><span class="line">            prev = cur;</span><br><span class="line">            cur = nextNode;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> prev;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
-<li><p>使用递归，时间复杂度O(n)</p>
+<li><p><strong>使用递归，时间复杂度O(n)</strong></p>
 <ul>
-<li><p>时间复杂度：O(n)O(n)，其中 nn 是链表的长度。需要对链表的每个节点进行反转操作。</p>
+<li><p>**时间复杂度：O(n)**，其中 n 是链表的长度。需要对链表的每个节点进行反转操作。</p>
 </li>
-<li><p>空间复杂度：O(n)O(n)，其中 nn 是链表的长度。空间复杂度主要取决于递归调用的栈空间，最多为 nn层。</p>
+<li><p>**空间复杂度：O(n)**，其中 n 是链表的长度。空间复杂度主要取决于递归调用的栈空间，最多为 n层。</p>
 </li>
-<li><p>解题思路：</p>
+<li><p><strong>解题思路：</strong></p>
 <ul>
 <li><img src="/2022/05/21/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/image-20220521110806821.png" class title="examplename"></li>
 </ul>
 </li>
-<li><p>代码：</p>
+<li><p><strong>代码：</strong></p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution4</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">reverseList</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (head == <span class="literal">null</span> || head.next == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> head;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">newHead</span> <span class="operator">=</span> reverseList(head.next);</span><br><span class="line">        head.next.next = head;</span><br><span class="line">        head.next = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">return</span> newHead;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
@@ -338,7 +338,7 @@
 <li>一个可行方案是，我们利用回溯的方式，让每个节点的拷贝操作相互独立。对于当前节点，我们首先要进行拷贝，然后我们进行「当前节点的后继节点」和「当前节点的随机指针指向的节点」拷贝，拷贝完成后将创建的新节点的指针返回，即可完成当前节点的两指针的赋值。</li>
 </ul>
 </li>
-<li><p><strong>时间复杂度分析：</strong></p>
+<li><p><strong>复杂度分析：</strong></p>
 <ul>
 <li><strong>时间复杂度：</strong>O(n)，其中 n 是链表的长度。对于每个节点，我们至多访问其「后继节点」和「随机指针指向的节点」各一次，均摊每个点至多被访问两次。</li>
 <li><strong>空间复杂度：</strong>O(n)，其中 n 是链表的长度。为哈希表的空间开销。</li>
@@ -650,8 +650,8 @@
 
 <p><strong>复杂性分析</strong></p>
 <ul>
-<li>时间复杂度：O(n)。遍历字符串 <code>s</code> 一遍。</li>
-<li>空间复杂度：O(n)。额外创建字符数组，长度为 <code>s</code> 的长度的 3 倍。</li>
+<li>**时间复杂度：O(n)**。遍历字符串 <code>s</code> 一遍。</li>
+<li>**空间复杂度：O(n)**。额外创建字符数组，长度为 <code>s</code> 的长度的 3 倍。</li>
 </ul>
 ]]></content>
       <categories>
@@ -1059,8 +1059,8 @@
 </li>
 <li><p><strong>复杂度分析：</strong></p>
 <ul>
-<li>时间复杂度 O(MN) ： 其中 M,N分别为树 A 和 树 B 的节点数量；先序遍历树 A 占用 O(M) ，每次调用 recur(A, B) 判断占用 O(N) 。</li>
-<li>空间复杂度 O(M) ： 当树 A 和树 B 都退化为链表时，递归调用深度最大。当 M≤N 时，遍历树 A 与递归判断的总递归深度为 M ；当 M&gt;N 时，最差情况为遍历至树 A 叶子节点，此时总递归深度为 M。</li>
+<li><strong>时间复杂度 O(MN) ：</strong> 其中 M,N分别为树 A 和 树 B 的节点数量；先序遍历树 A 占用 O(M) ，每次调用 recur(A, B) 判断占用 O(N) 。</li>
+<li><strong>空间复杂度 O(M) ：</strong> 当树 A 和树 B 都退化为链表时，递归调用深度最大。当 M≤N 时，遍历树 A 与递归判断的总递归深度为 M ；当 M&gt;N 时，最差情况为遍历至树 A 叶子节点，此时总递归深度为 M。</li>
 </ul>
 </li>
 <li><p><strong>代码：</strong></p>
@@ -1161,7 +1161,7 @@
 <ul>
 <li><p><strong>解题思路：</strong>当n越大，重复的越多，所以我们可以使用一个map把计算过的值存起来，每次计算的时候先看map中有没有，如果有就表示计算过，直接从map中取，如果没有就先计算，计算完之后再把结果存到map中。</p>
 </li>
-<li><p><strong>时间复杂度分析：</strong></p>
+<li><p><strong>复杂度分析：</strong></p>
 <ul>
 <li><strong>时间复杂度O(n)：</strong>每次都只加2，故为O(n+2)，即O(n)</li>
 <li><strong>空间复杂度 O(n)：</strong>就是树的高度。</li>
@@ -1226,6 +1226,54 @@
 </li>
 <li><p><strong>代码：</strong></p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">numWays</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line">        <span class="comment">// 记录每次的a+b，避免重复计算</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (n-- &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            sum = (a+b) % <span class="number">1000000007</span>;</span><br><span class="line">            a = b;</span><br><span class="line">            b = sum;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>动态规划</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>面试题</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>股票的最大利润</title>
+    <url>/2022/05/26/%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E5%A4%A7%E5%88%A9%E6%B6%A6/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/26/%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E5%A4%A7%E5%88%A9%E6%B6%A6/image-20220526204147040.png" class title="examplename"></em></p>
+<p><strong>基本题意：找到差值最大的返回差值</strong></p>
+<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p><strong>1、暴力法</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong>暴力双层遍历找到差值最大的返回差值</p>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度O(n^2)：</strong>双层循环</li>
+<li><strong>空间复杂度O(1)</strong></li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 暴力遍历</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxProfit</span><span class="params">(<span class="type">int</span>[] prices)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">max</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 暴力找到差值最大的返回差值</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; prices.length; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> i + <span class="number">1</span>; j &lt; prices.length; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> ((prices[j] - prices[i]) &gt; max )&#123;</span><br><span class="line">                    max = prices[j] - prices[i];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>2、一次遍历（动态规划法）</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong>前 i 日最大利润&#x3D;max(前 (i−1) 日最大利润,第 i 日价格 − 前 i 日最低价格)</p>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度 O(N) ：</strong> 其中 N 为 prices 列表长度，动态规划需遍历 prices 。</li>
+<li><strong>空间复杂度 O(1) ：</strong> 变量 min和 max 使用常数大小的额外空间。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 一次遍历，动态规划</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxProfit</span><span class="params">(<span class="type">int</span>[] prices)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">min</span> <span class="operator">=</span> Integer.MAX_VALUE;</span><br><span class="line">        <span class="type">int</span> <span class="variable">max</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; prices.length; i++) &#123;</span><br><span class="line">            <span class="comment">// 一步一步进行，判断如果该值小于最小值，就成为最小值，否则，判断该值与最小值只差是否大于目前差值最大值，大于就将差值付给他</span></span><br><span class="line">            <span class="keyword">if</span> (prices[i] &lt; min) &#123;</span><br><span class="line">                min = prices[i];</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span> (prices[i] - min &gt; max) &#123;</span><br><span class="line">                max = prices[i] - min;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>优化代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxProfit</span><span class="params">(<span class="type">int</span>[] prices)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">min</span> <span class="operator">=</span> Integer.MAX_VALUE;</span><br><span class="line">        <span class="type">int</span> <span class="variable">max</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> ( <span class="type">int</span> price : prices) &#123;</span><br><span class="line">            <span class="comment">// 一步一步进行，判断如果该值小于最小值，就成为最小值，否则，判断该值与最小值只差是否大于目前差值最大值，大于就将差值付给他</span></span><br><span class="line">            min = Math.min(min,price);</span><br><span class="line">            max = Math.max(max,price - min);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 ]]></content>
       <categories>
