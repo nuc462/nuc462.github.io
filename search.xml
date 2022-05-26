@@ -1133,7 +1133,7 @@
       </tags>
   </entry>
   <entry>
-    <title></title>
+    <title>斐波那契数列</title>
     <url>/2022/05/26/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97/</url>
     <content><![CDATA[<hr>
 <span id="more"></span>
@@ -1182,6 +1182,50 @@
 </li>
 <li><p><strong>代码：</strong></p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 动态规划法</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">fib</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// 记录每次的a+b，避免重复计算</span></span><br><span class="line">        <span class="type">int</span> sum;</span><br><span class="line">        <span class="keyword">while</span> (n-- &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            sum = (a+b) % <span class="number">1000000007</span>;</span><br><span class="line">            a = b;</span><br><span class="line">            b = sum;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>动态规划</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>面试题</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>青蛙跳台阶问题</title>
+    <url>/2022/05/26/%E9%9D%92%E8%9B%99%E8%B7%B3%E5%8F%B0%E9%98%B6%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/26/%E9%9D%92%E8%9B%99%E8%B7%B3%E5%8F%B0%E9%98%B6%E9%97%AE%E9%A2%98/image-20220526161257604.png" class title="examplename"></em></p>
+<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p><strong>1、动态规划</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong></p>
+<ul>
+<li>设跳上 n 级台阶有 f(n) 种跳法。在所有跳法中，青蛙的最后一步只有两种情况： <strong>跳上 1 级或 2 级台阶</strong>。<ul>
+<li>当为 1 级台阶： 剩 n-1 个台阶，此情况共有 f(n-1) 种跳法；</li>
+<li>当为 2 级台阶： 剩 n-2 个台阶，此情况共有 f(n-2) 种跳法。</li>
+</ul>
+</li>
+<li>f(n) 为以上两种情况之和，即 f(n)&#x3D;f(n-1)+f(n-2)，以上递推性质为斐波那契数列。本题可转化为 求斐波那契数列第 n 项的值 ，与  <a href="https://nuc462.github.io/2022/05/26/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97/">斐波那契数列 - 轩辕&amp;小站</a> 等价，唯一的不同在于起始数字不同。<ul>
+<li>青蛙跳台阶问题： f(0)&#x3D;1 , f(1)&#x3D;1 , f(2)&#x3D;2 ；</li>
+<li>斐波那契数列问题： f(0)&#x3D;0 , f(1)&#x3D;1 , f(2)&#x3D;1 。</li>
+<li><em><img src="/2022/05/26/%E9%9D%92%E8%9B%99%E8%B7%B3%E5%8F%B0%E9%98%B6%E9%97%AE%E9%A2%98/image-20220526162545313.png" class title="examplename"></em></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度 O(N) ：</strong> 计算 f(n) 需循环 n 次，每轮循环内计算操作使用 O(1)。</li>
+<li><strong>空间复杂度 O(1) ：</strong> 几个标志变量使用常数大小的额外空间。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">numWays</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line">        <span class="comment">// 记录每次的a+b，避免重复计算</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (n-- &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            sum = (a+b) % <span class="number">1000000007</span>;</span><br><span class="line">            a = b;</span><br><span class="line">            b = sum;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 ]]></content>
       <categories>
