@@ -863,9 +863,8 @@
 <li><p><strong>复杂度分析：</strong></p>
 <ul>
 <li><strong>时间复杂度 O(N)：</strong> N 为二叉树的节点数量，即 BFS 需循环 N 次。</li>
+<li><strong>空间复杂度 O(N) ：</strong> 最差情况下，即当树为平衡二叉树时，最多有 N&#x2F;2 个树节点同时在 queue 中，使用 O(N) 大小的额外空间。</li>
 </ul>
-</li>
-<li><p><strong>空间复杂度 O(N) ：</strong> 最差情况下，即当树为平衡二叉树时，最多有 N&#x2F;2 个树节点同时在 queue 中，使用 O(N) 大小的额外空间。</p>
 </li>
 <li><p><strong>代码：</strong></p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"> <span class="keyword">class</span> <span class="title class_">TreeNode</span> &#123;</span><br><span class="line">      <span class="type">int</span> val;</span><br><span class="line">      TreeNode left;</span><br><span class="line">      TreeNode right;</span><br><span class="line">      TreeNode(<span class="type">int</span> x) &#123; val = x; &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="title function_">levelOrder</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 初始化队列</span></span><br><span class="line">        Queue&lt;TreeNode&gt; queue  = <span class="keyword">new</span> <span class="title class_">LinkedList</span>() &#123;&#123; add(root); &#125;&#125;;</span><br><span class="line">        <span class="comment">// 初始化返回的list</span></span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">            List&lt;Integer&gt; tmp = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">            <span class="comment">// 这样避免了因为queue的值改变，queue.size()变化而报错的情况</span></span><br><span class="line">            <span class="comment">// 或者可以这样解决</span></span><br><span class="line">            <span class="comment">/*</span></span><br><span class="line"><span class="comment">            * int currentLevelSize = queue.size();</span></span><br><span class="line"><span class="comment">            * for (int i = 1; i &lt;= currentLevelSize; ++i)&#123;...&#125;</span></span><br><span class="line"><span class="comment">            * */</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> queue.size(); i &gt; <span class="number">0</span>; i--) &#123;</span><br><span class="line">                <span class="type">TreeNode</span> <span class="variable">poll</span> <span class="operator">=</span> queue.poll();</span><br><span class="line">                tmp.add(poll.val);</span><br><span class="line">                <span class="keyword">if</span> (poll.left != <span class="literal">null</span>) &#123;</span><br><span class="line">                    queue.add(poll.left);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (poll.right != <span class="literal">null</span>) &#123;</span><br><span class="line">                    queue.add(poll.right);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            list.add(tmp);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
@@ -1072,6 +1071,60 @@
         <category>剑指offer</category>
         <category>搜索与回溯</category>
         <category>深度优先搜索</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>面试题</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>对称的二叉树</title>
+    <url>/2022/05/26/%E5%AF%B9%E7%A7%B0%E7%9A%84%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/26/%E5%AF%B9%E7%A7%B0%E7%9A%84%E4%BA%8C%E5%8F%89%E6%A0%91/image-20220526084728325.png" class title="examplename"></em></p>
+<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p><strong>1、辅助队列</strong></p>
+<ul>
+<li><p><strong>解题思路：将每一层数据放入集合，因为对称，集合左和集合右正好相反</strong></p>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度 O(N) ：</strong> N 为二叉树的节点数量，即 BFS 需循环 N 次，占用 O(N) 。</li>
+<li><strong>空间复杂度 O(N)</strong></li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isSymmetric</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 初始化队列</span></span><br><span class="line">        Queue&lt;TreeNode&gt; queue = <span class="keyword">new</span> <span class="title class_">LinkedList</span>() &#123;&#123;</span><br><span class="line">            add(root);</span><br><span class="line">        &#125;&#125;;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">            <span class="comment">// 每次循环都创建一个新的集合，每次放树每一层的数。</span></span><br><span class="line">            <span class="type">List</span> <span class="variable">tmp</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ArrayList</span>();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> queue.size(); i &gt; <span class="number">0</span>; i--) &#123;</span><br><span class="line">                <span class="type">TreeNode</span> <span class="variable">poll</span> <span class="operator">=</span> queue.poll();</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 如果结点为null，直接给tmp赋-1，退出当前循环</span></span><br><span class="line">                <span class="keyword">if</span>( poll == <span class="literal">null</span>) &#123;</span><br><span class="line">                    tmp.add(-<span class="number">1</span>);</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 如果结点不为null，则将结点的值给tmp</span></span><br><span class="line">                <span class="keyword">if</span>(poll != <span class="literal">null</span>) &#123;</span><br><span class="line">                    tmp.add(poll.val);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 只要结点不为空，就将结点的左右子结点存入队列，如果子孩子结点为null，直接给tmp赋-1，退出当前循环</span></span><br><span class="line">                <span class="keyword">if</span>(poll != <span class="literal">null</span>) &#123;</span><br><span class="line">                    queue.add(poll.left);</span><br><span class="line">                    queue.add(poll.right);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 将树该层的tmp，因为是对称的，所以分开两部分，然后比较后一部分的反转和前一部分是否相等，相等则继续，直到队列为空，说明全部遍历结束，是对称的，返回true</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> tmp.size() / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (count == <span class="number">0</span>) &#123;</span><br><span class="line">                count++;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (tmp.size() % <span class="number">2</span> == <span class="number">0</span> ) &#123;</span><br><span class="line">                List&lt;Integer&gt; a = tmp.subList(<span class="number">0</span>, size);</span><br><span class="line">                List&lt;Integer&gt; b = tmp.subList(size , tmp.size());</span><br><span class="line">                Collections.reverse(b);</span><br><span class="line">                <span class="type">boolean</span> <span class="variable">equals</span> <span class="operator">=</span> a.equals(b);</span><br><span class="line">                <span class="keyword">if</span> (equals == <span class="literal">true</span>) &#123;</span><br><span class="line">                    count++;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>2、递归法</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong></p>
+<ul>
+<li>对称二叉树定义： 对于树中 任意两个对称节点 L 和 R ，一定有：<ul>
+<li>L.val &#x3D; R.val：即此两对称节点值相等。</li>
+<li>L.left.val &#x3D; R.right.val ：即 L 的 左子节点 和 R 的 右子节点 对称；</li>
+<li>L.right.val &#x3D; R.left.val ：即 L 的 右子节点 和 R 的 左子节点 对称。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><p><strong>时间复杂度 O(N) ：</strong> 其中 NN 为二叉树的节点数量，每次执行 recur() 可以判断一对节点是否对称，因此最多调用 N&#x2F;2 次 recur() 方法。</p>
+</li>
+<li><p><strong>空间复杂度 O(N) ：</strong> 最差情况下（见下图），二叉树退化为链表，系统使用 O(N) 大小的栈空间。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isSymmetric</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">        <span class="comment">// 根节点为空直接返回</span></span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> recur(root.left,root.right);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// return root == null ? true : recur(root.left, root.right);</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从顶至底递归，判断每对节点是否对称，从而判断树是否为对称二叉树。</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> <span class="title function_">recur</span><span class="params">(TreeNode L, TreeNode R)</span> &#123;</span><br><span class="line">        <span class="comment">// 当 L 和 R 同时越过叶节点： 此树从顶至底的节点都对称，因此返回 true;</span></span><br><span class="line">        <span class="keyword">if</span> (L == <span class="literal">null</span> &amp;&amp; R == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 当 L 或 R 中只有一个越过叶节点: 此树不对称;当节点 L 值 != 节点 R 值： 此树不对称;返回false</span></span><br><span class="line">        <span class="keyword">if</span> (L == <span class="literal">null</span> || R == <span class="literal">null</span> || L.val != R.val) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 左 = 右，右 = 左</span></span><br><span class="line">        <span class="keyword">return</span> recur(L.left,R.right) &amp;&amp; recur(L.right,R.left);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>搜索与回溯</category>
       </categories>
       <tags>
         <tag>剑指offer</tag>
