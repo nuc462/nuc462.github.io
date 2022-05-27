@@ -134,7 +134,7 @@
 </li>
 <li><p><strong>复杂度分析：</strong></p>
 <ul>
-<li>**时间复杂度O(mlogn)**，m为行数，n为列数</li>
+<li><strong>时间复杂度O(mlogn)：</strong>m为行数，n为列数</li>
 <li><strong>空间复杂度O(1)</strong></li>
 </ul>
 </li>
