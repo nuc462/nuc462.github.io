@@ -26,7 +26,7 @@
 <meta property="og:site_name" content="轩辕&amp;小站">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-05-26T13:49:57.000Z">
-<meta property="article:modified_time" content="2022-05-26T13:52:21.337Z">
+<meta property="article:modified_time" content="2022-05-26T13:53:53.571Z">
 <meta property="article:author" content="wcy">
 <meta property="article:tag" content="基础">
 <meta property="article:tag" content="mysql">
@@ -136,7 +136,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">29</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">30</span></a>
 
   </li>
         <li class="menu-item menu-item-links">
@@ -225,7 +225,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-05-26 21:49:57 / 修改时间：21:52:21" itemprop="dateCreated datePublished" datetime="2022-05-26T21:49:57+08:00">2022-05-26</time>
+              <time title="创建时间：2022-05-26 21:49:57 / 修改时间：21:53:53" itemprop="dateCreated datePublished" datetime="2022-05-26T21:49:57+08:00">2022-05-26</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,7 +257,7 @@
 
 <h1 id="true、false、unknown-和-null"><a href="#true、false、unknown-和-null" class="headerlink" title="true、false、unknown 和 null"></a>true、false、unknown 和 null</h1><p>​		SQL 的保留字中，有很多都被归为谓词一类。例如，“&#x3D;、&lt;、&gt;”等比较谓词，以及 BETWEEN、LIKE、IN、IS NULL 等。</p>
 <p>​		谓词是一种特殊的函数，返回值是<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E7%9C%9F%E5%80%BC&spm=1001.2101.3001.7020">真值</a>。前面提到的每个谓词，返回值都是 <strong>true</strong>、<strong>false</strong> 或者 <strong>unknown</strong>（一般的谓词逻辑里没有<strong>unknown</strong>，但是 SQL 采用的是三值逻辑，因此具有三种真值）。</p>
-<p>​		另外，注意：要想 <strong>和 null 比较</strong> 只能用 <code>is null</code>或者 <code>is not null</code>，这样才会返回true或者false。另外永远记住一点，<strong>null和&lt;,&gt;,&#x3D;,&lt;&gt;这些放在一起结果永远是unknown</strong>，比如如 2&#x3D;null，结果肯定是unknown，而<strong>unknown在三值逻辑中不是true也不是false</strong>，在写where子句的筛选条件时尤其要注意。</p>
+<p>​		另外，注意：任何与 <code>NULL</code> 值进行的比较都会与第三种值 UNKNOWN 做比较。这个“任何值”包括 <code>NULL</code> 本身。要想 <strong>和 null 比较</strong> 只能用 <code>is null</code>或者 <code>is not null</code>，这样才会返回true或者false。另外永远记住一点，<strong>null和&lt;,&gt;,&#x3D;,&lt;&gt;这些放在一起结果永远是unknown</strong>，比如如 2&#x3D;null，结果肯定是unknown，而<strong>unknown在三值逻辑中不是true也不是false</strong>，在写where子句的筛选条件时尤其要注意。</p>
 <p><strong>请务必牢记</strong>：</p>
 <ul>
 <li><p>and运算，只要有一边是unknown，另一边是false，那结果就是false，其它情况下，只要任意一边有unknown，结果就是unknown。</p>
@@ -306,7 +306,10 @@
     <a href="/2022/05/26/%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E5%A4%A7%E5%88%A9%E6%B6%A6/" rel="prev" title="股票的最大利润">
       <i class="fa fa-chevron-left"></i> 股票的最大利润
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2022/05/27/%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%A4%A7%E5%92%8C/" rel="next" title="连续子数组的最大和">
+      连续子数组的最大和 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -381,7 +384,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

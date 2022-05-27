@@ -1295,7 +1295,7 @@
 
 <h1 id="true、false、unknown-和-null"><a href="#true、false、unknown-和-null" class="headerlink" title="true、false、unknown 和 null"></a>true、false、unknown 和 null</h1><p>​		SQL 的保留字中，有很多都被归为谓词一类。例如，“&#x3D;、&lt;、&gt;”等比较谓词，以及 BETWEEN、LIKE、IN、IS NULL 等。</p>
 <p>​		谓词是一种特殊的函数，返回值是<a href="https://so.csdn.net/so/search?q=%E7%9C%9F%E5%80%BC&spm=1001.2101.3001.7020">真值</a>。前面提到的每个谓词，返回值都是 <strong>true</strong>、<strong>false</strong> 或者 <strong>unknown</strong>（一般的谓词逻辑里没有<strong>unknown</strong>，但是 SQL 采用的是三值逻辑，因此具有三种真值）。</p>
-<p>​		另外，注意：要想 <strong>和 null 比较</strong> 只能用 <code>is null</code>或者 <code>is not null</code>，这样才会返回true或者false。另外永远记住一点，<strong>null和&lt;,&gt;,&#x3D;,&lt;&gt;这些放在一起结果永远是unknown</strong>，比如如 2&#x3D;null，结果肯定是unknown，而<strong>unknown在三值逻辑中不是true也不是false</strong>，在写where子句的筛选条件时尤其要注意。</p>
+<p>​		另外，注意：任何与 <code>NULL</code> 值进行的比较都会与第三种值 UNKNOWN 做比较。这个“任何值”包括 <code>NULL</code> 本身。要想 <strong>和 null 比较</strong> 只能用 <code>is null</code>或者 <code>is not null</code>，这样才会返回true或者false。另外永远记住一点，<strong>null和&lt;,&gt;,&#x3D;,&lt;&gt;这些放在一起结果永远是unknown</strong>，比如如 2&#x3D;null，结果肯定是unknown，而<strong>unknown在三值逻辑中不是true也不是false</strong>，在写where子句的筛选条件时尤其要注意。</p>
 <p><strong>请务必牢记</strong>：</p>
 <ul>
 <li><p>and运算，只要有一边是unknown，另一边是false，那结果就是false，其它情况下，只要任意一边有unknown，结果就是unknown。</p>
@@ -1313,6 +1313,67 @@
       <tags>
         <tag>基础</tag>
         <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>连续子数组的最大和</title>
+    <url>/2022/05/27/%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%A4%A7%E5%92%8C/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/27/%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%A4%A7%E5%92%8C/image-20220527105249989.png" class title="examplename"></em></p>
+<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p><strong>1、前缀和算法</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong>所有 当前的前缀和 - 前面出现过的最小前缀和 的最大值（当前的前缀和去掉之前最小的前缀和，反而会变大，相当于之前的是累赘）</p>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度O(n)</strong></li>
+<li><strong>空间复杂度O(1)</strong></li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 前缀和算法</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxSubArray</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">min</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">max</span> <span class="operator">=</span> Integer.MIN_VALUE;</span><br><span class="line">        <span class="type">int</span> <span class="variable">maxNums</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            maxNums += nums[i];</span><br><span class="line">            <span class="comment">// 所有 当前的前缀和 - 前面出现过的最小前缀和 的最大值</span></span><br><span class="line">            <span class="comment">// 当前的前缀和去掉之前最小的前缀和，反而会变大，相当于之前的是累赘</span></span><br><span class="line">            max = Math.max(max,maxNums - min);</span><br><span class="line">            min = Math.min(min,maxNums);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>2、动态规划法</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong></p>
+<ul>
+<li>第i+1个数，前i个数之和如果是正数，那么第i+1个数加上前i个数就会变大；如果是负数，则反转，那么前i+1个数就是nums[i+1]</li>
+<li><em><img src="/2022/05/27/%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%A4%A7%E5%92%8C/image-20220527105545361.png" class title="examplename"></em></li>
+</ul>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度O(n)</strong></li>
+<li><strong>空间复杂度O(n)：</strong>状态数组的长度为N</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 动态规划法</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxSubArray</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        <span class="type">int</span>[] dp = <span class="keyword">new</span> <span class="title class_">int</span>[nums.length];</span><br><span class="line">        <span class="type">int</span> <span class="variable">max</span> <span class="operator">=</span> nums[<span class="number">0</span>];</span><br><span class="line">        dp[<span class="number">0</span>] = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            dp[i]= Math.max(dp[i-<span class="number">1</span>] + nums[i],nums[i]);</span><br><span class="line">            max = Math.max(max,dp[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>滚动变量优化</strong></p>
+<ul>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度O(n)</strong></li>
+<li><strong>空间复杂度O(1)</strong></li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 动态规划法(滚动变量优化）</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution3</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxSubArray</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">dp</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">max</span> <span class="operator">=</span> nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> num : nums) &#123;</span><br><span class="line">            dp = Math.max(dp + num,num);</span><br><span class="line">            max = Math.max(max,dp);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>动态规划</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>面试题</tag>
+        <tag>算法</tag>
       </tags>
   </entry>
 </search>
