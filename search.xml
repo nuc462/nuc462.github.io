@@ -528,7 +528,7 @@
     <content><![CDATA[<hr>
 <span id="more"></span>
 
-<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p>*<img src="/2022/05/22/%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E6%95%B0%E5%AD%971/image-20220522200203070.png" class title="examplename"></p>
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/22/%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E6%95%B0%E5%AD%971/image-20220522200203070.png" class title="examplename"></em></p>
 <h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p><strong>1、二分法</strong></p>
 <ul>
 <li><p><strong>解题思路：</strong></p>
@@ -876,7 +876,7 @@
     <content><![CDATA[<hr>
 <span id="more"></span>
 
-<p>*<img src="/2022/05/24/%E6%80%BB%E7%BB%93%E5%B8%B8%E8%A7%81%E7%9A%84%E9%98%9F%E5%88%97%E6%96%B9%E6%B3%95/image-20220525084608238.png" class title="examplename"></p>
+<p><em><img src="/2022/05/24/%E6%80%BB%E7%BB%93%E5%B8%B8%E8%A7%81%E7%9A%84%E9%98%9F%E5%88%97%E6%96%B9%E6%B3%95/image-20220525084608238.png" class title="examplename"></em></p>
 <blockquote>
 <p>Queue<Object> queue &#x3D; new LinkedList&lt;&gt;();</Object></p>
 </blockquote>
@@ -1450,6 +1450,80 @@
 </li>
 <li><p><strong>代码：</strong></p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 数字求余</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">translateNum</span><span class="params">(<span class="type">int</span> num)</span> &#123;</span><br><span class="line">        <span class="comment">// 设置 b“无数字” 和 a“第 1 位数字” 的翻译方法数量均为 1，x十位，y个位</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">1</span>,b = <span class="number">1</span>,x,y = num % <span class="number">10</span>;</span><br><span class="line">        <span class="comment">// 从后往前循环，计算翻译方法的数量</span></span><br><span class="line">        <span class="keyword">while</span> (num != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// 拿到x的值</span></span><br><span class="line">            num /= <span class="number">10</span>;</span><br><span class="line">            x = num % <span class="number">10</span>;</span><br><span class="line">            <span class="comment">// 总值</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">tmp</span> <span class="operator">=</span> x * <span class="number">10</span> + y;</span><br><span class="line">            <span class="comment">// 判断这俩个数字组合以后是否在10~25之间</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">c</span> <span class="operator">=</span> tmp &gt;= <span class="number">10</span> &amp;&amp; tmp &lt;= <span class="number">25</span> ? a + b : a;</span><br><span class="line">            b = a;</span><br><span class="line">            a = c;</span><br><span class="line">            y = x;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>动态规划</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>面试题</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>最长不含重复字符的子字符串</title>
+    <url>/2022/05/28/%E6%9C%80%E9%95%BF%E4%B8%8D%E5%90%AB%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/28/%E6%9C%80%E9%95%BF%E4%B8%8D%E5%90%AB%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/image-20220528210844419.png" class title="examplename"></em></p>
+<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p><strong>1、滑动窗口 + 哈希表</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong></p>
+<ul>
+<li>滑动窗口，用set维护一个不重复的窗口，如果已经包含该字符，将该字符相等的字符之前的以及此字符元素全部移除，然后记录set的大小最大的就是最长不含重复字符的子字符串数。</li>
+</ul>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度<em>O</em>(<em>N</em>)：</strong>其中 <em>N</em> 是字符串的长度。</li>
+<li><strong>空间复杂度O(∣Σ∣)：</strong>，其中 Σ 表示字符集（即字符串中可以出现的字符），∣Σ∣ 表示字符集的大小。在本题中没有明确说明字符集，因此可以默认为所有 ASCII 码在 [0, 128)内的字符，即 ∣Σ∣&#x3D;128。我们需要用到哈希集合来存储出现过的字符，而字符最多有 ∣Σ∣ 个，因此空间复杂度为 O(∣Σ∣)。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 滑动窗口 + 哈希表</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">lengthOfLongestSubstring</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        <span class="comment">// 滑动窗口，用set维护一个不重复的窗口</span></span><br><span class="line">        HashSet&lt;Character&gt; set = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();</span><br><span class="line">        <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">l</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; s.length(); i++) &#123;</span><br><span class="line">            <span class="type">char</span> <span class="variable">c</span> <span class="operator">=</span> s.charAt(i);</span><br><span class="line">            <span class="comment">// 如果已经包含c，将与c相等的字符之前的元素以及此字符元素全部移除</span></span><br><span class="line">            <span class="keyword">while</span>(set.contains(c)) &#123;</span><br><span class="line">                set.remove(s.charAt(l++));</span><br><span class="line">            &#125;</span><br><span class="line">            set.add(c);</span><br><span class="line">            <span class="comment">// 或者这样写 res = Math.max(res,set.size());</span></span><br><span class="line">            res = Math.max(res,i - l + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>2、动态规划</strong></p>
+<p><strong>总体基本思路：</strong></p>
+<p><em><img src="/2022/05/28/%E6%9C%80%E9%95%BF%E4%B8%8D%E5%90%AB%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/image-20220528212923701.png" class title="examplename"></em></p>
+<p><strong>2.1 动态规划 + 哈希表</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong></p>
+<ul>
+<li><strong>哈希表统计：</strong> 遍历字符串 s 时，使用哈希表（记为 dic ）统计 各字符最后一次出现的索引位置 。</li>
+<li><strong>左边界 i 获取方式：</strong> 遍历到 s[j] 时，可通过访问哈希表 dic[s[j]] 获取最近的相同字符的索引 i 。</li>
+</ul>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度 O(N) ：</strong> 其中 N 为字符串长度，动态规划需遍历计算 dp 列表。</li>
+<li><strong>空间复杂度O(∣Σ∣)：</strong>，其中 Σ 表示字符集（即字符串中可以出现的字符），∣Σ∣ 表示字符集的大小。在本题中没有明确说明字符集，因此可以默认为所有 ASCII 码在 [0, 128)内的字符，即 ∣Σ∣&#x3D;128。我们需要用到哈希集合来存储出现过的字符，而字符最多有 ∣Σ∣ 个，因此空间复杂度为 O(∣Σ∣)。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 动态规划 + 哈希表</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">lengthOfLongestSubstring</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        <span class="comment">// 定义map集合，用来存放s中字符的位置对应的索引</span></span><br><span class="line">        Map&lt;Character, Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        <span class="comment">// tmp是dp</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> <span class="number">0</span>,tmp = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; s.length(); j++) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> map.getOrDefault(s.charAt(j),-<span class="number">1</span>);</span><br><span class="line">            map.put(s.charAt(j),j);</span><br><span class="line">            tmp = tmp &lt; j - i ? tmp + <span class="number">1</span> : j - i;</span><br><span class="line">            res = Math.max(res,tmp);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>2.2 双指针 + 哈希表</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong></p>
+<ul>
+<li><em><img src="/2022/05/28/%E6%9C%80%E9%95%BF%E4%B8%8D%E5%90%AB%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/image-20220528213320881.png" class title="examplename"></em></li>
+</ul>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度 O(N) ：</strong> 其中 N 为字符串长度，动态规划需遍历计算 dp 列表。</li>
+<li><strong>空间复杂度O(∣Σ∣)：</strong>，其中 Σ 表示字符集（即字符串中可以出现的字符），∣Σ∣ 表示字符集的大小。在本题中没有明确说明字符集，因此可以默认为所有 ASCII 码在 [0, 128)内的字符，即 ∣Σ∣&#x3D;128。我们需要用到哈希集合来存储出现过的字符，而字符最多有 ∣Σ∣ 个，因此空间复杂度为 O(∣Σ∣)。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 双指针 + 哈希表</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution3</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">lengthOfLongestSubstring</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        <span class="comment">// 定义map集合，用来存放s中字符的位置对应的索引</span></span><br><span class="line">        Map&lt;Character, Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        <span class="comment">// i 是左指针，j 是右指针</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> <span class="number">0</span>, i = -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; s.length(); j++) &#123;</span><br><span class="line">            <span class="comment">// 如果map中已有目前右指针指向的key，</span></span><br><span class="line">            <span class="comment">// 左指针取（已有key的value和目前左指针）的最大值</span></span><br><span class="line">            <span class="comment">// ，因为如果已有key的value在左指针的左边，说明已经有重复的了，移过去再算j - i 就不对了</span></span><br><span class="line">            <span class="keyword">if</span> (map.containsKey(s.charAt(j))) &#123;</span><br><span class="line">                i = Math.max(i,map.get(s.charAt(j)));</span><br><span class="line">            &#125;</span><br><span class="line">            map.put(s.charAt(j),j);</span><br><span class="line">            res = Math.max(res,j - i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>2.3</strong> 可以以此为例子，做解析：</p>
+<ul>
+<li><em><img src="/2022/05/28/%E6%9C%80%E9%95%BF%E4%B8%8D%E5%90%AB%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/image-20220528213526540.png" class title="examplename"></em></li>
 </ul>
 ]]></content>
       <categories>
