@@ -1410,4 +1410,56 @@
         <tag>算法</tag>
       </tags>
   </entry>
+  <entry>
+    <title>把数字翻译成字符串</title>
+    <url>/2022/05/28/%E6%8A%8A%E6%95%B0%E5%AD%97%E7%BF%BB%E8%AF%91%E6%88%90%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/28/%E6%8A%8A%E6%95%B0%E5%AD%97%E7%BF%BB%E8%AF%91%E6%88%90%E5%AD%97%E7%AC%A6%E4%B8%B2/image-20220528090513986.png" class title="examplename"></em></p>
+<p><strong>题解</strong></p>
+<ul>
+<li><strong>解题总统思路：</strong><ul>
+<li><em><img src="/2022/05/28/%E6%8A%8A%E6%95%B0%E5%AD%97%E7%BF%BB%E8%AF%91%E6%88%90%E5%AD%97%E7%AC%A6%E4%B8%B2/image-20220528090608388.png" class title="examplename"></em></li>
+<li><em><img src="/2022/05/28/%E6%8A%8A%E6%95%B0%E5%AD%97%E7%BF%BB%E8%AF%91%E6%88%90%E5%AD%97%E7%AC%A6%E4%B8%B2/image-20220528090717826.png" class title="examplename"></em></li>
+</ul>
+</li>
+</ul>
+<p><strong>1、字符串遍历</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong>为方便获取数字的各位 xi，考虑先将数字 num 转化为字符串 s ，通过遍历 s 实现动态规划</p>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度 O(N) ：</strong> N 为字符串 s 的长度（即数字 num 的位数 log(num) ），其决定了循环次数。</li>
+<li><strong>空间复杂度 O(N) ：</strong> 字符串 s 使用 O(N)大小的额外空间。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 字符串遍历</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">translateNum</span><span class="params">(<span class="type">int</span> num)</span> &#123;</span><br><span class="line">        <span class="comment">// 首先将num变成字符串</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> String.valueOf(num);</span><br><span class="line">        <span class="comment">// 设置 b“无数字” 和 a“第 1 位数字” 的翻译方法数量均为 1</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">1</span>,b = <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// 从后往前循环，计算翻译方法的数量</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> s.length() - <span class="number">2</span>; i &gt; -<span class="number">1</span> ; i--) &#123;</span><br><span class="line">            <span class="comment">// 取到 i+2 的前两个数字</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">tmp</span> <span class="operator">=</span> s.substring(i, i + <span class="number">2</span>);</span><br><span class="line">            <span class="comment">// 判断这俩个数字组合以后是否在10~25之间</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">c</span> <span class="operator">=</span> tmp.compareTo(<span class="string">&quot;10&quot;</span>) &gt;= <span class="number">0</span> &amp;&amp; tmp.compareTo(<span class="string">&quot;25&quot;</span>) &lt;= <span class="number">0</span> ? a + b : a;</span><br><span class="line">            b = a;</span><br><span class="line">            a = c;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>2、数字求余</strong>（降低空间复杂度O(n)–&gt;O(1)）</p>
+<ul>
+<li><p><strong>解题思路：</strong>利用求余运算 num % 10 和求整运算 num &#x2F; 10 ，可获取数字 num 的各位数字（获取顺序为个位、十位、百位…）。</p>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度 O(N) ：</strong> N 为字符串 s 的长度（即数字 num 的位数 log(num) ），其决定了循环次数。</li>
+<li><strong>空间复杂度 O(N) ：</strong>  几个变量使用常数大小的额外空间。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 数字求余</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">translateNum</span><span class="params">(<span class="type">int</span> num)</span> &#123;</span><br><span class="line">        <span class="comment">// 设置 b“无数字” 和 a“第 1 位数字” 的翻译方法数量均为 1，x十位，y个位</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">1</span>,b = <span class="number">1</span>,x,y = num % <span class="number">10</span>;</span><br><span class="line">        <span class="comment">// 从后往前循环，计算翻译方法的数量</span></span><br><span class="line">        <span class="keyword">while</span> (num != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// 拿到x的值</span></span><br><span class="line">            num /= <span class="number">10</span>;</span><br><span class="line">            x = num % <span class="number">10</span>;</span><br><span class="line">            <span class="comment">// 总值</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">tmp</span> <span class="operator">=</span> x * <span class="number">10</span> + y;</span><br><span class="line">            <span class="comment">// 判断这俩个数字组合以后是否在10~25之间</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">c</span> <span class="operator">=</span> tmp &gt;= <span class="number">10</span> &amp;&amp; tmp &lt;= <span class="number">25</span> ? a + b : a;</span><br><span class="line">            b = a;</span><br><span class="line">            a = c;</span><br><span class="line">            y = x;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>动态规划</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>面试题</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
 </search>
