@@ -1536,4 +1536,66 @@
         <tag>算法</tag>
       </tags>
   </entry>
+  <entry>
+    <title>删除链表的节点</title>
+    <url>/2022/05/29/%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E8%8A%82%E7%82%B9/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/29/%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E8%8A%82%E7%82%B9/image-20220529084329139.png" class title="examplename"></em></p>
+<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p><strong>1、单指针</strong></p>
+<p><strong>1.1 未设哨兵结点dummyHead</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong>值相等时，如果是第一个结点，直接让head指向他的下一个；如果不是第一个结点，l.next &#x3D; l.next.next。</p>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度 O(N) ：</strong> N 为链表长度，删除操作平均需循环 N&#x2F;2 次，最差 N 次。</li>
+<li><strong>空间复杂度 O(1)</strong></li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 未设哨兵结点dummyHead</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">deleteNode</span><span class="params">(ListNode head, <span class="type">int</span> val)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (head == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> head;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (head.val == val) &#123;</span><br><span class="line">            <span class="keyword">return</span> head.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">l</span> <span class="operator">=</span> head;</span><br><span class="line">        <span class="keyword">while</span> (l.next != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (l.next.val == val) &#123;</span><br><span class="line">                l.next = l.next.next;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            l = l.next;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>1.2 设哨兵结点dummyHead</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong>哨兵结点指向head，让结点l指向哨兵结点，值相等时，l.next &#x3D; l.next.next。</p>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度 O(N) ：</strong> N 为链表长度，删除操作平均需循环 N&#x2F;2 次，最差 N 次。</li>
+<li><strong>空间复杂度 O(1)</strong></li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 设哨兵结点dummyHead</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">deleteNode</span><span class="params">(ListNode head, <span class="type">int</span> val)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (head == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> head;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 设哨兵结点</span></span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">dummyHead</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ListNode</span>(<span class="number">1</span>);</span><br><span class="line">        dummyHead.next = head;</span><br><span class="line"></span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">l</span> <span class="operator">=</span> dummyHead;</span><br><span class="line">        <span class="keyword">while</span> (l.next != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (l.next.val == val) &#123;</span><br><span class="line">                l.next = l.next.next;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            l = l.next;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dummyHead.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>2、双指针</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong></p>
+<ol>
+<li><strong>定位节点：</strong> 遍历链表，直到 <code>head.val == val</code> 时跳出，即可定位目标节点。</li>
+<li><strong>修改引用：</strong> 设节点 <code>cur</code> 的前驱节点为 <code>pre</code> ，后继节点为 <code>cur.next</code> ；则执行 <code>pre.next = cur.next</code> ，即可实现删除 <code>cur</code> 节点。</li>
+</ol>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度 O(N) ：</strong> N 为链表长度，删除操作平均需循环 N&#x2F;2 次，最差 N 次。</li>
+<li><strong>空间复杂度 O(1)</strong></li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 双指针</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution3</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">deleteNode</span><span class="params">(ListNode head, <span class="type">int</span> val)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(head.val == val) <span class="keyword">return</span> head.next;</span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">pre</span> <span class="operator">=</span> head, cur = head.next;</span><br><span class="line">        <span class="keyword">while</span>(cur != <span class="literal">null</span> &amp;&amp; cur.val != val) &#123;</span><br><span class="line">            pre = cur;</span><br><span class="line">            cur = cur.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(cur != <span class="literal">null</span>) pre.next = cur.next;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>双指针</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>面试题</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
 </search>
