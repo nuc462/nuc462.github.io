@@ -1598,4 +1598,38 @@
         <tag>算法</tag>
       </tags>
   </entry>
+  <entry>
+    <title>链表中倒数第k个节点</title>
+    <url>/2022/05/29/%E9%93%BE%E8%A1%A8%E4%B8%AD%E5%80%92%E6%95%B0%E7%AC%ACk%E4%B8%AA%E8%8A%82%E7%82%B9/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/29/%E9%93%BE%E8%A1%A8%E4%B8%AD%E5%80%92%E6%95%B0%E7%AC%ACk%E4%B8%AA%E8%8A%82%E7%82%B9/image-20220529102734918.png" class title="examplename"></em></p>
+<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p><strong>1、双指针</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong>设置俩个指针，一个指向头节点pre，一个指向pre之后的距离k-1的节点cur，（因为两个遍历到cur.next为null时，也就是cur到了最后，pre正好是倒数第k个节点）返回pre即可。</p>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度O(n)：</strong> <em>N</em> 为链表长度；总体看N-1，循环1走了k-1，循环2走了N-k</li>
+<li><strong>空间复杂度O(1)</strong></li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 双指针</span></span><br><span class="line"><span class="comment">// 设置俩个指针，一个指向头节点pre，一个指向pre之后的距离k-1的节点cur，（因为两个遍历到cur.next为null时，也就是cur到了最后，pre正好是倒数第k个节点）返回pre即可。</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">     <span class="keyword">public</span> ListNode <span class="title function_">getKthFromEnd</span><span class="params">(ListNode head, <span class="type">int</span> k)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">cur</span> <span class="operator">=</span> head;</span><br><span class="line">        <span class="comment">// 遍历使得cur指向pre（目前是head）之后的距离k-1的节点，当中如果有空，说明倒数第k个节点是不存在的，直接返回null</span></span><br><span class="line">        <span class="keyword">while</span> (k-- &gt; <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (cur == <span class="literal">null</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            cur = cur.next;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">pre</span> <span class="operator">=</span> head;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (cur.next != <span class="literal">null</span>) &#123;</span><br><span class="line">            cur = cur.next;</span><br><span class="line">            pre = pre.next;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> pre;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>只需要一个循环的代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 一个循环</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">getKthFromEnd</span><span class="params">(ListNode head, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">        ListNode slow=head,fast=head;</span><br><span class="line">        <span class="type">int</span> <span class="variable">t</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(fast!=<span class="literal">null</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(t&gt;=k) slow=slow.next;</span><br><span class="line">            fast = fast.next;</span><br><span class="line">            t++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> slow;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>双指针</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>面试题</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
 </search>
