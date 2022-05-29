@@ -153,13 +153,12 @@
 <p>​		另外，注意：任何与 <code>NULL</code> 值进行的比较都会与第三种值 UNKNOWN 做比较。这个“任何值”包括 <code>NULL</code> 本身。要想 <strong>和 null 比较</strong> 只能用 <code>is null</code>或者 <code>is not null</code>，这样才会返回true或者false。另外永远记住一点，<strong>null和&lt;,&gt;,&#x3D;,&lt;&gt;这些放在一起结果永远是unknown</strong>，比如如 2&#x3D;null，结果肯定是unknown，而<strong>unknown在三值逻辑中不是true也不是false</strong>，在写where子句的筛选条件时尤其要注意。</p>
 <p><strong>请务必牢记</strong>：</p>
 <ul>
-<li><p>and运算，只要有一边是unknown，另一边是false，那结果就是false，其它情况下，只要任意一边有unknown，结果就是unknown。</p>
-</li>
-<li><p>or运算，只要一边是unknown，那么结果永远就是unknown</p>
-</li>
-<li><p>not unknown 的结果是 unknown</p>
-</li>
+<li>and运算，只要有一边是unknown，另一边是false，那结果就是false，其它情况下，只要任意一边有unknown，结果就是unknown。</li>
+<li>or运算，只要一边是unknown，那么结果永远就是unknown</li>
+<li>not unknown 的结果是 unknown</li>
 </ul>
+<h1 id="SQL语句的内连接，外连接，左连接，右连接，全连接详解例子"><a href="#SQL语句的内连接，外连接，左连接，右连接，全连接详解例子" class="headerlink" title="SQL语句的内连接，外连接，左连接，右连接，全连接详解例子"></a>SQL语句的内连接，外连接，左连接，右连接，全连接详解例子</h1><p>具体请看：<a href="https://blog.csdn.net/qq_45064695/article/details/118997954">https://blog.csdn.net/qq_45064695/article/details/118997954</a></p>
+<p><em><img src="/2022/05/26/mysql%E7%AC%94%E8%AE%B0/image-20220529173210401.png" class title="examplename"></em></p>
 ]]></content>
       <categories>
         <category>基础</category>
@@ -1712,6 +1711,38 @@
         <tag>剑指offer</tag>
         <tag>面试题</tag>
         <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>从不订购的客户</title>
+    <url>/2022/05/29/%E4%BB%8E%E4%B8%8D%E8%AE%A2%E8%B4%AD%E7%9A%84%E5%AE%A2%E6%88%B7/</url>
+    <content><![CDATA[<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/29/%E4%BB%8E%E4%B8%8D%E8%AE%A2%E8%B4%AD%E7%9A%84%E5%AE%A2%E6%88%B7/image-20220529173504450.png" class title="examplename"></em></p>
+<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p><strong>1、使用左连接</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong></p>
+<ul>
+<li><em><img src="/2022/05/29/%E4%BB%8E%E4%B8%8D%E8%AE%A2%E8%B4%AD%E7%9A%84%E5%AE%A2%E6%88%B7/image-20220529173609126.png" class title="examplename"></em></li>
+</ul>
+</li>
+<li><p><strong>sql语句：</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> a.Name <span class="keyword">as</span> Customers</span><br><span class="line"><span class="keyword">from</span> Customers <span class="keyword">as</span> a</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> Orders <span class="keyword">as</span> b </span><br><span class="line"><span class="keyword">on</span> a.Id <span class="operator">=</span> b.CustomerId</span><br><span class="line"><span class="keyword">where</span> b.CustomerId <span class="keyword">is</span> <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>2、使用子查询和 <code>NOT IN</code> 子句</strong></p>
+<ul>
+<li><p><strong>sql语句：</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> a.Name <span class="keyword">as</span> Customers</span><br><span class="line"><span class="keyword">from</span> Customers <span class="keyword">as</span> a</span><br><span class="line"><span class="keyword">where</span> a.id <span class="keyword">not</span> <span class="keyword">in</span> </span><br><span class="line">(</span><br><span class="line">    <span class="keyword">select</span> CustomerId <span class="keyword">from</span> Orders</span><br><span class="line">);</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>mysql</category>
+        <category>SQL入门</category>
+        <category>选择</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
+        <tag>SQL入门</tag>
       </tags>
   </entry>
 </search>
