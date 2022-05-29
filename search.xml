@@ -1663,4 +1663,55 @@
         <tag>算法</tag>
       </tags>
   </entry>
+  <entry>
+    <title>两个链表的第一个公共节点</title>
+    <url>/2022/05/29/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/29/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9/image-20220529163001950.png" class title="examplename"></em></p>
+<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p><strong>1、哈希表法</strong></p>
+<ul>
+<li><p><strong>解题思想：</strong>先把链表<em>headA</em>都放在set集合中，然后循环链表 <em>headB</em>比较 <em>headB</em>和<em>headA</em>的&#x3D;&#x3D;指针&#x3D;&#x3D;是否有相同，相同则，说明找到了第一个公共节点，返回该指针。否则没无公共节点，返回null。</p>
+</li>
+<li><p><strong>复杂度分析</strong></p>
+<ul>
+<li><p>**时间复杂度：O(m+n)**，其中 m 和 n 是分别是链表 headA 和 headB 的长度。需要遍历两个链表各一次。</p>
+</li>
+<li><p>**空间复杂度：O(m)**，其中 m 是链表 headA 的长度。需要使用哈希集合存储链表 headA 中的全部节点。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 哈希表法</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">getIntersectionNode</span><span class="params">(ListNode headA, ListNode headB)</span> &#123;</span><br><span class="line">        Set&lt;ListNode&gt; visited = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;ListNode&gt;();</span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">temp</span> <span class="operator">=</span> headA;</span><br><span class="line">        <span class="keyword">while</span> (temp != <span class="literal">null</span>) &#123;</span><br><span class="line">            visited.add(temp);</span><br><span class="line">            temp = temp.next;</span><br><span class="line">        &#125;</span><br><span class="line">        temp = headB;</span><br><span class="line">        <span class="keyword">while</span> (temp != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 如果set集合包含temp指针，则headA和headB链表有相同的指针</span></span><br><span class="line">            <span class="keyword">if</span> (visited.contains(temp)) &#123;</span><br><span class="line">                <span class="keyword">return</span> temp;</span><br><span class="line">            &#125;</span><br><span class="line">            temp = temp.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>2、双指针</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong></p>
+<ul>
+<li><em></em></li>
+</ul>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><p>**时间复杂度：O(m+n)**，其中 m 和 n 是分别是链表 headA 和 headB 的长度。两个指针同时遍历两个链表，每个指针遍历两个链表各一次。</p>
+</li>
+<li><p>**空间复杂度：O(1)**。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 双指针</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">getIntersectionNode</span><span class="params">(ListNode headA, ListNode headB)</span> &#123;</span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">a</span> <span class="operator">=</span> headA;</span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">b</span> <span class="operator">=</span> headB;</span><br><span class="line">        <span class="keyword">while</span>(a != b) &#123;</span><br><span class="line">            a = a != <span class="literal">null</span> ? a.next : headB;</span><br><span class="line">            b = b != <span class="literal">null</span> ? b.next : headA;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>双指针</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>面试题</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
 </search>
