@@ -1736,9 +1736,50 @@
 </ul>
 ]]></content>
       <categories>
+        <category>基础</category>
         <category>mysql</category>
         <category>SQL入门</category>
         <category>选择</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
+        <tag>SQL入门</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算特殊奖金</title>
+    <url>/2022/05/29/%E8%AE%A1%E7%AE%97%E7%89%B9%E6%AE%8A%E5%A5%96%E9%87%91/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/29/%E8%AE%A1%E7%AE%97%E7%89%B9%E6%AE%8A%E5%A5%96%E9%87%91/image-20220529211730079.png" class title="examplename"></em></p>
+<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><h5 id="sql语句case-when用法详解"><a href="#sql语句case-when用法详解" class="headerlink" title="sql语句case when用法详解"></a>sql语句case when用法详解</h5><p>类似于witch case，</p>
+<p><strong>第一种 格式 : 简单Case函数 :</strong></p>
+<p>格式说明</p>
+<blockquote>
+<p>　　　　case 列名</p>
+<p>　　　　when 条件值1 then 选择项1</p>
+<p>　　　　when 条件值2 then 选项2…….</p>
+<p>　　　　else 默认值 end</p>
+</blockquote>
+<p><strong>第二种 格式 :Case搜索函数</strong></p>
+<p>格式说明</p>
+<blockquote>
+<p>　　　　case</p>
+<p>　　　　when 列名&#x3D; 条件值1 then 选择项1</p>
+<p>　　　　when 列名&#x3D;条件值2 then 选项2…….</p>
+<p>　　　　else 默认值 end</p>
+</blockquote>
+<ul>
+<li><p>sql语句</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> e.employee_id,</span><br><span class="line"><span class="keyword">CASE</span> </span><br><span class="line"><span class="keyword">WHEN</span> </span><br><span class="line">    <span class="built_in">MOD</span>(e.employee_id,<span class="number">2</span>) <span class="operator">=</span> <span class="number">1</span> <span class="operator">&amp;&amp;</span> e.name <span class="keyword">not</span> <span class="keyword">like</span> <span class="string">&#x27;M%&#x27;</span> </span><br><span class="line"><span class="keyword">then</span> e.salary <span class="keyword">else</span> <span class="number">0</span> <span class="keyword">end</span> <span class="keyword">as</span> bonus</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	Employees <span class="keyword">as</span> e</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> </span><br><span class="line">    e.employee_id;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>基础</category>
+        <category>mysql</category>
+        <category>SQL入门</category>
+        <category>排序 &amp; 修改</category>
       </categories>
       <tags>
         <tag>mysql</tag>
