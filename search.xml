@@ -1874,4 +1874,56 @@
         <tag>算法</tag>
       </tags>
   </entry>
+  <entry>
+    <title>翻转单词顺序</title>
+    <url>/2022/05/30/%E7%BF%BB%E8%BD%AC%E5%8D%95%E8%AF%8D%E9%A1%BA%E5%BA%8F/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/30/%E7%BF%BB%E8%BD%AC%E5%8D%95%E8%AF%8D%E9%A1%BA%E5%BA%8F/image-20220530194231003.png" class title="examplename"></em></p>
+<h4 id="解题："><a href="#解题：" class="headerlink" title="解题："></a>解题：</h4><p><strong>1、双指针</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong></p>
+<ul>
+<li>倒序遍历字符串 s ，记录单词左右索引边界 i , j ；</li>
+<li>每确定一个单词的边界，则将其添加至单词列表 res ；</li>
+<li>最终，将单词列表拼接为字符串，并返回即可。</li>
+</ul>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度 O(N) ：</strong> 其中 N 为字符串 s 的长度，线性遍历字符串。</li>
+<li><strong>空间复杂度 O(N) ：</strong> 新建的 StringBuilder 中的字符串总长度 ≤N ，占用 O(N) 大小的额外空间。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 双指针</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">reverseWords</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        <span class="comment">// 删除首尾空格</span></span><br><span class="line">        s = s.trim();</span><br><span class="line">        <span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> s.length() - <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> j;</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">res</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        <span class="keyword">while</span>(i &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// 让i走到首个空格</span></span><br><span class="line">            <span class="keyword">while</span> (i &gt;= <span class="number">0</span> &amp;&amp; s.charAt(i) != <span class="string">&#x27; &#x27;</span>) i--;</span><br><span class="line">            <span class="comment">// 添加单词</span></span><br><span class="line">            res.append(s.substring(i+<span class="number">1</span>,j+<span class="number">1</span>) + <span class="string">&quot; &quot;</span>);</span><br><span class="line">            <span class="comment">// 跳过单词间的空格</span></span><br><span class="line">            <span class="keyword">while</span> (i &gt;= <span class="number">0</span> &amp;&amp; s.charAt(i) == <span class="string">&#x27; &#x27;</span>) i--;</span><br><span class="line">            <span class="comment">// j 指向下个单词的尾字符</span></span><br><span class="line">            j = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 消除最后多余的一个的空格</span></span><br><span class="line">        <span class="keyword">return</span> res.toString().trim();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>2、分割 + 倒序</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong></p>
+<ul>
+<li><em><img src="/2022/05/30/%E7%BF%BB%E8%BD%AC%E5%8D%95%E8%AF%8D%E9%A1%BA%E5%BA%8F/image-20220530194745752.png" class title="examplename"></em></li>
+</ul>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li>**时间复杂度 O(N) **</li>
+<li><strong>空间复杂度 O(N) ：</strong> 单词列表 strs 占用线性大小的额外空间。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 分割 + 倒序</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">reverseWords</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        <span class="comment">// 删除首尾空格，分割字符串</span></span><br><span class="line">        String[] strs = s.trim().split(<span class="string">&quot; &quot;</span>);</span><br><span class="line">        <span class="comment">// 拼接时所需</span></span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">res</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> strs.length - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (strs[i].equals(<span class="string">&quot;&quot;</span>)) <span class="keyword">continue</span>;</span><br><span class="line">            res.append(strs[i] + <span class="string">&quot; &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 消除最后多余的一个的空格</span></span><br><span class="line">        <span class="keyword">return</span> res.toString().trim();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>双指针</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>面试题</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
 </search>
