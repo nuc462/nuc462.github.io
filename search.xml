@@ -1837,4 +1837,41 @@
         <tag>算法</tag>
       </tags>
   </entry>
+  <entry>
+    <title>和为s的两个数字</title>
+    <url>/2022/05/30/%E5%92%8C%E4%B8%BAs%E7%9A%84%E4%B8%A4%E4%B8%AA%E6%95%B0%E5%AD%97/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/30/%E5%92%8C%E4%B8%BAs%E7%9A%84%E4%B8%A4%E4%B8%AA%E6%95%B0%E5%AD%97/image-20220530101826170.png" class title="examplename"></em></p>
+<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p><strong>1、双指针</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong></p>
+<ol>
+<li>计算和 s &#x3D; nums[i] + nums[j]；</li>
+<li>若 s &gt; target ，则指针 j 向左移动，即执行 j &#x3D; j - 1；</li>
+<li>若 s &lt; target，则指针 i 向右移动，即执行 i &#x3D; i + 1；</li>
+<li>若 s &#x3D; target ，立即返回数组 [nums[i], nums[j]]；</li>
+</ol>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度 O(N) ：</strong> N 为数组 nums 的长度；双指针共同线性遍历整个数组。</li>
+<li><strong>空间复杂度 O(1) ：</strong> 变量 i, j 使用常数大小的额外空间。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] twoSum(<span class="type">int</span>[] nums, <span class="type">int</span> target) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> nums.length - <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// 提前把大于target的排除，也可防止nums[i] + nums[j]时溢出</span></span><br><span class="line">        <span class="keyword">while</span> (i &lt; j &amp;&amp; target &lt; nums[j]) &#123;</span><br><span class="line">            j--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (i &lt; j) &#123;</span><br><span class="line">            <span class="comment">// 这个s很重要，如果这样写，后面判断都得计算nums[i] + nums[j]，效率将会降低</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">s</span> <span class="operator">=</span> nums[i] + nums[j];</span><br><span class="line">            <span class="keyword">if</span> (s &gt; target)&#123;</span><br><span class="line">                j--;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span> (s &lt; target)&#123;</span><br><span class="line">                i++;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">int</span>[] &#123;nums[i],nums[j]&#125;;<span class="comment">// 不在前面定义，可以动态的节省空间</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>双指针</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>面试题</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
 </search>
