@@ -1,6 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>java.util.concurrentmodificationexception异常原因和解决方法</title>
+    <url>/2022/04/24/java.util.concurrentmodificationexception%E5%BC%82%E5%B8%B8%E5%8E%9F%E5%9B%A0%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>简单地说下原因，在我那个项目的代码中，遍历的方式是增强 for 循环，在底层使用的也是迭代器。</p>
+<span id="more"></span>
+
+<p>也就是说，是用Itr去遍历的，这个Itr是ArrayList实现的一个遍历接口、内部类。</p>
+<p>但是我在删除的时候是通过ArrayList的remove方法去操作的，不是Itr内部的那个删除方法去操作的。</p>
+<p>那么问题就来了：</p>
+<p>ArrayList的remove方法修改的变量是继承自AbstractList的变量modCount；而Itr的remove方法修改的是自身的变量expectedModCount。这两个变量的作用都是记录修改次数的。</p>
+<p>所以，在用ArrayList的remove方法进行删除操作以后，Itr里面的expectedModCount会与ArrayList的modCount进行比较，二者不相等，所以会抛错。</p>
+<p><img src="https://img-blog.csdnimg.cn/111081d940d648c3b2156c4cb037dd6b.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeTR1bmc=,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="img"></p>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>解决的方法是改成索引遍历,但是需要在删除之后保证索引的正常:</p>
+]]></content>
+      <categories>
+        <category>异常</category>
+      </categories>
+      <tags>
+        <tag>异常</tag>
+        <tag>基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>No primary or default constructor found for interface java.util.List原因和解决方法</title>
+    <url>/2022/04/24/No%20primary%20or%20default%20constructor%20found%20for%20interface%20java.util.List%E5%8E%9F%E5%9B%A0%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3><p>是list是接口，没有<strong>构造函数</strong></p>
+<span id="more"></span>
+
+<p><strong>解决方法：</strong></p>
+<ul>
+<li>换成ArrayList就可以，</li>
+<li>将List转为Json字符串（JSON.toJSONString(list)），或者加入@RequestBody注解</li>
+<li>目标对象不匹配，用＠RequestParam让他强制匹配</li>
+</ul>
+]]></content>
+      <categories>
+        <category>异常</category>
+      </categories>
+      <tags>
+        <tag>异常</tag>
+        <tag>基础</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>0～n-1中缺失的数字</title>
     <url>/2022/05/22/0%EF%BD%9En-1%E4%B8%AD%E7%BC%BA%E5%A4%B1%E7%9A%84%E6%95%B0%E5%AD%97/</url>
     <content><![CDATA[<hr>
@@ -97,49 +140,6 @@
       <tags>
         <tag>基础</tag>
         <tag>集合</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>No primary or default constructor found for interface java.util.List原因和解决方法</title>
-    <url>/2022/04/24/No%20primary%20or%20default%20constructor%20found%20for%20interface%20java.util.List%E5%8E%9F%E5%9B%A0%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[<h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3><p>是list是接口，没有<strong>构造函数</strong></p>
-<span id="more"></span>
-
-<p><strong>解决方法：</strong></p>
-<ul>
-<li>换成ArrayList就可以，</li>
-<li>将List转为Json字符串（JSON.toJSONString(list)），或者加入@RequestBody注解</li>
-<li>目标对象不匹配，用＠RequestParam让他强制匹配</li>
-</ul>
-]]></content>
-      <categories>
-        <category>异常</category>
-      </categories>
-      <tags>
-        <tag>基础</tag>
-        <tag>异常</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>java.util.concurrentmodificationexception异常原因和解决方法</title>
-    <url>/2022/04/24/java.util.concurrentmodificationexception%E5%BC%82%E5%B8%B8%E5%8E%9F%E5%9B%A0%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>简单地说下原因，在我那个项目的代码中，遍历的方式是增强 for 循环，在底层使用的也是迭代器。</p>
-<span id="more"></span>
-
-<p>也就是说，是用Itr去遍历的，这个Itr是ArrayList实现的一个遍历接口、内部类。</p>
-<p>但是我在删除的时候是通过ArrayList的remove方法去操作的，不是Itr内部的那个删除方法去操作的。</p>
-<p>那么问题就来了：</p>
-<p>ArrayList的remove方法修改的变量是继承自AbstractList的变量modCount；而Itr的remove方法修改的是自身的变量expectedModCount。这两个变量的作用都是记录修改次数的。</p>
-<p>所以，在用ArrayList的remove方法进行删除操作以后，Itr里面的expectedModCount会与ArrayList的modCount进行比较，二者不相等，所以会抛错。</p>
-<p><img src="https://img-blog.csdnimg.cn/111081d940d648c3b2156c4cb037dd6b.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeTR1bmc=,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="img"></p>
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>解决的方法是改成索引遍历,但是需要在删除之后保证索引的正常:</p>
-]]></content>
-      <categories>
-        <category>异常</category>
-      </categories>
-      <tags>
-        <tag>基础</tag>
-        <tag>异常</tag>
       </tags>
   </entry>
   <entry>
@@ -385,6 +385,40 @@
       </tags>
   </entry>
   <entry>
+    <title>从不订购的客户</title>
+    <url>/2022/05/29/%E4%BB%8E%E4%B8%8D%E8%AE%A2%E8%B4%AD%E7%9A%84%E5%AE%A2%E6%88%B7/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/29/%E4%BB%8E%E4%B8%8D%E8%AE%A2%E8%B4%AD%E7%9A%84%E5%AE%A2%E6%88%B7/image-20220529173504450.png" class title="examplename"></em></p>
+<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p><strong>1、使用左连接</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong></p>
+<ul>
+<li><em><img src="/2022/05/29/%E4%BB%8E%E4%B8%8D%E8%AE%A2%E8%B4%AD%E7%9A%84%E5%AE%A2%E6%88%B7/image-20220529173609126.png" class title="examplename"></em></li>
+</ul>
+</li>
+<li><p><strong>sql语句：</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> a.Name <span class="keyword">as</span> Customers</span><br><span class="line"><span class="keyword">from</span> Customers <span class="keyword">as</span> a</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> Orders <span class="keyword">as</span> b </span><br><span class="line"><span class="keyword">on</span> a.Id <span class="operator">=</span> b.CustomerId</span><br><span class="line"><span class="keyword">where</span> b.CustomerId <span class="keyword">is</span> <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>2、使用子查询和 <code>NOT IN</code> 子句</strong></p>
+<ul>
+<li><p><strong>sql语句：</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> a.Name <span class="keyword">as</span> Customers</span><br><span class="line"><span class="keyword">from</span> Customers <span class="keyword">as</span> a</span><br><span class="line"><span class="keyword">where</span> a.id <span class="keyword">not</span> <span class="keyword">in</span> </span><br><span class="line">(</span><br><span class="line">    <span class="keyword">select</span> CustomerId <span class="keyword">from</span> Orders</span><br><span class="line">);</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>基础</category>
+        <category>mysql</category>
+        <category>SQL入门</category>
+        <category>选择</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
+        <tag>SQL入门</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>从上到下打印二叉树III</title>
     <url>/2022/05/25/%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91III/</url>
     <content><![CDATA[<hr>
@@ -455,40 +489,6 @@
         <tag>剑指offer</tag>
         <tag>面试题</tag>
         <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>从不订购的客户</title>
-    <url>/2022/05/29/%E4%BB%8E%E4%B8%8D%E8%AE%A2%E8%B4%AD%E7%9A%84%E5%AE%A2%E6%88%B7/</url>
-    <content><![CDATA[<hr>
-<span id="more"></span>
-
-<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/29/%E4%BB%8E%E4%B8%8D%E8%AE%A2%E8%B4%AD%E7%9A%84%E5%AE%A2%E6%88%B7/image-20220529173504450.png" class title="examplename"></em></p>
-<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p><strong>1、使用左连接</strong></p>
-<ul>
-<li><p><strong>解题思路：</strong></p>
-<ul>
-<li><em><img src="/2022/05/29/%E4%BB%8E%E4%B8%8D%E8%AE%A2%E8%B4%AD%E7%9A%84%E5%AE%A2%E6%88%B7/image-20220529173609126.png" class title="examplename"></em></li>
-</ul>
-</li>
-<li><p><strong>sql语句：</strong></p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> a.Name <span class="keyword">as</span> Customers</span><br><span class="line"><span class="keyword">from</span> Customers <span class="keyword">as</span> a</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> Orders <span class="keyword">as</span> b </span><br><span class="line"><span class="keyword">on</span> a.Id <span class="operator">=</span> b.CustomerId</span><br><span class="line"><span class="keyword">where</span> b.CustomerId <span class="keyword">is</span> <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<p><strong>2、使用子查询和 <code>NOT IN</code> 子句</strong></p>
-<ul>
-<li><p><strong>sql语句：</strong></p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> a.Name <span class="keyword">as</span> Customers</span><br><span class="line"><span class="keyword">from</span> Customers <span class="keyword">as</span> a</span><br><span class="line"><span class="keyword">where</span> a.id <span class="keyword">not</span> <span class="keyword">in</span> </span><br><span class="line">(</span><br><span class="line">    <span class="keyword">select</span> CustomerId <span class="keyword">from</span> Orders</span><br><span class="line">);</span><br></pre></td></tr></table></figure></li>
-</ul>
-]]></content>
-      <categories>
-        <category>基础</category>
-        <category>mysql</category>
-        <category>SQL入门</category>
-        <category>选择</category>
-      </categories>
-      <tags>
-        <tag>mysql</tag>
-        <tag>SQL入门</tag>
       </tags>
   </entry>
   <entry>
@@ -883,6 +883,73 @@
       </tags>
   </entry>
   <entry>
+    <title>左旋转字符串</title>
+    <url>/2022/05/21/%E5%B7%A6%E6%97%8B%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/21/%E5%B7%A6%E6%97%8B%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2/image-20220521201003026.png" class title="examplename"></em></p>
+<h4 id="解法："><a href="#解法：" class="headerlink" title="解法："></a>解法：</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1、字符串切片</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">reverseLeftWords</span><span class="params">(String s, <span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">s1</span> <span class="operator">=</span> s.substring(<span class="number">0</span>, n);</span><br><span class="line">        <span class="type">String</span> <span class="variable">s2</span> <span class="operator">=</span> s.substring(n,s.length());</span><br><span class="line">        <span class="type">String</span> <span class="variable">s3</span> <span class="operator">=</span> s2 + s1;</span><br><span class="line">        <span class="keyword">return</span> s3;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2、列表遍历拼接</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">reverseLeftWords</span><span class="params">(String s, <span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">s3</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> n; i &lt; s.length(); i++) &#123;</span><br><span class="line">            s3.append(s.charAt(i));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            s3.append(s.charAt(i));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> s3.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3、字符串遍历拼接</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution3</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">reverseLeftWords</span><span class="params">(String s, <span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">s3</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> n; i &lt; s.length(); i++) &#123;</span><br><span class="line">            s3 += s.charAt(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            s3 += s.charAt(i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> s3;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>字符串</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>面试题</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数组中重复的数字</title>
+    <url>/2022/05/22/%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/22/%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97/image-20220522075236430.png" class title="examplename"></em></p>
+<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p><strong>1、哈希表 &#x2F; Set</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 使用set.contains方法判断</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">findRepeatNumber</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        <span class="type">HashSet</span> <span class="variable">set</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HashSet</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> num:</span><br><span class="line">             nums) &#123;</span><br><span class="line">            <span class="keyword">if</span> (set.contains(num)) &#123;</span><br><span class="line">                <span class="keyword">return</span> num;</span><br><span class="line">            &#125;<span class="keyword">else</span> set.add(num);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用set集合中不能有重复的特性</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution3</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">findRepeatNumber</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        Set&lt;Integer&gt; set = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;Integer&gt;();</span><br><span class="line">        <span class="type">int</span> <span class="variable">repeat</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> num : nums) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!set.add(num)) &#123;</span><br><span class="line">                repeat = num;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> repeat;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>复杂度分析：</strong><ul>
+<li>**时间复杂度 O(N)**： 遍历数组使用 O(N) ，HashSet 添加与查找元素皆为 O(1)。</li>
+<li>**空间复杂度 O(N)**： HashSet 占用 O(N) 大小的额外空间。</li>
+</ul>
+</li>
+</ul>
+<p><strong>2、原地交换</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong></p>
+<ul>
+<li>可遍历数组并通过交换操作，使元素的 索引 与 值 一一对应（即 nums[i]&#x3D;i ）。因而，就能通过索引映射对应的值，起到与字典等价的作用。</li>
+<li><em><img src="/2022/05/22/%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97/image-20220522080700921.png" class title="examplename"></em></li>
+<li>遍历中，第一次遇到数字 x 时，将其交换至索引 x 处；而当第二次遇到数字 x 时，一定有 nums[x]&#x3D;x ，此时即可得到一组重复数字。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 原地交换</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution4</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">findRepeatNumber</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(i &lt; nums.length)&#123;</span><br><span class="line">            <span class="comment">//  说明此数字已在对应索引位置，无需交换，因此跳过</span></span><br><span class="line">            <span class="keyword">if</span> (nums[i] == i) &#123;</span><br><span class="line">                i++;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 判断索引为nums[i]的是否与索引为i的相等，相等说明索引nums[i]已经有与nums[i]的值相等的了，即有重复的了</span></span><br><span class="line">            <span class="keyword">if</span> (nums[nums[i]] == nums[i]) <span class="keyword">return</span> nums[i];</span><br><span class="line">            <span class="type">int</span> <span class="variable">tmp</span> <span class="operator">=</span> nums[i];</span><br><span class="line">            nums[i] = nums[tmp];</span><br><span class="line">            nums[tmp] = tmp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>复杂度分析</strong>：</p>
+<ul>
+<li>**时间复杂度 O(N)**： 遍历数组使用 O(N) ，每轮遍历的判断和交换操作使用 O(1)。</li>
+<li>**空间复杂度 O(1)**： 使用常数复杂度的额外空间。</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>查找算法</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>面试题</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>应战秋招总结</title>
     <url>/2022/04/21/%E5%BA%94%E6%88%98%E7%A7%8B%E6%8B%9B%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<h2 id="1、何为秋招？"><a href="#1、何为秋招？" class="headerlink" title="1、何为秋招？"></a>1、何为秋招？</h2><h3 id="1-1、应届生"><a href="#1-1、应届生" class="headerlink" title="1.1、应届生"></a>1.1、应届生</h3><p>暑假：大学生（实习、工作）</p>
@@ -1107,26 +1174,6 @@
       </tags>
   </entry>
   <entry>
-    <title>左旋转字符串</title>
-    <url>/2022/05/21/%E5%B7%A6%E6%97%8B%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
-    <content><![CDATA[<hr>
-<span id="more"></span>
-
-<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/21/%E5%B7%A6%E6%97%8B%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2/image-20220521201003026.png" class title="examplename"></em></p>
-<h4 id="解法："><a href="#解法：" class="headerlink" title="解法："></a>解法：</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1、字符串切片</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">reverseLeftWords</span><span class="params">(String s, <span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">s1</span> <span class="operator">=</span> s.substring(<span class="number">0</span>, n);</span><br><span class="line">        <span class="type">String</span> <span class="variable">s2</span> <span class="operator">=</span> s.substring(n,s.length());</span><br><span class="line">        <span class="type">String</span> <span class="variable">s3</span> <span class="operator">=</span> s2 + s1;</span><br><span class="line">        <span class="keyword">return</span> s3;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2、列表遍历拼接</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">reverseLeftWords</span><span class="params">(String s, <span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">s3</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> n; i &lt; s.length(); i++) &#123;</span><br><span class="line">            s3.append(s.charAt(i));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            s3.append(s.charAt(i));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> s3.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3、字符串遍历拼接</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution3</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">reverseLeftWords</span><span class="params">(String s, <span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">s3</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> n; i &lt; s.length(); i++) &#123;</span><br><span class="line">            s3 += s.charAt(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            s3 += s.charAt(i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> s3;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>剑指offer</category>
-        <category>字符串</category>
-      </categories>
-      <tags>
-        <tag>剑指offer</tag>
-        <tag>面试题</tag>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>把数字翻译成字符串</title>
     <url>/2022/05/28/%E6%8A%8A%E6%95%B0%E5%AD%97%E7%BF%BB%E8%AF%91%E6%88%90%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
     <content><![CDATA[<hr>
@@ -1171,53 +1218,6 @@
       <categories>
         <category>剑指offer</category>
         <category>动态规划</category>
-      </categories>
-      <tags>
-        <tag>剑指offer</tag>
-        <tag>面试题</tag>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>数组中重复的数字</title>
-    <url>/2022/05/22/%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97/</url>
-    <content><![CDATA[<hr>
-<span id="more"></span>
-
-<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/22/%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97/image-20220522075236430.png" class title="examplename"></em></p>
-<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p><strong>1、哈希表 &#x2F; Set</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 使用set.contains方法判断</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">findRepeatNumber</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        <span class="type">HashSet</span> <span class="variable">set</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HashSet</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> num:</span><br><span class="line">             nums) &#123;</span><br><span class="line">            <span class="keyword">if</span> (set.contains(num)) &#123;</span><br><span class="line">                <span class="keyword">return</span> num;</span><br><span class="line">            &#125;<span class="keyword">else</span> set.add(num);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用set集合中不能有重复的特性</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution3</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">findRepeatNumber</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        Set&lt;Integer&gt; set = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;Integer&gt;();</span><br><span class="line">        <span class="type">int</span> <span class="variable">repeat</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> num : nums) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!set.add(num)) &#123;</span><br><span class="line">                repeat = num;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> repeat;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>复杂度分析：</strong><ul>
-<li>**时间复杂度 O(N)**： 遍历数组使用 O(N) ，HashSet 添加与查找元素皆为 O(1)。</li>
-<li>**空间复杂度 O(N)**： HashSet 占用 O(N) 大小的额外空间。</li>
-</ul>
-</li>
-</ul>
-<p><strong>2、原地交换</strong></p>
-<ul>
-<li><p><strong>解题思路：</strong></p>
-<ul>
-<li>可遍历数组并通过交换操作，使元素的 索引 与 值 一一对应（即 nums[i]&#x3D;i ）。因而，就能通过索引映射对应的值，起到与字典等价的作用。</li>
-<li><em><img src="/2022/05/22/%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97/image-20220522080700921.png" class title="examplename"></em></li>
-<li>遍历中，第一次遇到数字 x 时，将其交换至索引 x 处；而当第二次遇到数字 x 时，一定有 nums[x]&#x3D;x ，此时即可得到一组重复数字。</li>
-</ul>
-</li>
-<li><p><strong>代码：</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 原地交换</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution4</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">findRepeatNumber</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(i &lt; nums.length)&#123;</span><br><span class="line">            <span class="comment">//  说明此数字已在对应索引位置，无需交换，因此跳过</span></span><br><span class="line">            <span class="keyword">if</span> (nums[i] == i) &#123;</span><br><span class="line">                i++;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 判断索引为nums[i]的是否与索引为i的相等，相等说明索引nums[i]已经有与nums[i]的值相等的了，即有重复的了</span></span><br><span class="line">            <span class="keyword">if</span> (nums[nums[i]] == nums[i]) <span class="keyword">return</span> nums[i];</span><br><span class="line">            <span class="type">int</span> <span class="variable">tmp</span> <span class="operator">=</span> nums[i];</span><br><span class="line">            nums[i] = nums[tmp];</span><br><span class="line">            nums[tmp] = tmp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>复杂度分析</strong>：</p>
-<ul>
-<li>**时间复杂度 O(N)**： 遍历数组使用 O(N) ，每轮遍历的判断和交换操作使用 O(1)。</li>
-<li>**空间复杂度 O(1)**： 使用常数复杂度的额外空间。</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>剑指offer</category>
-        <category>查找算法</category>
       </categories>
       <tags>
         <tag>剑指offer</tag>
@@ -1288,6 +1288,35 @@
       </tags>
   </entry>
   <entry>
+    <title>替换空格</title>
+    <url>/2022/05/21/%E6%9B%BF%E6%8D%A2%E7%A9%BA%E6%A0%BC/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/21/%E6%9B%BF%E6%8D%A2%E7%A9%BA%E6%A0%BC/image-20220521190640793.png" class title="examplename"></em></p>
+<h4 id="解法："><a href="#解法：" class="headerlink" title="解法："></a>解法：</h4><p><strong>1、调用代码库</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">replaceSpace</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        s = s.replace(<span class="string">&quot; &quot;</span>,<span class="string">&quot;%20&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> s;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>2、字符数组</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">replaceSpace</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        <span class="comment">// 每次替换从 1 个字符变成 3 个字符，所以需要3倍的大小</span></span><br><span class="line">        <span class="type">char</span>[] array = <span class="keyword">new</span> <span class="title class_">char</span>[s.length() * <span class="number">3</span>];</span><br><span class="line">        <span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; s.length() ; i++) &#123;</span><br><span class="line">            <span class="type">char</span> <span class="variable">a</span> <span class="operator">=</span> s.charAt(i);</span><br><span class="line">            <span class="keyword">if</span> (a == <span class="string">&#x27; &#x27;</span>) &#123;</span><br><span class="line">                array[size++] = <span class="string">&#x27;%&#x27;</span>;</span><br><span class="line">                array[size++] = <span class="string">&#x27;2&#x27;</span>;</span><br><span class="line">                array[size++] = <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> array[size++] = a;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">String</span> <span class="variable">string</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(array, <span class="number">0</span>, size);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> string;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>复杂性分析</strong></p>
+<ul>
+<li>**时间复杂度：O(n)**。遍历字符串 <code>s</code> 一遍。</li>
+<li>**空间复杂度：O(n)**。额外创建字符数组，长度为 <code>s</code> 的长度的 3 倍。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>字符串</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>面试题</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>旋转数组的最小数字</title>
     <url>/2022/05/23/%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B0%E5%AD%97/</url>
     <content><![CDATA[<hr>
@@ -1332,35 +1361,6 @@
       <categories>
         <category>剑指offer</category>
         <category>查找算法</category>
-      </categories>
-      <tags>
-        <tag>剑指offer</tag>
-        <tag>面试题</tag>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>替换空格</title>
-    <url>/2022/05/21/%E6%9B%BF%E6%8D%A2%E7%A9%BA%E6%A0%BC/</url>
-    <content><![CDATA[<hr>
-<span id="more"></span>
-
-<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/21/%E6%9B%BF%E6%8D%A2%E7%A9%BA%E6%A0%BC/image-20220521190640793.png" class title="examplename"></em></p>
-<h4 id="解法："><a href="#解法：" class="headerlink" title="解法："></a>解法：</h4><p><strong>1、调用代码库</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">replaceSpace</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        s = s.replace(<span class="string">&quot; &quot;</span>,<span class="string">&quot;%20&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> s;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>2、字符数组</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">replaceSpace</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        <span class="comment">// 每次替换从 1 个字符变成 3 个字符，所以需要3倍的大小</span></span><br><span class="line">        <span class="type">char</span>[] array = <span class="keyword">new</span> <span class="title class_">char</span>[s.length() * <span class="number">3</span>];</span><br><span class="line">        <span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; s.length() ; i++) &#123;</span><br><span class="line">            <span class="type">char</span> <span class="variable">a</span> <span class="operator">=</span> s.charAt(i);</span><br><span class="line">            <span class="keyword">if</span> (a == <span class="string">&#x27; &#x27;</span>) &#123;</span><br><span class="line">                array[size++] = <span class="string">&#x27;%&#x27;</span>;</span><br><span class="line">                array[size++] = <span class="string">&#x27;2&#x27;</span>;</span><br><span class="line">                array[size++] = <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> array[size++] = a;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">String</span> <span class="variable">string</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(array, <span class="number">0</span>, size);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> string;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>复杂性分析</strong></p>
-<ul>
-<li>**时间复杂度：O(n)**。遍历字符串 <code>s</code> 一遍。</li>
-<li>**空间复杂度：O(n)**。额外创建字符数组，长度为 <code>s</code> 的长度的 3 倍。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>剑指offer</category>
-        <category>字符串</category>
       </categories>
       <tags>
         <tag>剑指offer</tag>
@@ -1679,46 +1679,6 @@
       </tags>
   </entry>
   <entry>
-    <title>计算特殊奖金</title>
-    <url>/2022/05/29/%E8%AE%A1%E7%AE%97%E7%89%B9%E6%AE%8A%E5%A5%96%E9%87%91/</url>
-    <content><![CDATA[<hr>
-<span id="more"></span>
-
-<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/29/%E8%AE%A1%E7%AE%97%E7%89%B9%E6%AE%8A%E5%A5%96%E9%87%91/image-20220529211730079.png" class title="examplename"></em></p>
-<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><h5 id="sql语句case-when用法详解"><a href="#sql语句case-when用法详解" class="headerlink" title="sql语句case when用法详解"></a>sql语句case when用法详解</h5><p>类似于witch case，</p>
-<p><strong>第一种 格式 : 简单Case函数 :</strong></p>
-<p>格式说明</p>
-<blockquote>
-<p>　　　　case 列名</p>
-<p>　　　　when 条件值1 then 选择项1</p>
-<p>　　　　when 条件值2 then 选项2…….</p>
-<p>　　　　else 默认值 end</p>
-</blockquote>
-<p><strong>第二种 格式 :Case搜索函数</strong></p>
-<p>格式说明</p>
-<blockquote>
-<p>　　　　case</p>
-<p>　　　　when 列名&#x3D; 条件值1 then 选择项1</p>
-<p>　　　　when 列名&#x3D;条件值2 then 选项2…….</p>
-<p>　　　　else 默认值 end</p>
-</blockquote>
-<ul>
-<li><p>sql语句</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> e.employee_id,</span><br><span class="line"><span class="keyword">CASE</span> </span><br><span class="line"><span class="keyword">WHEN</span> </span><br><span class="line">    <span class="built_in">MOD</span>(e.employee_id,<span class="number">2</span>) <span class="operator">=</span> <span class="number">1</span> <span class="operator">&amp;&amp;</span> e.name <span class="keyword">not</span> <span class="keyword">like</span> <span class="string">&#x27;M%&#x27;</span> </span><br><span class="line"><span class="keyword">then</span> e.salary <span class="keyword">else</span> <span class="number">0</span> <span class="keyword">end</span> <span class="keyword">as</span> bonus</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	Employees <span class="keyword">as</span> e</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> </span><br><span class="line">    e.employee_id;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-</ul>
-]]></content>
-      <categories>
-        <category>基础</category>
-        <category>mysql</category>
-        <category>SQL入门</category>
-        <category>排序 &amp; 修改</category>
-      </categories>
-      <tags>
-        <tag>mysql</tag>
-        <tag>SQL入门</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>认证与授权实现思路</title>
     <url>/2022/04/24/%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%8E%88%E6%9D%83%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF/</url>
     <content><![CDATA[<h2 id="认证与授权实现思路"><a href="#认证与授权实现思路" class="headerlink" title="认证与授权实现思路"></a>认证与授权实现思路</h2><p>Spring Security其实就是用<strong>filter</strong>，多请求的路径进行过滤。</p>
@@ -1736,55 +1696,6 @@
         <tag>面试题</tag>
         <tag>面试</tag>
         <tag>权限</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>调整数组顺序使奇数位于偶数前面</title>
-    <url>/2022/05/30/%E8%B0%83%E6%95%B4%E6%95%B0%E7%BB%84%E9%A1%BA%E5%BA%8F%E4%BD%BF%E5%A5%87%E6%95%B0%E4%BD%8D%E4%BA%8E%E5%81%B6%E6%95%B0%E5%89%8D%E9%9D%A2/</url>
-    <content><![CDATA[<hr>
-<span id="more"></span>
-
-<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/30/%E8%B0%83%E6%95%B4%E6%95%B0%E7%BB%84%E9%A1%BA%E5%BA%8F%E4%BD%BF%E5%A5%87%E6%95%B0%E4%BD%8D%E4%BA%8E%E5%81%B6%E6%95%B0%E5%89%8D%E9%9D%A2/image-20220530084144683.png" class title="examplename"></em></p>
-<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p><strong>1、使用list组合算法（差劲）</strong></p>
-<ul>
-<li><p><strong>解题思路：</strong>将奇数放在一个list，偶数放在一个list，最后合并，并转换为数组返回。</p>
-</li>
-<li><p><strong>复杂度分析：</strong></p>
-<ul>
-<li><strong>时间复杂度 O(N)  ：</strong>  <em>N</em> 为数组 nums 长度。</li>
-<li><strong>空间复杂度 O(N)  ：</strong>  <em>N</em> 为数组 nums 长度。</li>
-</ul>
-</li>
-<li><p><strong>代码：</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 使用list组合算法（差劲）</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] exchange(<span class="type">int</span>[] nums) &#123;</span><br><span class="line">        List&lt;Integer&gt; a = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        List&lt;Integer&gt; b = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        List&lt;Integer&gt; c = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> num : nums) &#123;</span><br><span class="line">            <span class="keyword">if</span> (num % <span class="number">2</span> == <span class="number">0</span>) &#123;</span><br><span class="line">                a.add(num);</span><br><span class="line">            &#125;<span class="keyword">else</span> b.add(num);</span><br><span class="line">        &#125;</span><br><span class="line">        c.addAll(a);</span><br><span class="line">        c.addAll(b);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 数组变list Arrays.stream(new String[]&#123;&quot;Mai&quot;, &quot;Jelly&quot;&#125;).collect(Collectors.toList());</span></span><br><span class="line">        <span class="comment">/* JDK1.8引⼊了Stream流概念可以把List转换成stream流，调⽤</span></span><br><span class="line"><span class="comment">        mapToInt⽅法将Integer对象转换成int类型，再调⽤toArray⽅法转换成数组。*/</span></span><br><span class="line">        <span class="keyword">return</span> c.stream().mapToInt(Integer::intValue).toArray();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<p><strong>2、双指针</strong></p>
-<ul>
-<li><p><strong>解题思路：</strong></p>
-<ol>
-<li>指针 <em>i</em> 从左向右寻找偶数；</li>
-<li>指针 <em>j</em> 从右向左寻找奇数；</li>
-<li>将 偶数 nums[i] 和 奇数 nums[j] 交换。</li>
-</ol>
-</li>
-<li><p><strong>复杂度分析：</strong></p>
-<ul>
-<li><strong>时间复杂度 O(N)  ：</strong>  <em>N</em> 为数组 nums 长度，双指针 <em>i</em>, <em>j</em> 共同遍历整个数组。</li>
-<li><strong>空间复杂度 O(1)  ：</strong>  双指针 <em>i</em>, <em>j</em> 使用常数大小的额外空间。</li>
-</ul>
-</li>
-<li><p><strong>代码：</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 双指针</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] exchange(<span class="type">int</span>[] nums) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>, j = nums.length -<span class="number">1</span>, tmp = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (i &lt; j) &#123;</span><br><span class="line">            <span class="keyword">while</span> (i &lt; j &amp;&amp; (nums[i] % <span class="number">2</span>) == <span class="number">1</span>) i++;</span><br><span class="line">            <span class="keyword">while</span> (i &lt; j &amp;&amp; (nums[j] % <span class="number">2</span>) == <span class="number">0</span>) j--;</span><br><span class="line">            tmp = nums[i];</span><br><span class="line">            nums[i] = nums[j];</span><br><span class="line">            nums[j] = tmp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> nums;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-]]></content>
-      <categories>
-        <category>剑指offer</category>
-        <category>双指针</category>
-      </categories>
-      <tags>
-        <tag>剑指offer</tag>
-        <tag>面试题</tag>
-        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -1846,6 +1757,95 @@
         <tag>剑指offer</tag>
         <tag>面试题</tag>
         <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>调整数组顺序使奇数位于偶数前面</title>
+    <url>/2022/05/30/%E8%B0%83%E6%95%B4%E6%95%B0%E7%BB%84%E9%A1%BA%E5%BA%8F%E4%BD%BF%E5%A5%87%E6%95%B0%E4%BD%8D%E4%BA%8E%E5%81%B6%E6%95%B0%E5%89%8D%E9%9D%A2/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/30/%E8%B0%83%E6%95%B4%E6%95%B0%E7%BB%84%E9%A1%BA%E5%BA%8F%E4%BD%BF%E5%A5%87%E6%95%B0%E4%BD%8D%E4%BA%8E%E5%81%B6%E6%95%B0%E5%89%8D%E9%9D%A2/image-20220530084144683.png" class title="examplename"></em></p>
+<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p><strong>1、使用list组合算法（差劲）</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong>将奇数放在一个list，偶数放在一个list，最后合并，并转换为数组返回。</p>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度 O(N)  ：</strong>  <em>N</em> 为数组 nums 长度。</li>
+<li><strong>空间复杂度 O(N)  ：</strong>  <em>N</em> 为数组 nums 长度。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 使用list组合算法（差劲）</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] exchange(<span class="type">int</span>[] nums) &#123;</span><br><span class="line">        List&lt;Integer&gt; a = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        List&lt;Integer&gt; b = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        List&lt;Integer&gt; c = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> num : nums) &#123;</span><br><span class="line">            <span class="keyword">if</span> (num % <span class="number">2</span> == <span class="number">0</span>) &#123;</span><br><span class="line">                a.add(num);</span><br><span class="line">            &#125;<span class="keyword">else</span> b.add(num);</span><br><span class="line">        &#125;</span><br><span class="line">        c.addAll(a);</span><br><span class="line">        c.addAll(b);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 数组变list Arrays.stream(new String[]&#123;&quot;Mai&quot;, &quot;Jelly&quot;&#125;).collect(Collectors.toList());</span></span><br><span class="line">        <span class="comment">/* JDK1.8引⼊了Stream流概念可以把List转换成stream流，调⽤</span></span><br><span class="line"><span class="comment">        mapToInt⽅法将Integer对象转换成int类型，再调⽤toArray⽅法转换成数组。*/</span></span><br><span class="line">        <span class="keyword">return</span> c.stream().mapToInt(Integer::intValue).toArray();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>2、双指针</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong></p>
+<ol>
+<li>指针 <em>i</em> 从左向右寻找偶数；</li>
+<li>指针 <em>j</em> 从右向左寻找奇数；</li>
+<li>将 偶数 nums[i] 和 奇数 nums[j] 交换。</li>
+</ol>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度 O(N)  ：</strong>  <em>N</em> 为数组 nums 长度，双指针 <em>i</em>, <em>j</em> 共同遍历整个数组。</li>
+<li><strong>空间复杂度 O(1)  ：</strong>  双指针 <em>i</em>, <em>j</em> 使用常数大小的额外空间。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 双指针</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] exchange(<span class="type">int</span>[] nums) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>, j = nums.length -<span class="number">1</span>, tmp = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (i &lt; j) &#123;</span><br><span class="line">            <span class="keyword">while</span> (i &lt; j &amp;&amp; (nums[i] % <span class="number">2</span>) == <span class="number">1</span>) i++;</span><br><span class="line">            <span class="keyword">while</span> (i &lt; j &amp;&amp; (nums[j] % <span class="number">2</span>) == <span class="number">0</span>) j--;</span><br><span class="line">            tmp = nums[i];</span><br><span class="line">            nums[i] = nums[j];</span><br><span class="line">            nums[j] = tmp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> nums;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>双指针</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>面试题</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算特殊奖金</title>
+    <url>/2022/05/29/%E8%AE%A1%E7%AE%97%E7%89%B9%E6%AE%8A%E5%A5%96%E9%87%91/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/29/%E8%AE%A1%E7%AE%97%E7%89%B9%E6%AE%8A%E5%A5%96%E9%87%91/image-20220529211730079.png" class title="examplename"></em></p>
+<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><h5 id="sql语句case-when用法详解"><a href="#sql语句case-when用法详解" class="headerlink" title="sql语句case when用法详解"></a>sql语句case when用法详解</h5><p>类似于witch case，</p>
+<p><strong>第一种 格式 : 简单Case函数 :</strong></p>
+<p>格式说明</p>
+<blockquote>
+<p>　　　　case 列名</p>
+<p>　　　　when 条件值1 then 选择项1</p>
+<p>　　　　when 条件值2 then 选项2…….</p>
+<p>　　　　else 默认值 end</p>
+</blockquote>
+<p><strong>第二种 格式 :Case搜索函数</strong></p>
+<p>格式说明</p>
+<blockquote>
+<p>　　　　case</p>
+<p>　　　　when 列名&#x3D; 条件值1 then 选择项1</p>
+<p>　　　　when 列名&#x3D;条件值2 then 选项2…….</p>
+<p>　　　　else 默认值 end</p>
+</blockquote>
+<ul>
+<li><p>sql语句</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> e.employee_id,</span><br><span class="line"><span class="keyword">CASE</span> </span><br><span class="line"><span class="keyword">WHEN</span> </span><br><span class="line">    <span class="built_in">MOD</span>(e.employee_id,<span class="number">2</span>) <span class="operator">=</span> <span class="number">1</span> <span class="operator">&amp;&amp;</span> e.name <span class="keyword">not</span> <span class="keyword">like</span> <span class="string">&#x27;M%&#x27;</span> </span><br><span class="line"><span class="keyword">then</span> e.salary <span class="keyword">else</span> <span class="number">0</span> <span class="keyword">end</span> <span class="keyword">as</span> bonus</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	Employees <span class="keyword">as</span> e</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> </span><br><span class="line">    e.employee_id;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>基础</category>
+        <category>mysql</category>
+        <category>SQL入门</category>
+        <category>排序 &amp; 修改</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
+        <tag>SQL入门</tag>
       </tags>
   </entry>
   <entry>
