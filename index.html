@@ -134,7 +134,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">42</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">43</span></a>
 
   </li>
         <li class="menu-item menu-item-links">
@@ -194,6 +194,136 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://nuc462.github.io/2022/05/31/%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/author.jpg">
+      <meta itemprop="name" content="wcy">
+      <meta itemprop="description" content="人在做，天在看">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="轩辕&小站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/31/%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/" class="post-title-link" itemprop="url">矩阵中的路径</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-05-31 14:55:19 / 修改时间：15:10:32" itemprop="dateCreated datePublished" datetime="2022-05-31T14:55:19+08:00">2022-05-31</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%91%E6%8C%87offer/" itemprop="url" rel="index"><span itemprop="name">剑指offer</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%91%E6%8C%87offer/%E6%90%9C%E7%B4%A2%E4%B8%8E%E5%9B%9E%E6%BA%AF/" itemprop="url" rel="index"><span itemprop="name">搜索与回溯</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%91%E6%8C%87offer/%E6%90%9C%E7%B4%A2%E4%B8%8E%E5%9B%9E%E6%BA%AF/%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" itemprop="url" rel="index"><span itemprop="name">深度优先搜索</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/05/31/%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/05/31/%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/31/%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/image-20220531145711793.png" class title="examplename"></em></p>
+<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p><strong>1、深度优先搜索（DFS）+ 剪枝</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong>本问题是典型的矩阵搜索问题，可使用 <strong>深度优先搜索（DFS）+ 剪枝</strong> 解决。</p>
+<ul>
+<li><strong>深度优先搜索：</strong> 可以理解为暴力法遍历矩阵中所有字符串可能性。DFS 通过递归，先朝一个方向搜到底，再回溯至上个节点，沿另一个方向搜索，以此类推。</li>
+<li><strong>剪枝：</strong> 在搜索中，遇到 <code>这条路不可能和目标字符串匹配成功</code> 的情况（例如：此矩阵元素和目标字符不同、此元素已被访问），则应立即返回，称之为 <code>可行性剪枝</code> 。</li>
+<li><em><img src="/2022/05/31/%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/image-20220531145941693.png" class title="examplename"></em></li>
+</ul>
+</li>
+<li><p><strong>解题中主要出现的问题：</strong></p>
+<ul>
+<li><p><code>board[i][j] = &#39;\0&#39;;</code></p>
+<blockquote>
+<p>​		使用空字符（Python: ‘’ , Java&#x2F;C++: ‘\0’ ）做标记是为了防止标记字符与矩阵原有字符重复。当存在重复时，此算法会将矩阵原有字符认作标记字符，从而出现错误。</p>
+</blockquote>
+</li>
+<li><p><code>board[i][j] = word[k];</code></p>
+<blockquote>
+<p>​		递归搜索匹配字符串过程中，需要 <code>board[i][j] = &#39;\0&#39;</code> 来防止 ”走回头路“ 。当匹配字符串不成功时，会回溯返回，此时需要<code>board[i][j] = tmp</code> 来”取消对此单元格的标记”。 在DFS过程中，每个单元格会多次被访问的， <code>board[i][j] = &#39;\0&#39;</code>只是要保证在当前匹配方案中不要走回头路。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<blockquote>
+<p><em>M</em>,<em>N</em> 分别为矩阵行列大小， <em>K</em> 为字符串 <code>word</code> 长度。</p>
+</blockquote>
+<ul>
+<li><strong>时间复杂度 O(3^KMN) ：</strong> 最差情况下，需要遍历矩阵中长度为 K 字符串的所有方案，时间复杂度为 **O(3^K)**；矩阵中共有 MN 个起点，时间复杂度为 **O(MN)**。<ul>
+<li><strong>方案数计算：</strong> 设字符串长度为 K ，搜索中每个字符有上、下、左、右四个方向可以选择，舍弃回头（上个字符）的方向，剩下 3 种选择，因此方案数的复杂度为 <strong>O(3^K)</strong> 。</li>
+</ul>
+</li>
+<li><strong>空间复杂度 O(K) ：</strong> 搜索过程中的递归深度不超过 K ，因此系统因函数调用累计使用的栈空间占用 <strong>O(K)</strong> （因为函数返回后，系统调用的栈空间会释放）。最坏情况下 <strong>K &#x3D; MN</strong> ，递归深度为 <strong>MN</strong> ，此时系统栈使用 <strong>O(MN)</strong> 的额外空间。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 深度优先搜索（DFS）+ 剪枝</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">exist</span><span class="params">(<span class="type">char</span>[][] board, String word)</span> &#123;</span><br><span class="line">        <span class="comment">// 将String类型的word变成char数组</span></span><br><span class="line">        <span class="type">char</span>[] words = word.toCharArray();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; board.length; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; board[<span class="number">0</span>].length; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (dfs(board,words,i,j,<span class="number">0</span>)) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 深度优先搜索</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> <span class="title function_">dfs</span><span class="params">(<span class="type">char</span>[][] board, <span class="type">char</span>[] words, <span class="type">int</span> i, <span class="type">int</span> j, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">        <span class="comment">// 当i，j超出边界，或矩阵中i行j列的元素不等于word第k个char，返回false</span></span><br><span class="line">        <span class="keyword">if</span> (i &lt; <span class="number">0</span> || j &lt; <span class="number">0</span> || i &gt;= board.length || j &gt;= board[<span class="number">0</span>].length || board[i][j] != words[k]) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="comment">// 当k为最后一位，因为前面判断了board[i][j] != words[k]，所以返回true</span></span><br><span class="line">        <span class="keyword">if</span>(k == words.length - <span class="number">1</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="comment">// 使用空字符（Python: &#x27;&#x27; , Java/C++: &#x27;\0&#x27; ）做标记是为了防止标记字符与矩阵原有字符重复。</span></span><br><span class="line">        <span class="comment">// 当存在重复时，此算法会将矩阵原有字符认作标记字符，从而出现错误。</span></span><br><span class="line">        board[i][j] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">        <span class="comment">// 搜索下一单元格： 朝当前元素的 上、下、左、右 四个方向开启下层递归，</span></span><br><span class="line">        <span class="comment">// 使用 或 连接 （代表只需找到一条可行路径就直接返回，不再做后续 DFS ），并记录结果至 res 。</span></span><br><span class="line">        <span class="type">boolean</span> <span class="variable">res</span> <span class="operator">=</span> dfs(board,words,i - <span class="number">1</span>,j,k+<span class="number">1</span>) || dfs(board,words,i ,j - <span class="number">1</span>,k+<span class="number">1</span>)</span><br><span class="line">                || dfs(board,words,i + <span class="number">1</span>,j,k+<span class="number">1</span>) || dfs(board,words,i ,j + <span class="number">1</span>,k+<span class="number">1</span>);</span><br><span class="line">        <span class="comment">// 递归搜索匹配字符串过程中，需要 board[i][j] = &#x27;\0&#x27; 来防止 “走回头路” 。</span></span><br><span class="line">        <span class="comment">// 当匹配字符串不成功时，会回溯返回，此时需要board[i][j] = tmp 来“取消对此单元格的标记”。</span></span><br><span class="line">        <span class="comment">// 在DFS过程中，每个单元格会多次被访问的，</span></span><br><span class="line">        <span class="comment">// board[i][j] = &#x27;\0&#x27;只是要保证在当前匹配方案中不要走回头路。</span></span><br><span class="line">        board[i][j] = words[k];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -574,107 +704,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://nuc462.github.io/2022/05/29/%E4%BB%8E%E4%B8%8D%E8%AE%A2%E8%B4%AD%E7%9A%84%E5%AE%A2%E6%88%B7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/author.jpg">
-      <meta itemprop="name" content="wcy">
-      <meta itemprop="description" content="人在做，天在看">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="轩辕&小站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/05/29/%E4%BB%8E%E4%B8%8D%E8%AE%A2%E8%B4%AD%E7%9A%84%E5%AE%A2%E6%88%B7/" class="post-title-link" itemprop="url">从不订购的客户</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-05-29 17:33:13 / 修改时间：21:24:26" itemprop="dateCreated datePublished" datetime="2022-05-29T17:33:13+08:00">2022-05-29</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%9F%BA%E7%A1%80/mysql/" itemprop="url" rel="index"><span itemprop="name">mysql</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%9F%BA%E7%A1%80/mysql/SQL%E5%85%A5%E9%97%A8/" itemprop="url" rel="index"><span itemprop="name">SQL入门</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%9F%BA%E7%A1%80/mysql/SQL%E5%85%A5%E9%97%A8/%E9%80%89%E6%8B%A9/" itemprop="url" rel="index"><span itemprop="name">选择</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/05/29/%E4%BB%8E%E4%B8%8D%E8%AE%A2%E8%B4%AD%E7%9A%84%E5%AE%A2%E6%88%B7/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/05/29/%E4%BB%8E%E4%B8%8D%E8%AE%A2%E8%B4%AD%E7%9A%84%E5%AE%A2%E6%88%B7/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <hr>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/05/29/%E4%BB%8E%E4%B8%8D%E8%AE%A2%E8%B4%AD%E7%9A%84%E5%AE%A2%E6%88%B7/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -746,7 +775,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
