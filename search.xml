@@ -2124,4 +2124,39 @@
         <tag>算法</tag>
       </tags>
   </entry>
+  <entry>
+    <title>二叉搜索树的第k大节点</title>
+    <url>/2022/06/01/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E7%AC%ACk%E5%A4%A7%E8%8A%82%E7%82%B9/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/06/01/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E7%AC%ACk%E5%A4%A7%E8%8A%82%E7%82%B9/image-20220601215320446.png" class title="examplename"></em></p>
+<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p><strong>1、中序遍历（倒序）</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong>中序遍历倒序，存入list，数量等于k时返回；优化是使用k–，即可。</p>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度 O(N)) ：</strong> 当树退化为链表时（全部为右子节点），无论 k 的值大小，递归深度都为 N ，占用 O(N) 时间。</li>
+<li><strong>空间复杂度 O(N) ：</strong> 当树退化为链表时（全部为右子节点），系统使用 O(N) 大小的栈空间。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line">    LinkedList&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">LinkedList</span>();</span><br><span class="line">    <span class="type">int</span> k;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">kthLargest</span><span class="params">(TreeNode root, <span class="type">int</span> k)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">this</span>.k = k;</span><br><span class="line">        dfs(root);</span><br><span class="line">        <span class="keyword">if</span> (list.size() != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> list.removeLast();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">dfs</span><span class="params">(TreeNode cur)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (cur == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        dfs(cur.right);</span><br><span class="line">        <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> list.size();</span><br><span class="line">        <span class="keyword">if</span> (a == k) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        list.add(cur.val);</span><br><span class="line">        dfs(cur.left);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>优化：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution3</span> &#123;</span><br><span class="line">    <span class="type">int</span> res, k;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">kthLargest</span><span class="params">(TreeNode root, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">this</span>.k = k;</span><br><span class="line">        dfs(root);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">dfs</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">null</span>) <span class="keyword">return</span>;</span><br><span class="line">        dfs(root.right);</span><br><span class="line">        <span class="comment">// 当k == 0 时，不用再继续遍历了，节省时间和空间</span></span><br><span class="line">        <span class="keyword">if</span>(k == <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">if</span>(--k == <span class="number">0</span>) res = root.val;</span><br><span class="line">        dfs(root.left);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>搜索与回溯</category>
+        <category>深度优先搜索</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>面试题</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
 </search>
