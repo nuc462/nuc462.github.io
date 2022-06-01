@@ -1984,4 +1984,65 @@
         <tag>算法</tag>
       </tags>
   </entry>
+  <entry>
+    <title>矩阵中的路径</title>
+    <url>/2022/05/31/%E6%9C%BA%E5%99%A8%E4%BA%BA%E7%9A%84%E8%BF%90%E5%8A%A8%E8%8C%83%E5%9B%B4/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/31/%E6%9C%BA%E5%99%A8%E4%BA%BA%E7%9A%84%E8%BF%90%E5%8A%A8%E8%8C%83%E5%9B%B4/image-20220601090921691.png" class title="examplename"></em></p>
+<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p><strong>解题所需前提：</strong></p>
+<p><em><img src="/2022/05/31/%E6%9C%BA%E5%99%A8%E4%BA%BA%E7%9A%84%E8%BF%90%E5%8A%A8%E8%8C%83%E5%9B%B4/image-20220601091323608.png" class title="examplename"></em></p>
+<p><strong>1、深度优先遍历</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong>本问题是典型的矩阵搜索问题，可使用 <strong>深度优先搜索（DFS）+ 剪枝</strong> 解决。</p>
+<ul>
+<li><strong>深度优先搜索：</strong> 可以理解为暴力法遍历矩阵中所有字符串可能性。DFS 通过递归，先朝一个方向搜到底，再回溯至上个节点，沿另一个方向搜索，以此类推。</li>
+<li><strong>剪枝：</strong> 在搜索中，遇到 <code>这条路不可能和目标字符串匹配成功</code> 的情况（例如：此矩阵元素和目标字符不同、此元素已被访问），则应立即返回，称之为 <code>可行性剪枝</code> 。</li>
+</ul>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<blockquote>
+<p>设矩阵行列数分别为 M, N 。</p>
+</blockquote>
+<p><strong>时间复杂度 O(MN) ：</strong> 最差情况下，机器人遍历矩阵所有单元格，此时时间复杂度为 O(MN) 。<br><strong>空间复杂度 O(MN) ：</strong> 最差情况下，visited 内存储矩阵所有单元格的索引，使用 O(MN) 的额外空间。</p>
+</li>
+<li><p><strong>代码：</strong></p>
+<ul>
+<li><p><strong>普通版（未使用位数和规则）</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 深度优先遍历，普通</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">movingCount</span><span class="params">(<span class="type">int</span> m, <span class="type">int</span> n, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">        <span class="comment">// 判断是否重复</span></span><br><span class="line">        <span class="type">boolean</span>[][] visited = <span class="keyword">new</span> <span class="title class_">boolean</span>[m][n];</span><br><span class="line">        <span class="keyword">return</span> dfs(<span class="number">0</span>,<span class="number">0</span>,m,n,k,visited);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">dfs</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b, <span class="type">int</span> m, <span class="type">int</span> n, <span class="type">int</span> k, <span class="type">boolean</span>[][] visited)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (a &gt;= <span class="number">0</span> &amp;&amp; a &lt; m &amp;&amp; b &gt;= <span class="number">0</span> &amp;&amp; b &lt; n</span><br><span class="line">                &amp;&amp; (a % <span class="number">10</span> + a / <span class="number">10</span> + a / <span class="number">100</span> + b % <span class="number">10</span> + b / <span class="number">10</span> + b / <span class="number">100</span>) &lt;= k</span><br><span class="line">                &amp;&amp; visited[a][b] == <span class="literal">false</span>) &#123;</span><br><span class="line">            visited[a][b] = <span class="literal">true</span>;</span><br><span class="line">            <span class="comment">// 1是(0,0)位置，只需递归他右面和下面的即可</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span> + dfs(a + <span class="number">1</span>, b, m, n, k, visited) + dfs(a, b + <span class="number">1</span>, m, n, k, visited);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>复杂版（使用位数和规则）</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 深度优先遍历，复杂（找到位数和的规律，不需要每次计算，直接递归即可），第一种的优化</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line">    <span class="type">int</span> m, n, k;</span><br><span class="line">    <span class="type">boolean</span>[][] visited;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">movingCount</span><span class="params">(<span class="type">int</span> m, <span class="type">int</span> n, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.m = m; <span class="built_in">this</span>.n = n; <span class="built_in">this</span>.k = k;</span><br><span class="line">        <span class="built_in">this</span>.visited = <span class="keyword">new</span> <span class="title class_">boolean</span>[m][n];</span><br><span class="line">        <span class="keyword">return</span> dfs(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 当前元素在矩阵中的行列索引 i 和 j ，两者的数位和 si, sj</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">dfs</span><span class="params">(<span class="type">int</span> i, <span class="type">int</span> j, <span class="type">int</span> si, <span class="type">int</span> sj)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(i &gt;= m || j &gt;= n || k &lt; si + sj || visited[i][j]) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        visited[i][j] = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span> + dfs(i + <span class="number">1</span>, j, (i + <span class="number">1</span>) % <span class="number">10</span> != <span class="number">0</span> ? si + <span class="number">1</span> : si - <span class="number">8</span>, sj) + dfs(i, j + <span class="number">1</span>, si, (j + <span class="number">1</span>) % <span class="number">10</span> != <span class="number">0</span> ? sj + <span class="number">1</span> : sj - <span class="number">8</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<p><strong>2、广度优先遍历</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong></p>
+<ul>
+<li><em><img src="/2022/05/31/%E6%9C%BA%E5%99%A8%E4%BA%BA%E7%9A%84%E8%BF%90%E5%8A%A8%E8%8C%83%E5%9B%B4/image-20220601091942449.png" class title="examplename"></em></li>
+</ul>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<blockquote>
+<p>设矩阵行列数分别为 M, N 。</p>
+</blockquote>
+<p><strong>时间复杂度 O(MN) ：</strong> 最差情况下，机器人遍历矩阵所有单元格，此时时间复杂度为 O(MN) 。<br><strong>空间复杂度 O(MN) ：</strong> 最差情况下，visited 内存储矩阵所有单元格的索引，使用 O(MN) 的额外空间。</p>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 广度优先遍历</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution3</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">movingCount</span><span class="params">(<span class="type">int</span> m, <span class="type">int</span> n, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">        <span class="type">boolean</span>[][] visited = <span class="keyword">new</span> <span class="title class_">boolean</span>[m][n];</span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        LinkedList&lt;<span class="type">int</span>[]&gt; queue = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">        queue.add(<span class="keyword">new</span> <span class="title class_">int</span>[] &#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>&#125;);</span><br><span class="line">        <span class="keyword">while</span> (queue.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="type">int</span>[] poll = queue.poll();</span><br><span class="line">            <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> poll[<span class="number">0</span>],j = poll[<span class="number">1</span>],si = poll[<span class="number">2</span>],sj = poll[<span class="number">3</span>];</span><br><span class="line">            <span class="keyword">if</span> (i &gt;= m || j &gt;= n || si + sj &gt; k || visited[i][j]) <span class="keyword">continue</span>;</span><br><span class="line">            visited[i][j] = <span class="literal">true</span>;</span><br><span class="line">            count++;</span><br><span class="line">            queue.add(<span class="keyword">new</span> <span class="title class_">int</span>[] &#123;i + <span class="number">1</span>,j,(i + <span class="number">1</span>) % <span class="number">10</span> != <span class="number">0</span> ? si + <span class="number">1</span> : si - <span class="number">8</span>, sj&#125;);</span><br><span class="line">            queue.add(<span class="keyword">new</span> <span class="title class_">int</span>[] &#123;i ,j + <span class="number">1</span>, si, (j + <span class="number">1</span>) % <span class="number">10</span> != <span class="number">0</span> ? sj + <span class="number">1</span> : sj - <span class="number">8</span>&#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>搜索与回溯</category>
+        <category>深度优先搜索</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>面试题</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
 </search>
