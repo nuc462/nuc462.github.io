@@ -1,60 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>0～n-1中缺失的数字</title>
-    <url>/2022/05/22/0%EF%BD%9En-1%E4%B8%AD%E7%BC%BA%E5%A4%B1%E7%9A%84%E6%95%B0%E5%AD%97/</url>
-    <content><![CDATA[<hr>
-<span id="more"></span>
-
-<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/22/0%EF%BD%9En-1%E4%B8%AD%E7%BC%BA%E5%A4%B1%E7%9A%84%E6%95%B0%E5%AD%97/image-20220522212717368.png" class title="examplename"></em></p>
-<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p><strong>1、普通遍历：</strong></p>
-<ul>
-<li><p><strong>思路一：</strong>正常是后一个比前一个大一，找不正常的</p>
-<ul>
-<li><p><strong>代码：</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 遍历求解，思路是正常是后一个比前一个大一，找不正常的</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">missingNumber</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i == nums.length -<span class="number">1</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span> (nums[<span class="number">0</span>] != <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span> <span class="keyword">return</span> nums[i] + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (i != nums.length-<span class="number">1</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span> (nums[i+<span class="number">1</span>] == nums[i] + <span class="number">1</span>) &#123;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">return</span> nums[i] + <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 如果为空返回0</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p><strong>思路二：</strong>正常是数组下标位置对应数组的值，找不正常的</p>
-<ul>
-<li><p><strong>代码：</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">missingNumber</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i&lt;nums.length;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i]!=i) <span class="keyword">return</span> i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 如果是前面是连续的，后面没有东西，则得返回长度;</span></span><br><span class="line">        <span class="keyword">return</span> nums.length;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p><strong>复杂度分析：</strong></p>
-<ul>
-<li><strong>时间复杂度：</strong>O(n)</li>
-<li><strong>空间复杂度：</strong>O(1)</li>
-</ul>
-</li>
-</ul>
-<p><strong>2、二分法实现</strong></p>
-<ul>
-<li><p><strong>思路：</strong>划分为俩个组，一个是正常的组，一个比自身位置大于1的组，最后left&gt;right,输出。</p>
-<ul>
-<li><p><strong>代码：</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 二分法实现，思路就是划分为俩个组，一个是正常的组，一个比自身位置大于1的组，最后left&gt;right,输出</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution3</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">missingNumber</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">right</span> <span class="operator">=</span> nums.length - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (left &lt;= right) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">mid</span> <span class="operator">=</span> left + (right - left) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (nums[mid] &gt; mid) &#123;</span><br><span class="line">                right = mid -<span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> left = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> left;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p><strong>复杂度分析：</strong></p>
-<ul>
-<li><strong>时间复杂度：</strong>O(logn)</li>
-<li><strong>空间复杂度：</strong>O(1)</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>剑指offer</category>
-        <category>查找算法</category>
-      </categories>
-      <tags>
-        <tag>剑指offer</tag>
-        <tag>面试题</tag>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>No primary or default constructor found for interface java.util.List原因和解决方法</title>
     <url>/2022/04/24/No%20primary%20or%20default%20constructor%20found%20for%20interface%20java.util.List%E5%8E%9F%E5%9B%A0%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</url>
     <content><![CDATA[<h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3><p>是list是接口，没有<strong>构造函数</strong></p>
@@ -118,6 +64,60 @@
       <tags>
         <tag>基础</tag>
         <tag>集合</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>0～n-1中缺失的数字</title>
+    <url>/2022/05/22/0%EF%BD%9En-1%E4%B8%AD%E7%BC%BA%E5%A4%B1%E7%9A%84%E6%95%B0%E5%AD%97/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/22/0%EF%BD%9En-1%E4%B8%AD%E7%BC%BA%E5%A4%B1%E7%9A%84%E6%95%B0%E5%AD%97/image-20220522212717368.png" class title="examplename"></em></p>
+<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p><strong>1、普通遍历：</strong></p>
+<ul>
+<li><p><strong>思路一：</strong>正常是后一个比前一个大一，找不正常的</p>
+<ul>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 遍历求解，思路是正常是后一个比前一个大一，找不正常的</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">missingNumber</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i == nums.length -<span class="number">1</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span> (nums[<span class="number">0</span>] != <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span> <span class="keyword">return</span> nums[i] + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (i != nums.length-<span class="number">1</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span> (nums[i+<span class="number">1</span>] == nums[i] + <span class="number">1</span>) &#123;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">return</span> nums[i] + <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 如果为空返回0</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong>思路二：</strong>正常是数组下标位置对应数组的值，找不正常的</p>
+<ul>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">missingNumber</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i&lt;nums.length;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i]!=i) <span class="keyword">return</span> i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 如果是前面是连续的，后面没有东西，则得返回长度;</span></span><br><span class="line">        <span class="keyword">return</span> nums.length;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度：</strong>O(n)</li>
+<li><strong>空间复杂度：</strong>O(1)</li>
+</ul>
+</li>
+</ul>
+<p><strong>2、二分法实现</strong></p>
+<ul>
+<li><p><strong>思路：</strong>划分为俩个组，一个是正常的组，一个比自身位置大于1的组，最后left&gt;right,输出。</p>
+<ul>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 二分法实现，思路就是划分为俩个组，一个是正常的组，一个比自身位置大于1的组，最后left&gt;right,输出</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution3</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">missingNumber</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">right</span> <span class="operator">=</span> nums.length - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (left &lt;= right) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">mid</span> <span class="operator">=</span> left + (right - left) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (nums[mid] &gt; mid) &#123;</span><br><span class="line">                right = mid -<span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> left = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> left;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度：</strong>O(logn)</li>
+<li><strong>空间复杂度：</strong>O(1)</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>查找算法</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>面试题</tag>
+        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -320,6 +320,37 @@
       </tags>
   </entry>
   <entry>
+    <title>从上到下打印二叉树</title>
+    <url>/2022/05/24/%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/24/%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91/image-20220524154009085.png" class title="examplename"></em></p>
+<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><ul>
+<li><p><strong>解题思路：</strong>判断当队列不为空时，进行将队列中树指针所指向的值有数值的值放入list集合，最后遍历list集合给数组并返回。</p>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度 O(N) ：</strong> N 为二叉树的节点数量，即 BFS 需循环 N 次。</li>
+<li><strong>空间复杂度 O(N) ：</strong> 最差情况下，即当树为平衡二叉树时，最多有 N&#x2F;2个树节点同时在 queue 中，使用 O(N)大小的额外空间。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">TreeNode</span> &#123;</span><br><span class="line">     <span class="type">int</span> val;</span><br><span class="line">      TreeNode left;</span><br><span class="line">      TreeNode right;</span><br><span class="line">      TreeNode(<span class="type">int</span> x) &#123; val = x; &#125;</span><br><span class="line"> &#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] levelOrder(TreeNode root) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 初始化队列，将树的头结点指针放到队列中，&#123;&#123; add(root); &#125;&#125;;是匿名内部方法，相当于queue.add(root);</span></span><br><span class="line">        Queue&lt;TreeNode&gt; queue  = <span class="keyword">new</span> <span class="title class_">LinkedList</span>() &#123;&#123; add(root); &#125;&#125;;</span><br><span class="line">        <span class="comment">// 初始化list集合</span></span><br><span class="line">        ArrayList&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 判断当队列不为空时，进行将队列中树指针所指向的值有数值的值放入list集合</span></span><br><span class="line">        <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">            <span class="comment">// 移除并返问队列头部的元素,给TreeNode类型，队列里的树的指针根据队列的特性，先进先出，实现广度优先遍历</span></span><br><span class="line">            <span class="type">TreeNode</span> <span class="variable">node</span> <span class="operator">=</span> queue.poll();</span><br><span class="line">            System.out.println(node);</span><br><span class="line">            list.add(node.val);</span><br><span class="line">            <span class="keyword">if</span> (node.left != <span class="literal">null</span>) &#123;</span><br><span class="line">                queue.add(node.left);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (node.right != <span class="literal">null</span>) &#123;</span><br><span class="line">                queue.add(node.right);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span>[] a = <span class="keyword">new</span> <span class="title class_">int</span>[list.size()];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; list.size(); i++) &#123;</span><br><span class="line">            a[i] = list.get(i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>搜索与回溯</category>
+        <category>广度优先搜索</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>面试题</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>从上到下打印二叉树II</title>
     <url>/2022/05/24/%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91II/</url>
     <content><![CDATA[<hr>
@@ -340,37 +371,6 @@
 </li>
 <li><p><strong>代码：</strong></p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"> <span class="keyword">class</span> <span class="title class_">TreeNode</span> &#123;</span><br><span class="line">      <span class="type">int</span> val;</span><br><span class="line">      TreeNode left;</span><br><span class="line">      TreeNode right;</span><br><span class="line">      TreeNode(<span class="type">int</span> x) &#123; val = x; &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="title function_">levelOrder</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 初始化队列</span></span><br><span class="line">        Queue&lt;TreeNode&gt; queue  = <span class="keyword">new</span> <span class="title class_">LinkedList</span>() &#123;&#123; add(root); &#125;&#125;;</span><br><span class="line">        <span class="comment">// 初始化返回的list</span></span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">            List&lt;Integer&gt; tmp = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">            <span class="comment">// 这样避免了因为queue的值改变，queue.size()变化而报错的情况</span></span><br><span class="line">            <span class="comment">// 或者可以这样解决</span></span><br><span class="line">            <span class="comment">/*</span></span><br><span class="line"><span class="comment">            * int currentLevelSize = queue.size();</span></span><br><span class="line"><span class="comment">            * for (int i = 1; i &lt;= currentLevelSize; ++i)&#123;...&#125;</span></span><br><span class="line"><span class="comment">            * */</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> queue.size(); i &gt; <span class="number">0</span>; i--) &#123;</span><br><span class="line">                <span class="type">TreeNode</span> <span class="variable">poll</span> <span class="operator">=</span> queue.poll();</span><br><span class="line">                tmp.add(poll.val);</span><br><span class="line">                <span class="keyword">if</span> (poll.left != <span class="literal">null</span>) &#123;</span><br><span class="line">                    queue.add(poll.left);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (poll.right != <span class="literal">null</span>) &#123;</span><br><span class="line">                    queue.add(poll.right);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            list.add(tmp);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-]]></content>
-      <categories>
-        <category>剑指offer</category>
-        <category>搜索与回溯</category>
-        <category>广度优先搜索</category>
-      </categories>
-      <tags>
-        <tag>剑指offer</tag>
-        <tag>面试题</tag>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>从上到下打印二叉树</title>
-    <url>/2022/05/24/%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
-    <content><![CDATA[<hr>
-<span id="more"></span>
-
-<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/24/%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91/image-20220524154009085.png" class title="examplename"></em></p>
-<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><ul>
-<li><p><strong>解题思路：</strong>判断当队列不为空时，进行将队列中树指针所指向的值有数值的值放入list集合，最后遍历list集合给数组并返回。</p>
-</li>
-<li><p><strong>复杂度分析：</strong></p>
-<ul>
-<li><strong>时间复杂度 O(N) ：</strong> N 为二叉树的节点数量，即 BFS 需循环 N 次。</li>
-<li><strong>空间复杂度 O(N) ：</strong> 最差情况下，即当树为平衡二叉树时，最多有 N&#x2F;2个树节点同时在 queue 中，使用 O(N)大小的额外空间。</li>
-</ul>
-</li>
-<li><p><strong>代码：</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">TreeNode</span> &#123;</span><br><span class="line">     <span class="type">int</span> val;</span><br><span class="line">      TreeNode left;</span><br><span class="line">      TreeNode right;</span><br><span class="line">      TreeNode(<span class="type">int</span> x) &#123; val = x; &#125;</span><br><span class="line"> &#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] levelOrder(TreeNode root) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 初始化队列，将树的头结点指针放到队列中，&#123;&#123; add(root); &#125;&#125;;是匿名内部方法，相当于queue.add(root);</span></span><br><span class="line">        Queue&lt;TreeNode&gt; queue  = <span class="keyword">new</span> <span class="title class_">LinkedList</span>() &#123;&#123; add(root); &#125;&#125;;</span><br><span class="line">        <span class="comment">// 初始化list集合</span></span><br><span class="line">        ArrayList&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 判断当队列不为空时，进行将队列中树指针所指向的值有数值的值放入list集合</span></span><br><span class="line">        <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">            <span class="comment">// 移除并返问队列头部的元素,给TreeNode类型，队列里的树的指针根据队列的特性，先进先出，实现广度优先遍历</span></span><br><span class="line">            <span class="type">TreeNode</span> <span class="variable">node</span> <span class="operator">=</span> queue.poll();</span><br><span class="line">            System.out.println(node);</span><br><span class="line">            list.add(node.val);</span><br><span class="line">            <span class="keyword">if</span> (node.left != <span class="literal">null</span>) &#123;</span><br><span class="line">                queue.add(node.left);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (node.right != <span class="literal">null</span>) &#123;</span><br><span class="line">                queue.add(node.right);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span>[] a = <span class="keyword">new</span> <span class="title class_">int</span>[list.size()];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; list.size(); i++) &#123;</span><br><span class="line">            a[i] = list.get(i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 ]]></content>
       <categories>
@@ -458,28 +458,6 @@
       </tags>
   </entry>
   <entry>
-    <title>从尾到头打印链表</title>
-    <url>/2022/05/21/%E4%BB%8E%E5%B0%BE%E5%88%B0%E5%A4%B4%E6%89%93%E5%8D%B0%E9%93%BE%E8%A1%A8/</url>
-    <content><![CDATA[<hr>
-<span id="more"></span>
-
-<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/21/%E4%BB%8E%E5%B0%BE%E5%88%B0%E5%A4%B4%E6%89%93%E5%8D%B0%E9%93%BE%E8%A1%A8/image-20220521104152321.png" class title="examplename"></em></p>
-<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p><strong>1、方法一：使用辅助栈实现</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"></span><br><span class="line">    LinkedList&lt;Integer&gt; stack = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] reversePrint(ListNode head) &#123;</span><br><span class="line">        stack = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;Integer&gt;();</span><br><span class="line">        <span class="keyword">while</span> (!(head == <span class="literal">null</span>))&#123;</span><br><span class="line">            stack.push(head.val);</span><br><span class="line">            head = head.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span>[] a = <span class="keyword">new</span> <span class="title class_">int</span>[stack.size()];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; a.length; i++) &#123;</span><br><span class="line">                a[i] = stack.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>方法二：使用递归实现</strong>（从后往前将链表中的数据放入list里）</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line"></span><br><span class="line">    ArrayList&lt;Integer&gt; tmp = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] reversePrint(ListNode head) &#123;</span><br><span class="line">        recur(head);</span><br><span class="line">        <span class="type">int</span>[] a = <span class="keyword">new</span> <span class="title class_">int</span>[tmp.size()];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; a.length; i++) &#123;</span><br><span class="line">            a[i] = tmp.get(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">recur</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (head == <span class="literal">null</span>) <span class="keyword">return</span>;</span><br><span class="line">        recur(head.next);</span><br><span class="line">        tmp.add(head.val);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>剑指offer</category>
-        <category>链表</category>
-      </categories>
-      <tags>
-        <tag>剑指offer</tag>
-        <tag>面试题</tag>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>从不订购的客户</title>
     <url>/2022/05/29/%E4%BB%8E%E4%B8%8D%E8%AE%A2%E8%B4%AD%E7%9A%84%E5%AE%A2%E6%88%B7/</url>
     <content><![CDATA[<hr>
@@ -511,6 +489,28 @@
       <tags>
         <tag>mysql</tag>
         <tag>SQL入门</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>从尾到头打印链表</title>
+    <url>/2022/05/21/%E4%BB%8E%E5%B0%BE%E5%88%B0%E5%A4%B4%E6%89%93%E5%8D%B0%E9%93%BE%E8%A1%A8/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/21/%E4%BB%8E%E5%B0%BE%E5%88%B0%E5%A4%B4%E6%89%93%E5%8D%B0%E9%93%BE%E8%A1%A8/image-20220521104152321.png" class title="examplename"></em></p>
+<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p><strong>1、方法一：使用辅助栈实现</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"></span><br><span class="line">    LinkedList&lt;Integer&gt; stack = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] reversePrint(ListNode head) &#123;</span><br><span class="line">        stack = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;Integer&gt;();</span><br><span class="line">        <span class="keyword">while</span> (!(head == <span class="literal">null</span>))&#123;</span><br><span class="line">            stack.push(head.val);</span><br><span class="line">            head = head.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span>[] a = <span class="keyword">new</span> <span class="title class_">int</span>[stack.size()];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; a.length; i++) &#123;</span><br><span class="line">                a[i] = stack.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>方法二：使用递归实现</strong>（从后往前将链表中的数据放入list里）</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line"></span><br><span class="line">    ArrayList&lt;Integer&gt; tmp = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] reversePrint(ListNode head) &#123;</span><br><span class="line">        recur(head);</span><br><span class="line">        <span class="type">int</span>[] a = <span class="keyword">new</span> <span class="title class_">int</span>[tmp.size()];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; a.length; i++) &#123;</span><br><span class="line">            a[i] = tmp.get(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">recur</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (head == <span class="literal">null</span>) <span class="keyword">return</span>;</span><br><span class="line">        recur(head.next);</span><br><span class="line">        tmp.add(head.val);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>链表</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>面试题</tag>
+        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -568,30 +568,6 @@
       <categories>
         <category>剑指offer</category>
         <category>双指针</category>
-      </categories>
-      <tags>
-        <tag>剑指offer</tag>
-        <tag>面试题</tag>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>包含min函数的栈</title>
-    <url>/2022/05/21/%E5%8C%85%E5%90%ABmin%E5%87%BD%E6%95%B0%E7%9A%84%E6%A0%88/</url>
-    <content><![CDATA[<hr>
-<span id="more"></span>
-
-<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/21/%E5%8C%85%E5%90%ABmin%E5%87%BD%E6%95%B0%E7%9A%84%E6%A0%88/image-20220521102533380.png" class title="examplename"></em></p>
-<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p><strong>1、解法一：最笨方法，遍历栈实现</strong>（时间复杂度O(n)）</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MinStack</span> &#123;</span><br><span class="line">    Stack&lt;Integer&gt; stack = <span class="literal">null</span>;</span><br><span class="line">    <span class="comment">/** initialize your data structure here. */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MinStack</span><span class="params">()</span> &#123;</span><br><span class="line">        stack = <span class="keyword">new</span> <span class="title class_">Stack</span>&lt;Integer&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">push</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">        stack.push(x);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">pop</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!stack.empty())&#123;</span><br><span class="line">            stack.pop();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">top</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">peek</span> <span class="operator">=</span> (<span class="type">int</span>) stack.peek();</span><br><span class="line">        <span class="keyword">return</span> peek;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">min</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!stack.empty())&#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">min</span> <span class="operator">=</span> stack.peek();</span><br><span class="line">            <span class="keyword">for</span> (Integer x : stack) &#123;</span><br><span class="line">                <span class="keyword">if</span> (x &lt; min) &#123;</span><br><span class="line">                    min = x;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> min;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>2、解法二：多加一个栈，时间复杂度从O(n)变到O(1)</strong> （优解）</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MinStack</span> &#123;</span><br><span class="line">    Stack&lt;Integer&gt; stack1= <span class="literal">null</span>;</span><br><span class="line">    Stack&lt;Integer&gt; stack2 = <span class="literal">null</span>;</span><br><span class="line">    <span class="comment">/** initialize your data structure here. */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MinStack</span><span class="params">()</span> &#123;</span><br><span class="line">        stack1 = <span class="keyword">new</span> <span class="title class_">Stack</span>&lt;Integer&gt;();</span><br><span class="line">        stack2 = <span class="keyword">new</span> <span class="title class_">Stack</span>&lt;Integer&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">push</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">        stack1.push(x);</span><br><span class="line">        <span class="keyword">if</span> (stack2.empty() || stack2.peek() &gt;= x) &#123;</span><br><span class="line">            stack2.push(x);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">pop</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!stack1.empty())&#123;</span><br><span class="line">            <span class="keyword">if</span> (stack1.peek().equals(stack2.peek()))&#123;</span><br><span class="line">                stack2.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            stack1.pop();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">top</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">peek</span> <span class="operator">=</span> (<span class="type">int</span>) stack1.peek();</span><br><span class="line">        <span class="keyword">return</span> peek;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">min</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!stack1.empty())&#123;</span><br><span class="line">            <span class="keyword">return</span> stack2.peek();</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>剑指offer</category>
-        <category>栈与队列</category>
       </categories>
       <tags>
         <tag>剑指offer</tag>
@@ -670,6 +646,30 @@
       </tags>
   </entry>
   <entry>
+    <title>包含min函数的栈</title>
+    <url>/2022/05/21/%E5%8C%85%E5%90%ABmin%E5%87%BD%E6%95%B0%E7%9A%84%E6%A0%88/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/21/%E5%8C%85%E5%90%ABmin%E5%87%BD%E6%95%B0%E7%9A%84%E6%A0%88/image-20220521102533380.png" class title="examplename"></em></p>
+<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p><strong>1、解法一：最笨方法，遍历栈实现</strong>（时间复杂度O(n)）</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MinStack</span> &#123;</span><br><span class="line">    Stack&lt;Integer&gt; stack = <span class="literal">null</span>;</span><br><span class="line">    <span class="comment">/** initialize your data structure here. */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MinStack</span><span class="params">()</span> &#123;</span><br><span class="line">        stack = <span class="keyword">new</span> <span class="title class_">Stack</span>&lt;Integer&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">push</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">        stack.push(x);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">pop</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!stack.empty())&#123;</span><br><span class="line">            stack.pop();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">top</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">peek</span> <span class="operator">=</span> (<span class="type">int</span>) stack.peek();</span><br><span class="line">        <span class="keyword">return</span> peek;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">min</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!stack.empty())&#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">min</span> <span class="operator">=</span> stack.peek();</span><br><span class="line">            <span class="keyword">for</span> (Integer x : stack) &#123;</span><br><span class="line">                <span class="keyword">if</span> (x &lt; min) &#123;</span><br><span class="line">                    min = x;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> min;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>2、解法二：多加一个栈，时间复杂度从O(n)变到O(1)</strong> （优解）</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MinStack</span> &#123;</span><br><span class="line">    Stack&lt;Integer&gt; stack1= <span class="literal">null</span>;</span><br><span class="line">    Stack&lt;Integer&gt; stack2 = <span class="literal">null</span>;</span><br><span class="line">    <span class="comment">/** initialize your data structure here. */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MinStack</span><span class="params">()</span> &#123;</span><br><span class="line">        stack1 = <span class="keyword">new</span> <span class="title class_">Stack</span>&lt;Integer&gt;();</span><br><span class="line">        stack2 = <span class="keyword">new</span> <span class="title class_">Stack</span>&lt;Integer&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">push</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">        stack1.push(x);</span><br><span class="line">        <span class="keyword">if</span> (stack2.empty() || stack2.peek() &gt;= x) &#123;</span><br><span class="line">            stack2.push(x);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">pop</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!stack1.empty())&#123;</span><br><span class="line">            <span class="keyword">if</span> (stack1.peek().equals(stack2.peek()))&#123;</span><br><span class="line">                stack2.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            stack1.pop();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">top</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">peek</span> <span class="operator">=</span> (<span class="type">int</span>) stack1.peek();</span><br><span class="line">        <span class="keyword">return</span> peek;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">min</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!stack1.empty())&#123;</span><br><span class="line">            <span class="keyword">return</span> stack2.peek();</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>栈与队列</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>面试题</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>合并两个排序的链表</title>
     <url>/2022/05/29/%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E7%9A%84%E9%93%BE%E8%A1%A8/</url>
     <content><![CDATA[<hr>
@@ -730,40 +730,6 @@
       <categories>
         <category>剑指offer</category>
         <category>双指针</category>
-      </categories>
-      <tags>
-        <tag>剑指offer</tag>
-        <tag>面试题</tag>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>在排序数组中查找数字1</title>
-    <url>/2022/05/22/%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E6%95%B0%E5%AD%971/</url>
-    <content><![CDATA[<hr>
-<span id="more"></span>
-
-<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/22/%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E6%95%B0%E5%AD%971/image-20220522200203070.png" class title="examplename"></em></p>
-<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p><strong>1、二分法</strong></p>
-<ul>
-<li><p><strong>解题思路：</strong></p>
-<ul>
-<li>使用二分法分别找到 左边界 left和 右边界 right ，易得数字 target 的数量为right−left−1 。</li>
-</ul>
-</li>
-<li><p><strong>复杂度分析：</strong></p>
-<ul>
-<li><strong>时间复杂度 O(log N)：</strong> 二分法为对数级别复杂度。</li>
-<li><strong>空间复杂度 O(1)：</strong> 几个变量使用常数大小的额外空间。</li>
-</ul>
-</li>
-<li><p><strong>代码：</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">search</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> target)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> nums.length;</span><br><span class="line">        <span class="keyword">if</span> (len == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> <span class="variable">firstPosition</span> <span class="operator">=</span> findFirstPosition(nums,target);</span><br><span class="line">        <span class="keyword">if</span> (firstPosition == -<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> <span class="variable">lastPosition</span> <span class="operator">=</span> findLastPosition(nums,target);</span><br><span class="line">        <span class="keyword">return</span> lastPosition - firstPosition + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 查找target第一次出现的位置</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">findFirstPosition</span><span class="params">(<span class="type">int</span>[] nums,<span class="type">int</span> target)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">right</span> <span class="operator">=</span> nums.length-<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (right &gt; left)&#123;</span><br><span class="line">            <span class="comment">// 这样写避免left+right在值很大的时候整型溢出</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">mid</span> <span class="operator">=</span> left + (right - left) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (nums[mid] &lt; target) &#123;</span><br><span class="line">                <span class="comment">// [mid+1 ... right]</span></span><br><span class="line">                left = mid + <span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// [left ... mid]</span></span><br><span class="line">                right = mid;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (nums[left] == target) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> left;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 查找target最后一次出现的位置</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">findLastPosition</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> target)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">right</span> <span class="operator">=</span> nums.length-<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (right &gt; left)&#123;</span><br><span class="line">            <span class="comment">// 这样写避免left+right在值很大的时候整型溢出</span></span><br><span class="line">            <span class="comment">// 将mid赋值给left的时候要向上取整，不然left可能永远小于right，也就永远跳不出循环</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">mid</span> <span class="operator">=</span> left + (right - left + <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (nums[mid] &lt;= target) &#123;</span><br><span class="line">                <span class="comment">// [mid ... right]</span></span><br><span class="line">                left = mid;</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// [left ... mid-1]</span></span><br><span class="line">                right = mid - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 因为int firstPosition = findFirstPosition(nums,target);已经找到target了，所以必有target，直接返回left即可。</span></span><br><span class="line">        <span class="comment">//if (nums[left] == target) &#123;</span></span><br><span class="line">        <span class="comment">//    System.out.println(left);</span></span><br><span class="line">        <span class="comment">//    return left;</span></span><br><span class="line">        <span class="comment">//&#125;</span></span><br><span class="line">        <span class="comment">//return -1;</span></span><br><span class="line">        <span class="keyword">return</span> left;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//@Test</span></span><br><span class="line">    <span class="comment">//void test() &#123;</span></span><br><span class="line">    <span class="comment">//        int[] nums = &#123;5,7,7,8,8,10&#125;;</span></span><br><span class="line">    <span class="comment">//    int search = this.search(nums, 8);</span></span><br><span class="line">    <span class="comment">//    System.out.println(search);</span></span><br><span class="line">    <span class="comment">//&#125;</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-]]></content>
-      <categories>
-        <category>剑指offer</category>
-        <category>查找算法</category>
       </categories>
       <tags>
         <tag>剑指offer</tag>
@@ -875,6 +841,60 @@
       <categories>
         <category>剑指offer</category>
         <category>搜索与回溯</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>面试题</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>在排序数组中查找数字1</title>
+    <url>/2022/05/22/%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E6%95%B0%E5%AD%971/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/22/%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E6%95%B0%E5%AD%971/image-20220522200203070.png" class title="examplename"></em></p>
+<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p><strong>1、二分法</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong></p>
+<ul>
+<li>使用二分法分别找到 左边界 left和 右边界 right ，易得数字 target 的数量为right−left−1 。</li>
+</ul>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度 O(log N)：</strong> 二分法为对数级别复杂度。</li>
+<li><strong>空间复杂度 O(1)：</strong> 几个变量使用常数大小的额外空间。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">search</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> target)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> nums.length;</span><br><span class="line">        <span class="keyword">if</span> (len == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> <span class="variable">firstPosition</span> <span class="operator">=</span> findFirstPosition(nums,target);</span><br><span class="line">        <span class="keyword">if</span> (firstPosition == -<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> <span class="variable">lastPosition</span> <span class="operator">=</span> findLastPosition(nums,target);</span><br><span class="line">        <span class="keyword">return</span> lastPosition - firstPosition + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 查找target第一次出现的位置</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">findFirstPosition</span><span class="params">(<span class="type">int</span>[] nums,<span class="type">int</span> target)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">right</span> <span class="operator">=</span> nums.length-<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (right &gt; left)&#123;</span><br><span class="line">            <span class="comment">// 这样写避免left+right在值很大的时候整型溢出</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">mid</span> <span class="operator">=</span> left + (right - left) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (nums[mid] &lt; target) &#123;</span><br><span class="line">                <span class="comment">// [mid+1 ... right]</span></span><br><span class="line">                left = mid + <span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// [left ... mid]</span></span><br><span class="line">                right = mid;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (nums[left] == target) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> left;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 查找target最后一次出现的位置</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">findLastPosition</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> target)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">right</span> <span class="operator">=</span> nums.length-<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (right &gt; left)&#123;</span><br><span class="line">            <span class="comment">// 这样写避免left+right在值很大的时候整型溢出</span></span><br><span class="line">            <span class="comment">// 将mid赋值给left的时候要向上取整，不然left可能永远小于right，也就永远跳不出循环</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">mid</span> <span class="operator">=</span> left + (right - left + <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (nums[mid] &lt;= target) &#123;</span><br><span class="line">                <span class="comment">// [mid ... right]</span></span><br><span class="line">                left = mid;</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// [left ... mid-1]</span></span><br><span class="line">                right = mid - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 因为int firstPosition = findFirstPosition(nums,target);已经找到target了，所以必有target，直接返回left即可。</span></span><br><span class="line">        <span class="comment">//if (nums[left] == target) &#123;</span></span><br><span class="line">        <span class="comment">//    System.out.println(left);</span></span><br><span class="line">        <span class="comment">//    return left;</span></span><br><span class="line">        <span class="comment">//&#125;</span></span><br><span class="line">        <span class="comment">//return -1;</span></span><br><span class="line">        <span class="keyword">return</span> left;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//@Test</span></span><br><span class="line">    <span class="comment">//void test() &#123;</span></span><br><span class="line">    <span class="comment">//        int[] nums = &#123;5,7,7,8,8,10&#125;;</span></span><br><span class="line">    <span class="comment">//    int search = this.search(nums, 8);</span></span><br><span class="line">    <span class="comment">//    System.out.println(search);</span></span><br><span class="line">    <span class="comment">//&#125;</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>查找算法</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>面试题</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>左旋转字符串</title>
+    <url>/2022/05/21/%E5%B7%A6%E6%97%8B%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/21/%E5%B7%A6%E6%97%8B%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2/image-20220521201003026.png" class title="examplename"></em></p>
+<h4 id="解法："><a href="#解法：" class="headerlink" title="解法："></a>解法：</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1、字符串切片</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">reverseLeftWords</span><span class="params">(String s, <span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">s1</span> <span class="operator">=</span> s.substring(<span class="number">0</span>, n);</span><br><span class="line">        <span class="type">String</span> <span class="variable">s2</span> <span class="operator">=</span> s.substring(n,s.length());</span><br><span class="line">        <span class="type">String</span> <span class="variable">s3</span> <span class="operator">=</span> s2 + s1;</span><br><span class="line">        <span class="keyword">return</span> s3;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2、列表遍历拼接</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">reverseLeftWords</span><span class="params">(String s, <span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">s3</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> n; i &lt; s.length(); i++) &#123;</span><br><span class="line">            s3.append(s.charAt(i));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            s3.append(s.charAt(i));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> s3.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3、字符串遍历拼接</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution3</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">reverseLeftWords</span><span class="params">(String s, <span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">s3</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> n; i &lt; s.length(); i++) &#123;</span><br><span class="line">            s3 += s.charAt(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            s3 += s.charAt(i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> s3;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>字符串</category>
       </categories>
       <tags>
         <tag>剑指offer</tag>
@@ -1066,18 +1086,50 @@
       </tags>
   </entry>
   <entry>
-    <title>左旋转字符串</title>
-    <url>/2022/05/21/%E5%B7%A6%E6%97%8B%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
+    <title>把数字翻译成字符串</title>
+    <url>/2022/05/28/%E6%8A%8A%E6%95%B0%E5%AD%97%E7%BF%BB%E8%AF%91%E6%88%90%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
     <content><![CDATA[<hr>
 <span id="more"></span>
 
-<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/21/%E5%B7%A6%E6%97%8B%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2/image-20220521201003026.png" class title="examplename"></em></p>
-<h4 id="解法："><a href="#解法：" class="headerlink" title="解法："></a>解法：</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1、字符串切片</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">reverseLeftWords</span><span class="params">(String s, <span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">s1</span> <span class="operator">=</span> s.substring(<span class="number">0</span>, n);</span><br><span class="line">        <span class="type">String</span> <span class="variable">s2</span> <span class="operator">=</span> s.substring(n,s.length());</span><br><span class="line">        <span class="type">String</span> <span class="variable">s3</span> <span class="operator">=</span> s2 + s1;</span><br><span class="line">        <span class="keyword">return</span> s3;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2、列表遍历拼接</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">reverseLeftWords</span><span class="params">(String s, <span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">s3</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> n; i &lt; s.length(); i++) &#123;</span><br><span class="line">            s3.append(s.charAt(i));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            s3.append(s.charAt(i));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> s3.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3、字符串遍历拼接</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution3</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">reverseLeftWords</span><span class="params">(String s, <span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">s3</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> n; i &lt; s.length(); i++) &#123;</span><br><span class="line">            s3 += s.charAt(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            s3 += s.charAt(i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> s3;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/28/%E6%8A%8A%E6%95%B0%E5%AD%97%E7%BF%BB%E8%AF%91%E6%88%90%E5%AD%97%E7%AC%A6%E4%B8%B2/image-20220528090513986.png" class title="examplename"></em></p>
+<p><strong>题解</strong></p>
+<ul>
+<li><strong>解题总统思路：</strong><ul>
+<li><em><img src="/2022/05/28/%E6%8A%8A%E6%95%B0%E5%AD%97%E7%BF%BB%E8%AF%91%E6%88%90%E5%AD%97%E7%AC%A6%E4%B8%B2/image-20220528090608388.png" class title="examplename"></em></li>
+<li><em><img src="/2022/05/28/%E6%8A%8A%E6%95%B0%E5%AD%97%E7%BF%BB%E8%AF%91%E6%88%90%E5%AD%97%E7%AC%A6%E4%B8%B2/image-20220528090717826.png" class title="examplename"></em></li>
+</ul>
+</li>
+</ul>
+<p><strong>1、字符串遍历</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong>为方便获取数字的各位 xi，考虑先将数字 num 转化为字符串 s ，通过遍历 s 实现动态规划</p>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度 O(N) ：</strong> N 为字符串 s 的长度（即数字 num 的位数 log(num) ），其决定了循环次数。</li>
+<li><strong>空间复杂度 O(N) ：</strong> 字符串 s 使用 O(N)大小的额外空间。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 字符串遍历</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">translateNum</span><span class="params">(<span class="type">int</span> num)</span> &#123;</span><br><span class="line">        <span class="comment">// 首先将num变成字符串</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> String.valueOf(num);</span><br><span class="line">        <span class="comment">// 设置 b“无数字” 和 a“第 1 位数字” 的翻译方法数量均为 1</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">1</span>,b = <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// 从后往前循环，计算翻译方法的数量</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> s.length() - <span class="number">2</span>; i &gt; -<span class="number">1</span> ; i--) &#123;</span><br><span class="line">            <span class="comment">// 取到 i+2 的前两个数字</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">tmp</span> <span class="operator">=</span> s.substring(i, i + <span class="number">2</span>);</span><br><span class="line">            <span class="comment">// 判断这俩个数字组合以后ASCII码差值是否在10~25之间</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">c</span> <span class="operator">=</span> tmp.compareTo(<span class="string">&quot;10&quot;</span>) &gt;= <span class="number">0</span> &amp;&amp; tmp.compareTo(<span class="string">&quot;25&quot;</span>) &lt;= <span class="number">0</span> ? a + b : a;</span><br><span class="line">            b = a;</span><br><span class="line">            a = c;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>2、数字求余</strong>（降低空间复杂度O(n)–&gt;O(1)）</p>
+<ul>
+<li><p><strong>解题思路：</strong>利用求余运算 num % 10 和求整运算 num &#x2F; 10 ，可获取数字 num 的各位数字（获取顺序为个位、十位、百位…）。</p>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度 O(N) ：</strong> N 为字符串 s 的长度（即数字 num 的位数 log(num) ），其决定了循环次数。</li>
+<li><strong>空间复杂度 O(N) ：</strong>  几个变量使用常数大小的额外空间。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 数字求余</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">translateNum</span><span class="params">(<span class="type">int</span> num)</span> &#123;</span><br><span class="line">        <span class="comment">// 设置 b“无数字” 和 a“第 1 位数字” 的翻译方法数量均为 1，x十位，y个位</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">1</span>,b = <span class="number">1</span>,x,y = num % <span class="number">10</span>;</span><br><span class="line">        <span class="comment">// 从后往前循环，计算翻译方法的数量</span></span><br><span class="line">        <span class="keyword">while</span> (num != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// 拿到x的值</span></span><br><span class="line">            num /= <span class="number">10</span>;</span><br><span class="line">            x = num % <span class="number">10</span>;</span><br><span class="line">            <span class="comment">// 总值</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">tmp</span> <span class="operator">=</span> x * <span class="number">10</span> + y;</span><br><span class="line">            <span class="comment">// 判断这俩个数字组合以后是否在10~25之间</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">c</span> <span class="operator">=</span> tmp &gt;= <span class="number">10</span> &amp;&amp; tmp &lt;= <span class="number">25</span> ? a + b : a;</span><br><span class="line">            b = a;</span><br><span class="line">            a = c;</span><br><span class="line">            y = x;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
 ]]></content>
       <categories>
         <category>剑指offer</category>
-        <category>字符串</category>
+        <category>动态规划</category>
       </categories>
       <tags>
         <tag>剑指offer</tag>
@@ -1223,58 +1275,6 @@
 </li>
 <li><p><strong>代码：</strong></p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 动态规划法</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">fib</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// 记录每次的a+b，避免重复计算</span></span><br><span class="line">        <span class="type">int</span> sum;</span><br><span class="line">        <span class="keyword">while</span> (n-- &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            sum = (a+b) % <span class="number">1000000007</span>;</span><br><span class="line">            a = b;</span><br><span class="line">            b = sum;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-]]></content>
-      <categories>
-        <category>剑指offer</category>
-        <category>动态规划</category>
-      </categories>
-      <tags>
-        <tag>剑指offer</tag>
-        <tag>面试题</tag>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>把数字翻译成字符串</title>
-    <url>/2022/05/28/%E6%8A%8A%E6%95%B0%E5%AD%97%E7%BF%BB%E8%AF%91%E6%88%90%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
-    <content><![CDATA[<hr>
-<span id="more"></span>
-
-<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/28/%E6%8A%8A%E6%95%B0%E5%AD%97%E7%BF%BB%E8%AF%91%E6%88%90%E5%AD%97%E7%AC%A6%E4%B8%B2/image-20220528090513986.png" class title="examplename"></em></p>
-<p><strong>题解</strong></p>
-<ul>
-<li><strong>解题总统思路：</strong><ul>
-<li><em><img src="/2022/05/28/%E6%8A%8A%E6%95%B0%E5%AD%97%E7%BF%BB%E8%AF%91%E6%88%90%E5%AD%97%E7%AC%A6%E4%B8%B2/image-20220528090608388.png" class title="examplename"></em></li>
-<li><em><img src="/2022/05/28/%E6%8A%8A%E6%95%B0%E5%AD%97%E7%BF%BB%E8%AF%91%E6%88%90%E5%AD%97%E7%AC%A6%E4%B8%B2/image-20220528090717826.png" class title="examplename"></em></li>
-</ul>
-</li>
-</ul>
-<p><strong>1、字符串遍历</strong></p>
-<ul>
-<li><p><strong>解题思路：</strong>为方便获取数字的各位 xi，考虑先将数字 num 转化为字符串 s ，通过遍历 s 实现动态规划</p>
-</li>
-<li><p><strong>复杂度分析：</strong></p>
-<ul>
-<li><strong>时间复杂度 O(N) ：</strong> N 为字符串 s 的长度（即数字 num 的位数 log(num) ），其决定了循环次数。</li>
-<li><strong>空间复杂度 O(N) ：</strong> 字符串 s 使用 O(N)大小的额外空间。</li>
-</ul>
-</li>
-<li><p><strong>代码：</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 字符串遍历</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">translateNum</span><span class="params">(<span class="type">int</span> num)</span> &#123;</span><br><span class="line">        <span class="comment">// 首先将num变成字符串</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> String.valueOf(num);</span><br><span class="line">        <span class="comment">// 设置 b“无数字” 和 a“第 1 位数字” 的翻译方法数量均为 1</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">1</span>,b = <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// 从后往前循环，计算翻译方法的数量</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> s.length() - <span class="number">2</span>; i &gt; -<span class="number">1</span> ; i--) &#123;</span><br><span class="line">            <span class="comment">// 取到 i+2 的前两个数字</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">tmp</span> <span class="operator">=</span> s.substring(i, i + <span class="number">2</span>);</span><br><span class="line">            <span class="comment">// 判断这俩个数字组合以后ASCII码差值是否在10~25之间</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">c</span> <span class="operator">=</span> tmp.compareTo(<span class="string">&quot;10&quot;</span>) &gt;= <span class="number">0</span> &amp;&amp; tmp.compareTo(<span class="string">&quot;25&quot;</span>) &lt;= <span class="number">0</span> ? a + b : a;</span><br><span class="line">            b = a;</span><br><span class="line">            a = c;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<p><strong>2、数字求余</strong>（降低空间复杂度O(n)–&gt;O(1)）</p>
-<ul>
-<li><p><strong>解题思路：</strong>利用求余运算 num % 10 和求整运算 num &#x2F; 10 ，可获取数字 num 的各位数字（获取顺序为个位、十位、百位…）。</p>
-</li>
-<li><p><strong>复杂度分析：</strong></p>
-<ul>
-<li><strong>时间复杂度 O(N) ：</strong> N 为字符串 s 的长度（即数字 num 的位数 log(num) ），其决定了循环次数。</li>
-<li><strong>空间复杂度 O(N) ：</strong>  几个变量使用常数大小的额外空间。</li>
-</ul>
-</li>
-<li><p><strong>代码：</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 数字求余</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">translateNum</span><span class="params">(<span class="type">int</span> num)</span> &#123;</span><br><span class="line">        <span class="comment">// 设置 b“无数字” 和 a“第 1 位数字” 的翻译方法数量均为 1，x十位，y个位</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">1</span>,b = <span class="number">1</span>,x,y = num % <span class="number">10</span>;</span><br><span class="line">        <span class="comment">// 从后往前循环，计算翻译方法的数量</span></span><br><span class="line">        <span class="keyword">while</span> (num != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// 拿到x的值</span></span><br><span class="line">            num /= <span class="number">10</span>;</span><br><span class="line">            x = num % <span class="number">10</span>;</span><br><span class="line">            <span class="comment">// 总值</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">tmp</span> <span class="operator">=</span> x * <span class="number">10</span> + y;</span><br><span class="line">            <span class="comment">// 判断这俩个数字组合以后是否在10~25之间</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">c</span> <span class="operator">=</span> tmp &gt;= <span class="number">10</span> &amp;&amp; tmp &lt;= <span class="number">25</span> ? a + b : a;</span><br><span class="line">            b = a;</span><br><span class="line">            a = c;</span><br><span class="line">            y = x;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 ]]></content>
       <categories>
@@ -1506,6 +1506,63 @@
       </tags>
   </entry>
   <entry>
+    <title>矩阵中的路径</title>
+    <url>/2022/05/31/%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/31/%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/image-20220531145711793.png" class title="examplename"></em></p>
+<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p><strong>1、深度优先搜索（DFS）+ 剪枝</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong>本问题是典型的矩阵搜索问题，可使用 <strong>深度优先搜索（DFS）+ 剪枝</strong> 解决。</p>
+<ul>
+<li><strong>深度优先搜索：</strong> 可以理解为暴力法遍历矩阵中所有字符串可能性。DFS 通过递归，先朝一个方向搜到底，再回溯至上个节点，沿另一个方向搜索，以此类推。</li>
+<li><strong>剪枝：</strong> 在搜索中，遇到 <code>这条路不可能和目标字符串匹配成功</code> 的情况（例如：此矩阵元素和目标字符不同、此元素已被访问），则应立即返回，称之为 <code>可行性剪枝</code> 。</li>
+<li><em><img src="/2022/05/31/%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/image-20220531145941693.png" class title="examplename"></em></li>
+</ul>
+</li>
+<li><p><strong>解题中主要出现的问题：</strong></p>
+<ul>
+<li><p><code>board[i][j] = &#39;\0&#39;;</code></p>
+<blockquote>
+<p>​		使用空字符（Python: ‘’ , Java&#x2F;C++: ‘\0’ ）做标记是为了防止标记字符与矩阵原有字符重复。当存在重复时，此算法会将矩阵原有字符认作标记字符，从而出现错误。</p>
+</blockquote>
+</li>
+<li><p><code>board[i][j] = word[k];</code></p>
+<blockquote>
+<p>​		递归搜索匹配字符串过程中，需要 <code>board[i][j] = &#39;\0&#39;</code> 来防止 ”走回头路“ 。当匹配字符串不成功时，会回溯返回，此时需要<code>board[i][j] = tmp</code> 来”取消对此单元格的标记”。 在DFS过程中，每个单元格会多次被访问的， <code>board[i][j] = &#39;\0&#39;</code>只是要保证在当前匹配方案中不要走回头路。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<blockquote>
+<p><em>M</em>,<em>N</em> 分别为矩阵行列大小， <em>K</em> 为字符串 <code>word</code> 长度。</p>
+</blockquote>
+<ul>
+<li><strong>时间复杂度 O(3^KMN) ：</strong> 最差情况下，需要遍历矩阵中长度为 K 字符串的所有方案，时间复杂度为 **O(3^K)**；矩阵中共有 MN 个起点，时间复杂度为 **O(MN)**。<ul>
+<li><strong>方案数计算：</strong> 设字符串长度为 K ，搜索中每个字符有上、下、左、右四个方向可以选择，舍弃回头（上个字符）的方向，剩下 3 种选择，因此方案数的复杂度为 <strong>O(3^K)</strong> 。</li>
+</ul>
+</li>
+<li><strong>空间复杂度 O(K) ：</strong> 搜索过程中的递归深度不超过 K ，因此系统因函数调用累计使用的栈空间占用 <strong>O(K)</strong> （因为函数返回后，系统调用的栈空间会释放）。最坏情况下 <strong>K &#x3D; MN</strong> ，递归深度为 <strong>MN</strong> ，此时系统栈使用 <strong>O(MN)</strong> 的额外空间。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 深度优先搜索（DFS）+ 剪枝</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">exist</span><span class="params">(<span class="type">char</span>[][] board, String word)</span> &#123;</span><br><span class="line">        <span class="comment">// 将String类型的word变成char数组</span></span><br><span class="line">        <span class="type">char</span>[] words = word.toCharArray();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; board.length; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; board[<span class="number">0</span>].length; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (dfs(board,words,i,j,<span class="number">0</span>)) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 深度优先搜索</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> <span class="title function_">dfs</span><span class="params">(<span class="type">char</span>[][] board, <span class="type">char</span>[] words, <span class="type">int</span> i, <span class="type">int</span> j, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">        <span class="comment">// 当i，j超出边界，或矩阵中i行j列的元素不等于word第k个char，返回false</span></span><br><span class="line">        <span class="keyword">if</span> (i &lt; <span class="number">0</span> || j &lt; <span class="number">0</span> || i &gt;= board.length || j &gt;= board[<span class="number">0</span>].length || board[i][j] != words[k]) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="comment">// 当k为最后一位，因为前面判断了board[i][j] != words[k]，所以返回true</span></span><br><span class="line">        <span class="keyword">if</span>(k == words.length - <span class="number">1</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="comment">// 使用空字符（Python: &#x27;&#x27; , Java/C++: &#x27;\0&#x27; ）做标记是为了防止标记字符与矩阵原有字符重复。</span></span><br><span class="line">        <span class="comment">// 当存在重复时，此算法会将矩阵原有字符认作标记字符，从而出现错误。</span></span><br><span class="line">        board[i][j] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">        <span class="comment">// 搜索下一单元格： 朝当前元素的 上、下、左、右 四个方向开启下层递归，</span></span><br><span class="line">        <span class="comment">// 使用 或 连接 （代表只需找到一条可行路径就直接返回，不再做后续 DFS ），并记录结果至 res 。</span></span><br><span class="line">        <span class="type">boolean</span> <span class="variable">res</span> <span class="operator">=</span> dfs(board,words,i - <span class="number">1</span>,j,k+<span class="number">1</span>) || dfs(board,words,i ,j - <span class="number">1</span>,k+<span class="number">1</span>)</span><br><span class="line">                || dfs(board,words,i + <span class="number">1</span>,j,k+<span class="number">1</span>) || dfs(board,words,i ,j + <span class="number">1</span>,k+<span class="number">1</span>);</span><br><span class="line">        <span class="comment">// 递归搜索匹配字符串过程中，需要 board[i][j] = &#x27;\0&#x27; 来防止 “走回头路” 。</span></span><br><span class="line">        <span class="comment">// 当匹配字符串不成功时，会回溯返回，此时需要board[i][j] = tmp 来“取消对此单元格的标记”。</span></span><br><span class="line">        <span class="comment">// 在DFS过程中，每个单元格会多次被访问的，</span></span><br><span class="line">        <span class="comment">// board[i][j] = &#x27;\0&#x27;只是要保证在当前匹配方案中不要走回头路。</span></span><br><span class="line">        board[i][j] = words[k];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>搜索与回溯</category>
+        <category>深度优先搜索</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>面试题</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>礼物的最大价值</title>
     <url>/2022/05/27/%E7%A4%BC%E7%89%A9%E7%9A%84%E6%9C%80%E5%A4%A7%E4%BB%B7%E5%80%BC/</url>
     <content><![CDATA[<hr>
@@ -1631,6 +1688,46 @@
       </tags>
   </entry>
   <entry>
+    <title>计算特殊奖金</title>
+    <url>/2022/05/29/%E8%AE%A1%E7%AE%97%E7%89%B9%E6%AE%8A%E5%A5%96%E9%87%91/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/29/%E8%AE%A1%E7%AE%97%E7%89%B9%E6%AE%8A%E5%A5%96%E9%87%91/image-20220529211730079.png" class title="examplename"></em></p>
+<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><h5 id="sql语句case-when用法详解"><a href="#sql语句case-when用法详解" class="headerlink" title="sql语句case when用法详解"></a>sql语句case when用法详解</h5><p>类似于witch case，</p>
+<p><strong>第一种 格式 : 简单Case函数 :</strong></p>
+<p>格式说明</p>
+<blockquote>
+<p>　　　　case 列名</p>
+<p>　　　　when 条件值1 then 选择项1</p>
+<p>　　　　when 条件值2 then 选项2…….</p>
+<p>　　　　else 默认值 end</p>
+</blockquote>
+<p><strong>第二种 格式 :Case搜索函数</strong></p>
+<p>格式说明</p>
+<blockquote>
+<p>　　　　case</p>
+<p>　　　　when 列名&#x3D; 条件值1 then 选择项1</p>
+<p>　　　　when 列名&#x3D;条件值2 then 选项2…….</p>
+<p>　　　　else 默认值 end</p>
+</blockquote>
+<ul>
+<li><p>sql语句</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> e.employee_id,</span><br><span class="line"><span class="keyword">CASE</span> </span><br><span class="line"><span class="keyword">WHEN</span> </span><br><span class="line">    <span class="built_in">MOD</span>(e.employee_id,<span class="number">2</span>) <span class="operator">=</span> <span class="number">1</span> <span class="operator">&amp;&amp;</span> e.name <span class="keyword">not</span> <span class="keyword">like</span> <span class="string">&#x27;M%&#x27;</span> </span><br><span class="line"><span class="keyword">then</span> e.salary <span class="keyword">else</span> <span class="number">0</span> <span class="keyword">end</span> <span class="keyword">as</span> bonus</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	Employees <span class="keyword">as</span> e</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> </span><br><span class="line">    e.employee_id;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>基础</category>
+        <category>mysql</category>
+        <category>SQL入门</category>
+        <category>排序 &amp; 修改</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
+        <tag>SQL入门</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>股票的最大利润</title>
     <url>/2022/05/26/%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E5%A4%A7%E5%88%A9%E6%B6%A6/</url>
     <content><![CDATA[<hr>
@@ -1679,46 +1776,6 @@
       </tags>
   </entry>
   <entry>
-    <title>计算特殊奖金</title>
-    <url>/2022/05/29/%E8%AE%A1%E7%AE%97%E7%89%B9%E6%AE%8A%E5%A5%96%E9%87%91/</url>
-    <content><![CDATA[<hr>
-<span id="more"></span>
-
-<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/29/%E8%AE%A1%E7%AE%97%E7%89%B9%E6%AE%8A%E5%A5%96%E9%87%91/image-20220529211730079.png" class title="examplename"></em></p>
-<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><h5 id="sql语句case-when用法详解"><a href="#sql语句case-when用法详解" class="headerlink" title="sql语句case when用法详解"></a>sql语句case when用法详解</h5><p>类似于witch case，</p>
-<p><strong>第一种 格式 : 简单Case函数 :</strong></p>
-<p>格式说明</p>
-<blockquote>
-<p>　　　　case 列名</p>
-<p>　　　　when 条件值1 then 选择项1</p>
-<p>　　　　when 条件值2 then 选项2…….</p>
-<p>　　　　else 默认值 end</p>
-</blockquote>
-<p><strong>第二种 格式 :Case搜索函数</strong></p>
-<p>格式说明</p>
-<blockquote>
-<p>　　　　case</p>
-<p>　　　　when 列名&#x3D; 条件值1 then 选择项1</p>
-<p>　　　　when 列名&#x3D;条件值2 then 选项2…….</p>
-<p>　　　　else 默认值 end</p>
-</blockquote>
-<ul>
-<li><p>sql语句</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> e.employee_id,</span><br><span class="line"><span class="keyword">CASE</span> </span><br><span class="line"><span class="keyword">WHEN</span> </span><br><span class="line">    <span class="built_in">MOD</span>(e.employee_id,<span class="number">2</span>) <span class="operator">=</span> <span class="number">1</span> <span class="operator">&amp;&amp;</span> e.name <span class="keyword">not</span> <span class="keyword">like</span> <span class="string">&#x27;M%&#x27;</span> </span><br><span class="line"><span class="keyword">then</span> e.salary <span class="keyword">else</span> <span class="number">0</span> <span class="keyword">end</span> <span class="keyword">as</span> bonus</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	Employees <span class="keyword">as</span> e</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> </span><br><span class="line">    e.employee_id;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-</ul>
-]]></content>
-      <categories>
-        <category>基础</category>
-        <category>mysql</category>
-        <category>SQL入门</category>
-        <category>排序 &amp; 修改</category>
-      </categories>
-      <tags>
-        <tag>mysql</tag>
-        <tag>SQL入门</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>认证与授权实现思路</title>
     <url>/2022/04/24/%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%8E%88%E6%9D%83%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF/</url>
     <content><![CDATA[<h2 id="认证与授权实现思路"><a href="#认证与授权实现思路" class="headerlink" title="认证与授权实现思路"></a>认证与授权实现思路</h2><p>Spring Security其实就是用<strong>filter</strong>，多请求的路径进行过滤。</p>
@@ -1736,6 +1793,40 @@
         <tag>面试题</tag>
         <tag>面试</tag>
         <tag>权限</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>链表中倒数第k个节点</title>
+    <url>/2022/05/29/%E9%93%BE%E8%A1%A8%E4%B8%AD%E5%80%92%E6%95%B0%E7%AC%ACk%E4%B8%AA%E8%8A%82%E7%82%B9/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/29/%E9%93%BE%E8%A1%A8%E4%B8%AD%E5%80%92%E6%95%B0%E7%AC%ACk%E4%B8%AA%E8%8A%82%E7%82%B9/image-20220529102734918.png" class title="examplename"></em></p>
+<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p><strong>1、双指针</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong>设置俩个指针，一个指向头节点pre，一个指向pre之后的距离k-1的节点cur，（因为两个遍历到cur.next为null时，也就是cur到了最后，pre正好是倒数第k个节点）返回pre即可。</p>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度O(n)：</strong> <em>N</em> 为链表长度；总体看N-1，循环1走了k-1，循环2走了N-k</li>
+<li><strong>空间复杂度O(1)</strong></li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 双指针</span></span><br><span class="line"><span class="comment">// 设置俩个指针，一个指向头节点pre，一个指向pre之后的距离k-1的节点cur，（因为两个遍历到cur.next为null时，也就是cur到了最后，pre正好是倒数第k个节点）返回pre即可。</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">     <span class="keyword">public</span> ListNode <span class="title function_">getKthFromEnd</span><span class="params">(ListNode head, <span class="type">int</span> k)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">cur</span> <span class="operator">=</span> head;</span><br><span class="line">        <span class="comment">// 遍历使得cur指向pre（目前是head）之后的距离k-1的节点，当中如果有空，说明倒数第k个节点是不存在的，直接返回null</span></span><br><span class="line">        <span class="keyword">while</span> (k-- &gt; <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (cur == <span class="literal">null</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            cur = cur.next;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">pre</span> <span class="operator">=</span> head;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (cur.next != <span class="literal">null</span>) &#123;</span><br><span class="line">            cur = cur.next;</span><br><span class="line">            pre = pre.next;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> pre;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>只需要一个循环的代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 一个循环</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">getKthFromEnd</span><span class="params">(ListNode head, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">        ListNode slow=head,fast=head;</span><br><span class="line">        <span class="type">int</span> <span class="variable">t</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(fast!=<span class="literal">null</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(t&gt;=k) slow=slow.next;</span><br><span class="line">            fast = fast.next;</span><br><span class="line">            t++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> slow;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>双指针</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>面试题</tag>
+        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -1775,40 +1866,6 @@
 </li>
 <li><p><strong>代码：</strong></p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 双指针</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] exchange(<span class="type">int</span>[] nums) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>, j = nums.length -<span class="number">1</span>, tmp = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (i &lt; j) &#123;</span><br><span class="line">            <span class="keyword">while</span> (i &lt; j &amp;&amp; (nums[i] % <span class="number">2</span>) == <span class="number">1</span>) i++;</span><br><span class="line">            <span class="keyword">while</span> (i &lt; j &amp;&amp; (nums[j] % <span class="number">2</span>) == <span class="number">0</span>) j--;</span><br><span class="line">            tmp = nums[i];</span><br><span class="line">            nums[i] = nums[j];</span><br><span class="line">            nums[j] = tmp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> nums;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-]]></content>
-      <categories>
-        <category>剑指offer</category>
-        <category>双指针</category>
-      </categories>
-      <tags>
-        <tag>剑指offer</tag>
-        <tag>面试题</tag>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>链表中倒数第k个节点</title>
-    <url>/2022/05/29/%E9%93%BE%E8%A1%A8%E4%B8%AD%E5%80%92%E6%95%B0%E7%AC%ACk%E4%B8%AA%E8%8A%82%E7%82%B9/</url>
-    <content><![CDATA[<hr>
-<span id="more"></span>
-
-<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/29/%E9%93%BE%E8%A1%A8%E4%B8%AD%E5%80%92%E6%95%B0%E7%AC%ACk%E4%B8%AA%E8%8A%82%E7%82%B9/image-20220529102734918.png" class title="examplename"></em></p>
-<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p><strong>1、双指针</strong></p>
-<ul>
-<li><p><strong>解题思路：</strong>设置俩个指针，一个指向头节点pre，一个指向pre之后的距离k-1的节点cur，（因为两个遍历到cur.next为null时，也就是cur到了最后，pre正好是倒数第k个节点）返回pre即可。</p>
-</li>
-<li><p><strong>复杂度分析：</strong></p>
-<ul>
-<li><strong>时间复杂度O(n)：</strong> <em>N</em> 为链表长度；总体看N-1，循环1走了k-1，循环2走了N-k</li>
-<li><strong>空间复杂度O(1)</strong></li>
-</ul>
-</li>
-<li><p><strong>代码：</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 双指针</span></span><br><span class="line"><span class="comment">// 设置俩个指针，一个指向头节点pre，一个指向pre之后的距离k-1的节点cur，（因为两个遍历到cur.next为null时，也就是cur到了最后，pre正好是倒数第k个节点）返回pre即可。</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">     <span class="keyword">public</span> ListNode <span class="title function_">getKthFromEnd</span><span class="params">(ListNode head, <span class="type">int</span> k)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">cur</span> <span class="operator">=</span> head;</span><br><span class="line">        <span class="comment">// 遍历使得cur指向pre（目前是head）之后的距离k-1的节点，当中如果有空，说明倒数第k个节点是不存在的，直接返回null</span></span><br><span class="line">        <span class="keyword">while</span> (k-- &gt; <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (cur == <span class="literal">null</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            cur = cur.next;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">pre</span> <span class="operator">=</span> head;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (cur.next != <span class="literal">null</span>) &#123;</span><br><span class="line">            cur = cur.next;</span><br><span class="line">            pre = pre.next;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> pre;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>只需要一个循环的代码：</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 一个循环</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">getKthFromEnd</span><span class="params">(ListNode head, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">        ListNode slow=head,fast=head;</span><br><span class="line">        <span class="type">int</span> <span class="variable">t</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(fast!=<span class="literal">null</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(t&gt;=k) slow=slow.next;</span><br><span class="line">            fast = fast.next;</span><br><span class="line">            t++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> slow;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 ]]></content>
       <categories>
@@ -1919,63 +1976,6 @@
       <categories>
         <category>剑指offer</category>
         <category>动态规划</category>
-      </categories>
-      <tags>
-        <tag>剑指offer</tag>
-        <tag>面试题</tag>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>矩阵中的路径</title>
-    <url>/2022/05/31/%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/</url>
-    <content><![CDATA[<hr>
-<span id="more"></span>
-
-<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/05/31/%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/image-20220531145711793.png" class title="examplename"></em></p>
-<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p><strong>1、深度优先搜索（DFS）+ 剪枝</strong></p>
-<ul>
-<li><p><strong>解题思路：</strong>本问题是典型的矩阵搜索问题，可使用 <strong>深度优先搜索（DFS）+ 剪枝</strong> 解决。</p>
-<ul>
-<li><strong>深度优先搜索：</strong> 可以理解为暴力法遍历矩阵中所有字符串可能性。DFS 通过递归，先朝一个方向搜到底，再回溯至上个节点，沿另一个方向搜索，以此类推。</li>
-<li><strong>剪枝：</strong> 在搜索中，遇到 <code>这条路不可能和目标字符串匹配成功</code> 的情况（例如：此矩阵元素和目标字符不同、此元素已被访问），则应立即返回，称之为 <code>可行性剪枝</code> 。</li>
-<li><em><img src="/2022/05/31/%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/image-20220531145941693.png" class title="examplename"></em></li>
-</ul>
-</li>
-<li><p><strong>解题中主要出现的问题：</strong></p>
-<ul>
-<li><p><code>board[i][j] = &#39;\0&#39;;</code></p>
-<blockquote>
-<p>​		使用空字符（Python: ‘’ , Java&#x2F;C++: ‘\0’ ）做标记是为了防止标记字符与矩阵原有字符重复。当存在重复时，此算法会将矩阵原有字符认作标记字符，从而出现错误。</p>
-</blockquote>
-</li>
-<li><p><code>board[i][j] = word[k];</code></p>
-<blockquote>
-<p>​		递归搜索匹配字符串过程中，需要 <code>board[i][j] = &#39;\0&#39;</code> 来防止 ”走回头路“ 。当匹配字符串不成功时，会回溯返回，此时需要<code>board[i][j] = tmp</code> 来”取消对此单元格的标记”。 在DFS过程中，每个单元格会多次被访问的， <code>board[i][j] = &#39;\0&#39;</code>只是要保证在当前匹配方案中不要走回头路。</p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><p><strong>复杂度分析：</strong></p>
-<blockquote>
-<p><em>M</em>,<em>N</em> 分别为矩阵行列大小， <em>K</em> 为字符串 <code>word</code> 长度。</p>
-</blockquote>
-<ul>
-<li><strong>时间复杂度 O(3^KMN) ：</strong> 最差情况下，需要遍历矩阵中长度为 K 字符串的所有方案，时间复杂度为 **O(3^K)**；矩阵中共有 MN 个起点，时间复杂度为 **O(MN)**。<ul>
-<li><strong>方案数计算：</strong> 设字符串长度为 K ，搜索中每个字符有上、下、左、右四个方向可以选择，舍弃回头（上个字符）的方向，剩下 3 种选择，因此方案数的复杂度为 <strong>O(3^K)</strong> 。</li>
-</ul>
-</li>
-<li><strong>空间复杂度 O(K) ：</strong> 搜索过程中的递归深度不超过 K ，因此系统因函数调用累计使用的栈空间占用 <strong>O(K)</strong> （因为函数返回后，系统调用的栈空间会释放）。最坏情况下 <strong>K &#x3D; MN</strong> ，递归深度为 <strong>MN</strong> ，此时系统栈使用 <strong>O(MN)</strong> 的额外空间。</li>
-</ul>
-</li>
-<li><p><strong>代码：</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 深度优先搜索（DFS）+ 剪枝</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">exist</span><span class="params">(<span class="type">char</span>[][] board, String word)</span> &#123;</span><br><span class="line">        <span class="comment">// 将String类型的word变成char数组</span></span><br><span class="line">        <span class="type">char</span>[] words = word.toCharArray();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; board.length; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; board[<span class="number">0</span>].length; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (dfs(board,words,i,j,<span class="number">0</span>)) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 深度优先搜索</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> <span class="title function_">dfs</span><span class="params">(<span class="type">char</span>[][] board, <span class="type">char</span>[] words, <span class="type">int</span> i, <span class="type">int</span> j, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">        <span class="comment">// 当i，j超出边界，或矩阵中i行j列的元素不等于word第k个char，返回false</span></span><br><span class="line">        <span class="keyword">if</span> (i &lt; <span class="number">0</span> || j &lt; <span class="number">0</span> || i &gt;= board.length || j &gt;= board[<span class="number">0</span>].length || board[i][j] != words[k]) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="comment">// 当k为最后一位，因为前面判断了board[i][j] != words[k]，所以返回true</span></span><br><span class="line">        <span class="keyword">if</span>(k == words.length - <span class="number">1</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="comment">// 使用空字符（Python: &#x27;&#x27; , Java/C++: &#x27;\0&#x27; ）做标记是为了防止标记字符与矩阵原有字符重复。</span></span><br><span class="line">        <span class="comment">// 当存在重复时，此算法会将矩阵原有字符认作标记字符，从而出现错误。</span></span><br><span class="line">        board[i][j] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">        <span class="comment">// 搜索下一单元格： 朝当前元素的 上、下、左、右 四个方向开启下层递归，</span></span><br><span class="line">        <span class="comment">// 使用 或 连接 （代表只需找到一条可行路径就直接返回，不再做后续 DFS ），并记录结果至 res 。</span></span><br><span class="line">        <span class="type">boolean</span> <span class="variable">res</span> <span class="operator">=</span> dfs(board,words,i - <span class="number">1</span>,j,k+<span class="number">1</span>) || dfs(board,words,i ,j - <span class="number">1</span>,k+<span class="number">1</span>)</span><br><span class="line">                || dfs(board,words,i + <span class="number">1</span>,j,k+<span class="number">1</span>) || dfs(board,words,i ,j + <span class="number">1</span>,k+<span class="number">1</span>);</span><br><span class="line">        <span class="comment">// 递归搜索匹配字符串过程中，需要 board[i][j] = &#x27;\0&#x27; 来防止 “走回头路” 。</span></span><br><span class="line">        <span class="comment">// 当匹配字符串不成功时，会回溯返回，此时需要board[i][j] = tmp 来“取消对此单元格的标记”。</span></span><br><span class="line">        <span class="comment">// 在DFS过程中，每个单元格会多次被访问的，</span></span><br><span class="line">        <span class="comment">// board[i][j] = &#x27;\0&#x27;只是要保证在当前匹配方案中不要走回头路。</span></span><br><span class="line">        board[i][j] = words[k];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-]]></content>
-      <categories>
-        <category>剑指offer</category>
-        <category>搜索与回溯</category>
-        <category>深度优先搜索</category>
       </categories>
       <tags>
         <tag>剑指offer</tag>
