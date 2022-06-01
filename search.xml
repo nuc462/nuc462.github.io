@@ -2045,4 +2045,48 @@
         <tag>算法</tag>
       </tags>
   </entry>
+  <entry>
+    <title>二叉树中和为某一值的路径</title>
+    <url>/2022/06/01/%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E5%92%8C%E4%B8%BA%E6%9F%90%E4%B8%80%E5%80%BC%E7%9A%84%E8%B7%AF%E5%BE%84/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/06/01/%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E5%92%8C%E4%B8%BA%E6%9F%90%E4%B8%80%E5%80%BC%E7%9A%84%E8%B7%AF%E5%BE%84/image-20220601162606712.png" class title="examplename"></em></p>
+<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p><strong>1、回溯法</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong></p>
+<ul>
+<li><strong>先序遍历：</strong> 按照 “根、左、右” 的顺序，遍历树的所有节点。</li>
+<li><strong>路径记录：</strong> 在先序遍历中，记录从根节点到当前节点的路径。当路径为 ① 根节点到叶节点形成的路径 <strong>且</strong> ② 各节点值的和等于目标值 sum 时，将此路径加入结果列表。</li>
+</ul>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度 O(N) ：</strong> N 为二叉树的节点数，先序遍历需要遍历所有节点。</li>
+<li><strong>空间复杂度 O(N) ：</strong> 最差情况下，即树退化为链表时，path 存储所有树节点，使用 O(N) 额外空间。</li>
+</ul>
+</li>
+<li><p><strong>值得注意的是，</strong>记录路径时若直接执行 <code>res.add(path)</code> ，则是将 <code>path</code> 对象加入了 <code>res</code> ；后续 <code>path</code> 改变时， <code>res</code> 中的 <code>path</code> 对象也会随之改变。</p>
+<p>正确做法：<code>res.add(new LinkedList(path))</code> ，相当于复制了一个 <code>path</code> 并加入到 <code>res</code> 。</p>
+<ul>
+<li><p><strong>深拷贝：</strong>开辟一个独立地址，地址中存放的内容为list链表，后续list的变化不会影响到res。</p>
+<p><strong>浅拷贝：</strong>将res尾部指向了list地址，后续list内容的变化会导致res的变化，所以res输出为空。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="comment">// 初始化返回的list</span></span><br><span class="line">    List&lt;List&lt;Integer&gt;&gt; res = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    <span class="comment">// 记录返回路径</span></span><br><span class="line">    LinkedList&lt;Integer&gt; path = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="title function_">pathSum</span><span class="params">(TreeNode root, <span class="type">int</span> target)</span> &#123;</span><br><span class="line">        dfs(root,target);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 先序遍历 + 路径记录</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">dfs</span><span class="params">(TreeNode root, <span class="type">int</span> target)</span> &#123;</span><br><span class="line">        <span class="comment">// 如果root为空，说明他已经是叶子节点了</span></span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 将root的值存入路径集合中</span></span><br><span class="line">        path.add(root.val);</span><br><span class="line">        <span class="comment">// target减去此时指针的值</span></span><br><span class="line">        target -= root.val;</span><br><span class="line">        <span class="comment">// 判断，如果target = 0，并且还是叶子节点，则说明这条路径是走完了，且是符合条件的路径，则将path赋给res</span></span><br><span class="line">        <span class="keyword">if</span> (target == <span class="number">0</span> &amp;&amp; root.left == <span class="literal">null</span> &amp;&amp; root.right == <span class="literal">null</span>) &#123;</span><br><span class="line">            res.add(<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;(path));</span><br><span class="line">        &#125;</span><br><span class="line">        dfs(root.left,target);</span><br><span class="line">        dfs(root.right,target);</span><br><span class="line">        path.removeLast();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>搜索与回溯</category>
+        <category>深度优先搜索</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>面试题</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
 </search>
