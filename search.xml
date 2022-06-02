@@ -2204,4 +2204,67 @@
         <tag>算法</tag>
       </tags>
   </entry>
+  <entry>
+    <title>扑克牌中的顺子</title>
+    <url>/2022/06/02/%E6%89%91%E5%85%8B%E7%89%8C%E4%B8%AD%E7%9A%84%E9%A1%BA%E5%AD%90/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/06/02/%E6%89%91%E5%85%8B%E7%89%8C%E4%B8%AD%E7%9A%84%E9%A1%BA%E5%AD%90/image-20220602204500718.png" class title="examplename"></em></p>
+<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p><strong>解题思路：</strong></p>
+<p>根据题意，此 5 张牌是顺子的 <strong>充分条件</strong> 如下：</p>
+<ol>
+<li><p>除大小王外，所有牌 <strong>无重复</strong> ；</p>
+</li>
+<li><p>设此 55 张牌中最大的牌为 max ，最小的牌为 min （大小王除外），则需满足：</p>
+<p>​															<strong>max - min &lt; 5</strong></p>
+</li>
+</ol>
+<p><strong>1、排序 + 遍历</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong></p>
+<ul>
+<li><strong>先对数组执行排序。</strong></li>
+<li><strong>判别重复：</strong> 排序数组中的相同元素位置相邻，因此可通过遍历数组，判断 nums[i] &#x3D; nums[i + 1] 是否成立来判重。</li>
+<li><strong>获取最大 &#x2F; 最小的牌：</strong> 排序后，数组末位元素 nums[4] 为最大牌；元素 nums[joker] 为最小牌，其中 joker 为大小王的数量。</li>
+</ul>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度 O(NlogN)&#x3D;O(5log5)&#x3D;O(1) ：</strong> 其中 N 为 nums 长度，本题中 N≡5 ；数组排序使用 O(NlogN) 时间。</li>
+<li><strong>空间复杂度 O(1)：</strong> 变量 joker 使用 O(1) 大小的额外空间。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 排序 + 遍历</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isStraight</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        <span class="comment">// 先将数组进行排序</span></span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line">        <span class="comment">// 记录大小王数量</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">joker</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] == <span class="number">0</span>) &#123;</span><br><span class="line">                joker++; <span class="comment">// 统计大小王数量</span></span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[i + <span class="number">1</span>] == nums[i]) &#123; <span class="comment">// 若有重复，提前返回 false</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 最大牌 - 最小牌 &lt; 5 则可构成顺子</span></span><br><span class="line">        <span class="keyword">return</span> nums[<span class="number">4</span>] - nums[joker] &lt; <span class="number">5</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>2、集合 Set + 遍历</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong></p>
+<ul>
+<li><strong>遍历五张牌，遇到大小王（即 0 ）直接跳过。</strong></li>
+<li><strong>判别重复：</strong> 利用 Set 实现遍历判重， Set 的查找方法的时间复杂度为 O(1) ；</li>
+<li><strong>获取最大 &#x2F; 最小的牌：</strong> 借助辅助变量 max 和 min ，遍历统计即可。</li>
+</ul>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度 O(N) &#x3D; O(5) &#x3D; O(1) ：</strong> 其中 N 为 nums 长度，本题中 N≡5 ；遍历数组使用 O(N) 时间。</li>
+<li><strong>空间复杂度 O(N) &#x3D; O(5) &#x3D; O(1) ：</strong> 用于判重的辅助 Set 使用 O(N) 额外空间。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 集合 Set + 遍历</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isStraight</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        Set&lt;Integer&gt; set = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();</span><br><span class="line">        <span class="type">int</span> <span class="variable">max</span> <span class="operator">=</span> <span class="number">0</span> ,min = <span class="number">14</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> num : nums) &#123;</span><br><span class="line">            <span class="keyword">if</span> (num == <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">            max = Math.max(max,num);</span><br><span class="line">            min = Math.min(min,num);</span><br><span class="line">            <span class="keyword">if</span> (set.contains(num)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            set.add(num);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> max - min &lt; <span class="number">5</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>排序</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>面试题</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
 </search>
