@@ -2356,4 +2356,42 @@
         <tag>排序</tag>
       </tags>
   </entry>
+  <entry>
+    <title>数据流中的中位数</title>
+    <url>/2022/06/03/%E6%95%B0%E6%8D%AE%E6%B5%81%E4%B8%AD%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/06/03/%E6%95%B0%E6%8D%AE%E6%B5%81%E4%B8%AD%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0/image-20220603211021526.png" class title="examplename"></em></p>
+<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><ul>
+<li><p><strong>解题思路：</strong></p>
+<ul>
+<li><em><img src="/2022/06/03/%E6%95%B0%E6%8D%AE%E6%B5%81%E4%B8%AD%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0/image-20220603211145163.png" class title="examplename"></em></li>
+<li><em><img src="/2022/06/03/%E6%95%B0%E6%8D%AE%E6%B5%81%E4%B8%AD%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0/image-20220603211215786.png" class title="examplename"></em></li>
+</ul>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度：</strong><ul>
+<li><strong>查找中位数 O(1) ：</strong> 获取堆顶元素使用 O(1) 时间；</li>
+<li><strong>添加数字 O(logN) ：</strong> 堆的插入和弹出操作使用 O(logN) 时间。</li>
+</ul>
+</li>
+<li><strong>空间复杂度 O(N) ：</strong> 其中 N 为数据流中的元素数量，小顶堆 A 和大顶堆 B 最多同时保存 N 个元素。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MedianFinder</span> &#123;</span><br><span class="line">    Queue&lt;Integer&gt; A,B;</span><br><span class="line">    <span class="comment">/** initialize your data structure here. */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MedianFinder</span><span class="params">()</span> &#123;</span><br><span class="line">        A = <span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;(); <span class="comment">// 小顶堆，保存较大的一半</span></span><br><span class="line">        B = <span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;((x,y) -&gt; (y - x)); <span class="comment">// 大顶堆，保存较小的一半</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addNum</span><span class="params">(<span class="type">int</span> num)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (A.size() != B.size()) &#123;</span><br><span class="line">            A.add(num);</span><br><span class="line">            B.add(A.poll());</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            B.add(num);</span><br><span class="line">            A.add(B.poll());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">double</span> <span class="title function_">findMedian</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> A.size() != B.size() ? A.peek() : (A.peek() + B.peek()) / <span class="number">2.0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>排序</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>面试题</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
 </search>
