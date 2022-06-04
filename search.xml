@@ -2069,9 +2069,8 @@
 <li><p><strong>值得注意的是，</strong>记录路径时若直接执行 <code>res.add(path)</code> ，则是将 <code>path</code> 对象加入了 <code>res</code> ；后续 <code>path</code> 改变时， <code>res</code> 中的 <code>path</code> 对象也会随之改变。</p>
 <p>正确做法：<code>res.add(new LinkedList(path))</code> ，相当于复制了一个 <code>path</code> 并加入到 <code>res</code> 。</p>
 <ul>
-<li><p><strong>深拷贝：</strong>开辟一个独立地址，地址中存放的内容为list链表，后续list的变化不会影响到res。</p>
-<p><strong>浅拷贝：</strong>将res尾部指向了list地址，后续list内容的变化会导致res的变化，所以res输出为空。</p>
-</li>
+<li><strong>深拷贝：</strong>开辟一个独立地址，地址中存放的内容为list链表，后续list的变化不会影响到res。</li>
+<li><strong>浅拷贝：</strong>将res尾部指向了list地址，后续list内容的变化会导致res的变化，所以res输出为空。</li>
 </ul>
 </li>
 <li><p><strong>代码：</strong></p>
