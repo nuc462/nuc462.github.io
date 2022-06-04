@@ -1554,7 +1554,7 @@
       <categories>
         <category>剑指offer</category>
         <category>搜索与回溯</category>
-        <category>深度优先搜索</category>
+        <category>回溯法</category>
       </categories>
       <tags>
         <tag>剑指offer</tag>
@@ -2020,9 +2020,8 @@
 <p><strong>2、广度优先遍历</strong></p>
 <ul>
 <li><p><strong>解题思路：</strong></p>
-<ul>
-<li><em><img src="/2022/06/01/%E6%9C%BA%E5%99%A8%E4%BA%BA%E7%9A%84%E8%BF%90%E5%8A%A8%E8%8C%83%E5%9B%B4/image-20220601091942449.png" class title="examplename"></em></li>
-</ul>
+</li>
+<li><p><em><img src="/2022/06/01/%E6%9C%BA%E5%99%A8%E4%BA%BA%E7%9A%84%E8%BF%90%E5%8A%A8%E8%8C%83%E5%9B%B4/image-20220601091942449.png" class title="examplename"></em></p>
 </li>
 <li><p><strong>复杂度分析：</strong></p>
 <blockquote>
@@ -2037,7 +2036,7 @@
       <categories>
         <category>剑指offer</category>
         <category>搜索与回溯</category>
-        <category>深度优先搜索</category>
+        <category>回溯法</category>
       </categories>
       <tags>
         <tag>剑指offer</tag>
