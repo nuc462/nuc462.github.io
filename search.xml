@@ -2392,4 +2392,65 @@
         <tag>算法</tag>
       </tags>
   </entry>
+  <entry>
+    <title>二叉树的深度</title>
+    <url>/2022/06/04/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%B7%B1%E5%BA%A6/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/06/04/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%B7%B1%E5%BA%A6/image-20220604093059666.png" class title="examplename"></em></p>
+<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p><strong>1、先序遍历</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong>加入一个计数器，进行先序遍历。</p>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度 O(N) ：</strong> N 为树的节点数量，计算树的深度需要遍历所有节点。</li>
+<li><strong>空间复杂度 O(N) ：</strong> 最差情况下（当树退化为链表时），递归深度可达到 N 。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">max</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxDepth</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">        dfs(root);</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">dfs</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        count++;</span><br><span class="line">        <span class="keyword">if</span> (count &gt; max) &#123;</span><br><span class="line">            max = count;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        dfs(root.left);</span><br><span class="line">        dfs(root.right);</span><br><span class="line">        count--;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>2、后序遍历</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong>此树的深度和其左（右）子树的深度之间的关系。显然，<strong>此树的深度</strong> 等于 <strong>左子树的深度</strong> 与 <strong>右子树的深度</strong> 中的 <strong>最大值</strong> +1。</p>
+<ul>
+<li><em><img src="/2022/06/04/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%B7%B1%E5%BA%A6/image-20220604093454674.png" class title="examplename"></em></li>
+</ul>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度 O(N) ：</strong> N 为树的节点数量，计算树的深度需要遍历所有节点。</li>
+<li><strong>空间复杂度 O(N) ：</strong> 最差情况下（当树退化为链表时），递归深度可达到 N 。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxDepth</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">null</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> Math.max(maxDepth(root.left), maxDepth(root.right)) + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>3、广度优先遍历</strong></p>
+<ul>
+<li><p><strong>解题思路：</strong>每遍历一层，则计数器 +1 ，直到遍历完成，则可得到树的深度。</p>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度 O(N) ：</strong> N 为树的节点数量，计算树的深度需要遍历所有节点。</li>
+<li><strong>空间复杂度 O(N) ：</strong> 最差情况下（当树平衡时），队列 <code>queue</code> 同时存储 <em>N</em>&#x2F;2 个节点。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution3</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxDepth</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">null</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        List&lt;TreeNode&gt; queue = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;TreeNode&gt;() &#123;&#123; add(root);&#125;&#125;;</span><br><span class="line">        List&lt;TreeNode&gt; tmp;</span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">            tmp = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">            <span class="keyword">for</span> (TreeNode node: queue) &#123;</span><br><span class="line">                <span class="keyword">if</span> (node.left != <span class="literal">null</span>) tmp.add(node.left);</span><br><span class="line">                <span class="keyword">if</span> (node.right != <span class="literal">null</span>) tmp.add(node.right);</span><br><span class="line">            &#125;</span><br><span class="line">            queue = tmp;</span><br><span class="line">            count++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>搜索与回溯</category>
+        <category>深度优先遍历</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>面试题</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
 </search>
