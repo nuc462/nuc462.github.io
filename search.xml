@@ -2530,4 +2530,50 @@
         <tag>算法</tag>
       </tags>
   </entry>
+  <entry>
+    <title>二叉搜索树的最近公共祖先</title>
+    <url>/2022/06/05/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/06/05/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/image-20220605214007542.png" class title="examplename"></em></p>
+<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><p><strong>解题思路：</strong></p>
+<p><em><img src="/2022/06/05/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/image-20220605214110987.png" class title="examplename"></em></p>
+<p><strong>1、迭代</strong></p>
+<ul>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度 O(N) ：</strong> 其中 N 为二叉树节点数；每循环一轮排除一层，二叉搜索树的层数最小为 logN （满二叉树），最大为 N （退化为链表）。</li>
+<li><strong>空间复杂度 O(1) ：</strong> 使用常数大小的额外空间。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> TreeNode <span class="title function_">lowestCommonAncestor</span><span class="params">(TreeNode root, TreeNode p, TreeNode q)</span> &#123;</span><br><span class="line">        <span class="keyword">while</span>(root != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span>(root.val &lt; p.val &amp;&amp; root.val &lt; q.val) <span class="comment">// p,q 都在 root 的右子树中</span></span><br><span class="line">                root = root.right; <span class="comment">// 遍历至右子节点</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(root.val &gt; p.val &amp;&amp; root.val &gt; q.val) <span class="comment">// p,q 都在 root 的左子树中</span></span><br><span class="line">                root = root.left; <span class="comment">// 遍历至左子节点</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>优化：若可保证 p.val &lt; q.val ，则在循环中可减少判断条件。</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> TreeNode <span class="title function_">lowestCommonAncestor</span><span class="params">(TreeNode root, TreeNode p, TreeNode q)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(p.val &gt; q.val) &#123; <span class="comment">// 保证 p.val &lt; q.val</span></span><br><span class="line">            <span class="type">TreeNode</span> <span class="variable">tmp</span> <span class="operator">=</span> p;</span><br><span class="line">            p = q;</span><br><span class="line">            q = tmp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(root != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span>(root.val &lt; p.val) <span class="comment">// p,q 都在 root 的右子树中</span></span><br><span class="line">                root = root.right; <span class="comment">// 遍历至右子节点</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(root.val &gt; q.val) <span class="comment">// p,q 都在 root 的左子树中</span></span><br><span class="line">                root = root.left; <span class="comment">// 遍历至左子节点</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>2、递归</strong></p>
+<ul>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度 O(N) ：</strong> 其中 N 为二叉树节点数；每循环一轮排除一层，二叉搜索树的层数最小为 logN （满二叉树），最大为 N （退化为链表）。</li>
+<li><strong>空间复杂度 O(N) ：</strong> 最差情况下，即树退化为链表时，递归深度达到树的层数 N 。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> TreeNode <span class="title function_">lowestCommonAncestor</span><span class="params">(TreeNode root, TreeNode p, TreeNode q)</span> &#123;</span><br><span class="line">        <span class="comment">// 当 p, q 都在 root 的 左子树 中，则开启递归 root.left 并返回</span></span><br><span class="line">        <span class="keyword">if</span> (root.val &gt; p.val &amp;&amp; root.val &gt; q.val) &#123;</span><br><span class="line">            <span class="keyword">return</span> lowestCommonAncestor(root.left,p,q);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 当 p, q 都在 root 的 右子树 中，则开启递归 root.right 并返回</span></span><br><span class="line">        <span class="keyword">if</span> (root.val &lt; p.val &amp;&amp; root.val &lt; q.val) &#123;</span><br><span class="line">            <span class="keyword">return</span> lowestCommonAncestor(root.right,p,q);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>搜索与回溯</category>
+        <category>深度优先遍历</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>面试题</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
 </search>
