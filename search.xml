@@ -2344,14 +2344,30 @@
 
 <h3 id="1-3-算法稳定性-不稳定"><a href="#1-3-算法稳定性-不稳定" class="headerlink" title="1.3 算法稳定性(不稳定)"></a>1.3 算法稳定性(不稳定)</h3><p>​		在建立堆的调整步骤里,由于关键字相同的两个记录位置并不会被调换,所以<strong>建堆</strong>的时候是<strong>稳定的</strong>。但是,在堆顶与堆尾交换的时候<strong>两个相等</strong>的记录在例中的<strong>相对位置</strong>就可能发生改变,这就影响其<strong>稳定性</strong>了。</p>
 <h3 id="1-4-时间复杂度"><a href="#1-4-时间复杂度" class="headerlink" title="1.4 时间复杂度"></a>1.4 时间复杂度</h3><p>​		堆排序包括两个阶段,<strong>初始化建堆</strong>和<strong>重建堆</strong>。所以堆排序的时间复杂度由这两方面组成。<br>​		<strong>初始化建堆</strong>的时间复杂度为<strong>O(n)</strong> ,排序重建堆的时间复杂度为<strong>O(nlogn)</strong> ,所以<strong>总</strong>的时间复杂度为O(n+nlogn)&#x3D;**O(nlogn)**。</p>
-<h2 id="2、冒泡排序"><a href="#2、冒泡排序" class="headerlink" title="2、冒泡排序"></a>2、冒泡排序</h2><p><em><img src="/2022/06/03/%E5%8D%81%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/image-20220608151520784.png" class title="examplename"></em></p>
+<h2 id="2、冒泡排序"><a href="#2、冒泡排序" class="headerlink" title="2、冒泡排序"></a>2、冒泡排序</h2><h3 id="2-1-思路"><a href="#2-1-思路" class="headerlink" title="2.1 思路"></a>2.1 思路</h3><p><em><img src="/2022/06/03/%E5%8D%81%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/image-20220608151520784.png" class title="examplename"></em></p>
 <p><em><img src="/2022/06/03/%E5%8D%81%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/image-20220608152244677.png" class title="examplename"></em></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 冒泡排序</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Bubbling</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">int</span>[] arr = &#123;<span class="number">67</span>,<span class="number">42</span>,<span class="number">88</span>,<span class="number">16</span>,<span class="number">25</span>,<span class="number">3</span>&#125;;</span><br><span class="line">        <span class="comment">// 外层循环控制趟数，趟数是5趟</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; arr.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            <span class="comment">// 内层控制比较的次数</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; arr.length - <span class="number">1</span> - j; j++) &#123;</span><br><span class="line">                <span class="comment">// 比较数的大小</span></span><br><span class="line">                <span class="keyword">if</span> (arr[j] &gt; arr[j + <span class="number">1</span>]) &#123;</span><br><span class="line">                    <span class="comment">// 如果数组j大于数组j+1，交换</span></span><br><span class="line">                    <span class="type">int</span> <span class="variable">tmp</span> <span class="operator">=</span> arr[j];</span><br><span class="line">                    arr[j] = arr[j + <span class="number">1</span>];</span><br><span class="line">                    arr[j + <span class="number">1</span>] = tmp;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 冒泡排序</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Bubbling</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">int</span>[] arr = &#123;<span class="number">67</span>,<span class="number">42</span>,<span class="number">88</span>,<span class="number">16</span>,<span class="number">25</span>,<span class="number">3</span>&#125;;</span><br><span class="line">        <span class="comment">// 外层循环控制趟数，趟数是5趟</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; arr.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            <span class="comment">// 内层控制比较的次数</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; arr.length - <span class="number">1</span> - i; j++) &#123;</span><br><span class="line">                <span class="comment">// 比较数的大小</span></span><br><span class="line">                <span class="keyword">if</span> (arr[j] &gt; arr[j + <span class="number">1</span>]) &#123;</span><br><span class="line">                    <span class="comment">// 如果数组j大于数组j+1，交换</span></span><br><span class="line">                    <span class="type">int</span> <span class="variable">tmp</span> <span class="operator">=</span> arr[j];</span><br><span class="line">                    arr[j] = arr[j + <span class="number">1</span>];</span><br><span class="line">                    arr[j + <span class="number">1</span>] = tmp;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
+<h3 id="2-2-算法稳定性"><a href="#2-2-算法稳定性" class="headerlink" title="2.2 算法稳定性"></a>2.2 算法稳定性</h3><p>​		如果待排序的序列中存在两个或两个以上具有相同关键词的数据，排序后这些数据的相对次序保持不变,通俗地讲，就是两个相同的数的相对顺序不会发生改变，则该算法是稳定的；冒泡排序足<strong>稳定的</strong>排序算法。</p>
+<h3 id="2-3-时间复杂度"><a href="#2-3-时间复杂度" class="headerlink" title="2.3 时间复杂度"></a>2.3 时间复杂度</h3><p>​		对于n位的数列则有比较次数为(n-1) + (n-2)+ ..+ 1&#x3D;n*(n- 1)&#x2F;2.这就得到了最大的比较次数, n(n-1)&#x2F;2 &#x3D;<br>(n^2 - n)&#x2F;2,计算时间复杂度的时候,忽略常数项1&#x2F;2,再忽略低阶项n ,得到冒泡排序的时间复杂度为<strong>0(n^2)</strong></p>
 <h2 id="3、选择排序"><a href="#3、选择排序" class="headerlink" title="3、选择排序"></a>3、选择排序</h2><p>选择排序： 通过一趟遍历，找到最小值的下标。 和下标为0的元素交换。  下一趟，从剩下的元素（排除下标0）， 找到最小值的下标，然后和下标为1的交换。  特点：比较的次数没有减少，但是交换次数一趟只交换一回。</p>
 <p><img src="https://www.runoob.com/wp-content/uploads/2019/03/selectionSort.gif" alt="img"></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 选择排序</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">selectSort</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">int</span>[] a = &#123;<span class="number">35</span>,<span class="number">22</span>,<span class="number">17</span>,<span class="number">41</span>,<span class="number">72</span>,<span class="number">29</span>,<span class="number">10</span>&#125;;</span><br><span class="line">        <span class="comment">// 外层循环控制趟数n个数，只需n-1趟</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; a.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            <span class="comment">// 假定最小值为a[i]</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">min</span> <span class="operator">=</span> a[i];</span><br><span class="line">            <span class="comment">// 假定最小值的索引为i</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">index</span> <span class="operator">=</span> i;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 遍历数组找到最小值</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> i + <span class="number">1</span>; j &lt; a.length; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (a[j] &lt; min) &#123;</span><br><span class="line">                    min = a[j];</span><br><span class="line">                    index = j;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 让最小值和当前a[i]进行交换</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">temp</span> <span class="operator">=</span> a[index];</span><br><span class="line">            a[index] = a[i];</span><br><span class="line">            a[i] = temp;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; a.length; i++) &#123;</span><br><span class="line">            System.out.print(a[i] + <span class="string">&quot; &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 选择排序</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">selectSort</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">int</span>[] a = &#123;<span class="number">35</span>,<span class="number">22</span>,<span class="number">17</span>,<span class="number">41</span>,<span class="number">72</span>,<span class="number">29</span>,<span class="number">10</span>&#125;;</span><br><span class="line">        <span class="comment">// 外层循环控制趟数n个数，只需n-1趟</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; a.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            <span class="comment">// 假定最小值为a[i]</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">min</span> <span class="operator">=</span> a[i];</span><br><span class="line">            <span class="comment">// 假定最小值的索引为i</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">index</span> <span class="operator">=</span> i;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 遍历数组找到最小值</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> i + <span class="number">1</span>; j &lt; a.length; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (a[j] &lt; min) &#123;</span><br><span class="line">                    min = a[j];</span><br><span class="line">                    index = j;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 让最小值和当前a[i]进行交换</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">temp</span> <span class="operator">=</span> a[index];</span><br><span class="line">            a[index] = a[i];</span><br><span class="line">            a[i] = temp;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">      </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+
+
+<h2 id="4、快速排序"><a href="#4、快速排序" class="headerlink" title="4、快速排序"></a>4、快速排序</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">quickSort</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">int</span>[] a = &#123;<span class="number">23</span>,-<span class="number">9</span>,<span class="number">78</span>,<span class="number">3</span>,<span class="number">34</span>,<span class="number">3</span>,<span class="number">0</span>,<span class="number">34</span>,<span class="number">23</span>&#125;;</span><br><span class="line">        quickSort(a,<span class="number">0</span>,a.length - <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; a.length; i++) &#123;</span><br><span class="line">            System.out.print(a[i] + <span class="string">&quot; &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">quickSort</span><span class="params">(<span class="type">int</span>[] arr, <span class="type">int</span> left, <span class="type">int</span> right)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (left &gt;= right) &#123;</span><br><span class="line">            <span class="comment">// 递归退出条件</span></span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> <span class="variable">l</span> <span class="operator">=</span> left;</span><br><span class="line">        <span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> right;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>(l &lt; r) &#123;</span><br><span class="line">            <span class="comment">// l &lt; r，如果r指向的值大于left（最左端的值），r就一直减，直到小于</span></span><br><span class="line">            <span class="keyword">while</span> (l &lt; r &amp;&amp; arr[r] &gt;= arr[left]) r--;</span><br><span class="line">            <span class="comment">// l &lt; r，如果r指向的值小于left（最左端的值），l就一直加，直到大于</span></span><br><span class="line">            <span class="keyword">while</span> (l &lt; r &amp;&amp; arr[l] &lt;= arr[left]) l++;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 如果l == r，则与left交换，使得l左边一定小于l，右边一定大于l</span></span><br><span class="line">            <span class="keyword">if</span> (l == r) &#123;</span><br><span class="line">                <span class="type">int</span> <span class="variable">temp</span> <span class="operator">=</span> arr[l];</span><br><span class="line">                arr[l] = arr[left];</span><br><span class="line">                arr[left] = temp;</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123; <span class="comment">// 否则，l和r交换，使得他们左是小，右是大</span></span><br><span class="line">                <span class="type">int</span> <span class="variable">temp</span> <span class="operator">=</span> arr[l];</span><br><span class="line">                arr[l] = arr[r];</span><br><span class="line">                arr[r] = temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 此时l一定和r指向同一位置</span></span><br><span class="line">        <span class="comment">// 递归l左</span></span><br><span class="line">        quickSort(arr,left,l - <span class="number">1</span>);</span><br><span class="line">        <span class="comment">// 递归l右</span></span><br><span class="line">        quickSort(arr,l + <span class="number">1</span>,right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-算法稳定性-1"><a href="#2-2-算法稳定性-1" class="headerlink" title="2.2 算法稳定性"></a>2.2 算法稳定性</h3><p>​		如果待排序的序列中存在两个或两个以上具有相同关键词的数据，排序后这些数据的相对次序保持不变,通俗地讲，就是两个相同的数的相对顺序不会发生改变，则该算法是稳定的；冒泡排序足<strong>不稳定的</strong>排序算法。</p>
+<h3 id="2-3-时间复杂度-1"><a href="#2-3-时间复杂度-1" class="headerlink" title="2.3 时间复杂度"></a>2.3 时间复杂度</h3><p><em><img src="/2022/06/03/%E5%8D%81%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/image-20220608212049120.png" class title="examplename"></em></p>
+<h2 id="5、插入排序"><a href="#5、插入排序" class="headerlink" title="5、插入排序"></a>5、插入排序</h2><h3 id="5-1-思路"><a href="#5-1-思路" class="headerlink" title="5.1 思路"></a>5.1 思路</h3><p>​		假设前面 <strong>n-1</strong>(其中 <strong>n&gt;&#x3D;2</strong>)个数已经是排好顺序的，现将第 <strong>n</strong> 个数插到前面已经排好的序列中，然后找到合适自己的位置，使得插入第n个数的这个序列也是排好顺序的。</p>
+<p><em><img src="/2022/06/03/%E5%8D%81%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/image-20220609082534593.png" class title="examplename"></em></p>
+<p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 插入排序</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">insertSort</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">int</span>[] a = &#123;<span class="number">23</span>,-<span class="number">9</span>,<span class="number">78</span>,<span class="number">3</span>,<span class="number">34</span>,<span class="number">3</span>,<span class="number">0</span>,<span class="number">34</span>,<span class="number">23</span>&#125;;</span><br><span class="line">        insertSort(a);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; a.length; i++) &#123;</span><br><span class="line">            System.out.print(a[i] + <span class="string">&quot; &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">insertSort</span><span class="params">(<span class="type">int</span>[] arr)</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> i ; j &gt; <span class="number">0</span> ; j--) &#123;</span><br><span class="line">                <span class="keyword">if</span> (arr[j] &lt; arr[j - <span class="number">1</span>]) &#123;</span><br><span class="line">                    <span class="type">int</span> <span class="variable">tmp</span> <span class="operator">=</span> arr[j];</span><br><span class="line">                    arr[j] = arr[j - <span class="number">1</span>];</span><br><span class="line">                    arr[j - <span class="number">1</span>] = tmp;</span><br><span class="line">                &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-2-算法稳定性"><a href="#5-2-算法稳定性" class="headerlink" title="5.2 算法稳定性"></a>5.2 算法稳定性</h3><p>​		如果待排序的序列中存在两个或两个以上具有相同关键词的数据，排序后这些数据的相对次序保持不变,通俗地讲，就是两个相同的数的相对顺序不会发生改变，则该算法是稳定的；冒泡排序足<strong>稳定的</strong>排序算法。</p>
+<h3 id="5-3-时间复杂度"><a href="#5-3-时间复杂度" class="headerlink" title="5.3 时间复杂度"></a>5.3 时间复杂度</h3><p>插入排序的平均时间复杂度也是 **O(n^2)**，空间复杂度为常数阶 **O(1)**，具体时间复杂度和数组的有序性也是有关联的。</p>
+<p>插入排序中，当待排序数组是有序时，是最优的情况，只需当前数跟前一个数比较一下就可以了，这时一共需要比较 <strong>N-1</strong> 次，时间复杂度为 **O(N)**。最坏的情况是待排序数组是逆序的，此时需要比较次数最多，最坏的情况是 **O(n^2)**。</p>
 ]]></content>
       <categories>
         <category>算法</category>
@@ -2661,6 +2677,359 @@
         <tag>剑指offer</tag>
         <tag>面试题</tag>
         <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux加强版</title>
+    <url>/2022/06/12/Linux/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h1 id="一、网络连接的三种方式"><a href="#一、网络连接的三种方式" class="headerlink" title="一、网络连接的三种方式"></a>一、网络连接的三种方式</h1><h2 id="1-1、桥接模式"><a href="#1-1、桥接模式" class="headerlink" title="1.1、桥接模式"></a>1.1、桥接模式</h2><p>虚拟系统可以和外部系统<strong>相互</strong>通讯，但是容易造成ip冲突(超过255个机器)</p>
+<h2 id="1-2、NAT模式（网络地址转换模式）"><a href="#1-2、NAT模式（网络地址转换模式）" class="headerlink" title="1.2、NAT模式（网络地址转换模式）"></a>1.2、NAT模式（网络地址转换模式）</h2><p>NAT模式，网络地址转换模式，虚拟系统可以和外部系统<strong>单方面通讯(外部不可以直接访问内部)，</strong>不造成IP冲突，相当于给你虚拟机虚拟一个ip，然后在需要访问外部的时候，自动转换成你母机ip去访问外部</p>
+<h2 id="1-3、主机模式"><a href="#1-3、主机模式" class="headerlink" title="1.3、主机模式"></a>1.3、主机模式</h2><p>可以看作一个独立的系统，不与外界进行联系</p>
+<p><em><img src="/2022/06/12/Linux/image-20220612105851042.png" class title="examplename"></em></p>
+<h1 id="二、Linux目录结构"><a href="#二、Linux目录结构" class="headerlink" title="二、Linux目录结构"></a>二、Linux目录结构</h1><p>1、linux的文件系统是采用层级式的树状目录结构，最上层是根目录”&#x2F;“，然后在此目录下创建其他的目录。</p>
+<p>2、<strong>在Linux的世界里，一切皆文件</strong></p>
+<ul>
+<li>&#x2F;bin (&#x2F;usr&#x2F;bin、&#x2F;usr&#x2F;local&#x2F;bin),是Binary的缩写，存放着最常使用的命令<strong>【常用】</strong></li>
+<li>&#x2F;sbin 存放的是系统管理员使用的系统管理程序</li>
+<li>&#x2F;home 存放普通用户的主目录，在linux中每个用户都有自己的目录<strong>【常用】</strong></li>
+<li>&#x2F;root 系统管理员，也成为超级权限者的用户主目录<strong>【常用】</strong></li>
+<li>&#x2F;lib 系统开机所需要的最基本的动态连接共享库</li>
+<li>&#x2F;lost+found 一般情况是空的，当系统非法关机后，这里就存放了一些文件</li>
+<li>&#x2F;etc 所有的系统管理所需要的配置文件和子目录，例如mysql的my.conf<strong>【常用】</strong></li>
+<li>&#x2F;usr 用户的很多应用程序和文件都放在这个目录下，类似于windows的program files目录<strong>【常用】！！</strong></li>
+<li>&#x2F;boot 存放的是启动linux时使用的一些核心文件，包括一些连接文件以及镜像文件<strong>【常用】</strong></li>
+<li>&#x2F;proc 是一个虚拟目录，是系统内存的映射，访问这个目录来获取系统信息<strong>【不能动】</strong></li>
+<li>&#x2F;srv service的缩写，存放一些服务启动之后需要提取的数据<strong>【不能动】</strong></li>
+<li>&#x2F;sys linux2.6之后出现，安装了一个文件系统sysfs<strong>【不能动】</strong></li>
+<li>&#x2F;tmp 用来存放一些临时文件</li>
+<li>&#x2F;dev 类似于Windows的设备管理器，把所有的硬件用文件形式存储</li>
+<li>&#x2F;media 会自动识别一些例如u盘光驱等设备，识别后就将识别的设备挂载到这目录下<strong>【常用】</strong></li>
+<li>&#x2F;mnt 该目录是为了让用户挂载别的文件系统，可以将外部存储挂载在&#x2F;mnt上，进入该目录查看<strong>【常用】</strong></li>
+<li>挂载，指的就是将设备文件中的顶级目录连接到 Linux 根目录下的某一目录（最好是空目录），访问此目录就等同于访问设备文件。</li>
+<li>&#x2F;opt 给主机额外<strong>安装软件</strong>的目录</li>
+<li>&#x2F;usr&#x2F;local 另一个给主机额外安装软件所安装的目录，一般是通过编译源码方式安装的程序<strong>【常用】</strong></li>
+<li>&#x2F;var 存放一些不断扩张的东西，习惯将经常被修改的目录放在这个目录下，包括各种日志文件<strong>【常用】</strong></li>
+<li>&#x2F;selinux [security-enhanced linux] 是一种安全的子系统，它能控制程序只访问特定文件，有三种工作模式，可以自行设置</li>
+</ul>
+<h1 id="三、vi和vim编辑器"><a href="#三、vi和vim编辑器" class="headerlink" title="三、vi和vim编辑器"></a>三、vi和vim编辑器</h1><h2 id="3-1、三种使用模式"><a href="#3-1、三种使用模式" class="headerlink" title="3.1、三种使用模式"></a>3.1、三种使用模式</h2><p><strong>正常模式(命令模式)</strong></p>
+<p> 以vim打开一个档案就直接进入一般模式了(这是默认的模式)。在这个模式中，你可以使用「上下左右』按键来移动光标，你可以使用『删除字符』或『删除整行』来处理档案内容，也可以使用『复制、粘贴』来处理你的文件数据。</p>
+<p><strong>插入模式</strong></p>
+<p> 按下i，I，o，O，a，A，r，R等任何一个字母之后才会进入编辑模式，一般按<strong>i</strong>即可</p>
+<p><strong>命令行模式</strong></p>
+<p> 输入esc退出当前模式，再输入<code>:</code>进入命令行模式</p>
+<p> 可以提供相关指令，完成读取，存盘，替换，离开vim显示行号等动作。</p>
+<h2 id="3-2、各种模式的切换"><a href="#3-2、各种模式的切换" class="headerlink" title="3.2、各种模式的切换"></a>3.2、各种模式的切换</h2><p><em><img src="/2022/06/12/Linux/image-20220612150535650.png" class title="examplename"></em></p>
+<h2 id="3-3、vim操作"><a href="#3-3、vim操作" class="headerlink" title="3.3、vim操作"></a>3.3、vim操作</h2><p>在一般模式下:</p>
+<ul>
+<li>yy 拷贝当前行；5yy 拷贝当前向下的5行，p 粘贴 u撤销 x删除</li>
+<li>dd 删除当前行；5dd：删除当前向下的5行</li>
+<li>G 文档最末行，gg 最首行</li>
+<li>先输入行号 在输入shift+g 表示移动到多少行</li>
+</ul>
+<p>在命令行模式下:</p>
+<ul>
+<li>wq(保存退出) q(退出) q!(强制退出不保存)</li>
+<li>&#x2F;关键字 回车 查找某个单词，输入n是查找下一个</li>
+<li>set nu 设置文件的行号，set nonu 取消文件的行号</li>
+</ul>
+<h1 id="四、开机重启与用户登录注销"><a href="#四、开机重启与用户登录注销" class="headerlink" title="四、开机重启与用户登录注销"></a>四、开机重启与用户登录注销</h1><h2 id="4-1、开关机与重启"><a href="#4-1、开关机与重启" class="headerlink" title="4.1、开关机与重启"></a>4.1、开关机与重启</h2><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>shutdown -h now</td>
+<td>立刻进行关机</td>
+</tr>
+<tr>
+<td>shutdown -h 1</td>
+<td>“hello，1分钟后会关机了”</td>
+</tr>
+<tr>
+<td>shutdown -r now</td>
+<td>现在重新启动计算机</td>
+</tr>
+<tr>
+<td>halt</td>
+<td>关机，作用和上面一样</td>
+</tr>
+<tr>
+<td>reboot</td>
+<td>现在重新启动计算机</td>
+</tr>
+<tr>
+<td>sync</td>
+<td>把内存的数据同步到磁盘</td>
+</tr>
+</tbody></table>
+<p><strong>注意细节</strong></p>
+<ul>
+<li>不管是重启系统还是关闭系统，首先要运行sync命令，把内存中的数据写到磁盘中</li>
+<li>目前的shutdown&#x2F;reboot&#x2F;halt等命令均已经在关机前进行了sync，但是还是自己执行一次比较好</li>
+</ul>
+<h2 id="4-2、用户登录和注销"><a href="#4-2、用户登录和注销" class="headerlink" title="4.2、用户登录和注销"></a>4.2、用户登录和注销</h2><p><strong>基本介绍</strong></p>
+<ol>
+<li>登录的时候尽量少使用root账号登录，因为他是系统管理员，最大的权限，避免操作失误。可以利用普通用户登录，登录后再用“su - 用户名” 命令来切换成系统管理员身份</li>
+<li>在提示符下输入logout即可注销用户</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>su - 用户名</td>
+<td>切换用户</td>
+</tr>
+<tr>
+<td>logout</td>
+<td>注销用户</td>
+</tr>
+</tbody></table>
+<h1 id="五、Linux用户管理"><a href="#五、Linux用户管理" class="headerlink" title="五、Linux用户管理"></a>五、Linux用户管理</h1><p>linux系统是一个多用户多任务的操作系统，任何一个要使用系统资源的用户，都必须首先向系统管理员申请一个账号，然后以这个账号的身份进入系统</p>
+<h2 id="5-1、用户基本操作"><a href="#5-1、用户基本操作" class="headerlink" title="5.1、用户基本操作"></a>5.1、用户基本操作</h2><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>useradd 用户名</td>
+<td>添加用户，默认该用户的家目录在&#x2F;home&#x2F;用户名 下</td>
+</tr>
+<tr>
+<td>useradd -d 指定目录 用户名</td>
+<td>给新创建的用户指定家目录</td>
+</tr>
+<tr>
+<td>useradd -g 用户组 用户名</td>
+<td>增加用户时直接加上组</td>
+</tr>
+<tr>
+<td>passwd 用户</td>
+<td>给某个用户设置密码</td>
+</tr>
+<tr>
+<td>pwd</td>
+<td>显示当前用户所在目录</td>
+</tr>
+<tr>
+<td>userdel 用户名</td>
+<td>删除用户但保留对用home目录</td>
+</tr>
+<tr>
+<td>userdel -r 用户名</td>
+<td>删除用户并且删除对应home目录</td>
+</tr>
+<tr>
+<td>id 用户名</td>
+<td>查询用户信息</td>
+</tr>
+<tr>
+<td>su - 切换的用户名</td>
+<td>切换用户，高权限切换地全选不需要密码，反之需要</td>
+</tr>
+<tr>
+<td>exot&#x2F;logout</td>
+<td>返回到原来用户</td>
+</tr>
+<tr>
+<td>who am i&#x2F; whoami</td>
+<td>查看当前用户，不加空格是当前操作的用户，加空格是第一次登录的用户的信息</td>
+</tr>
+</tbody></table>
+<h2 id="5-2、用户组"><a href="#5-2、用户组" class="headerlink" title="5.2、用户组"></a>5.2、用户组</h2><p><strong>介绍：</strong></p>
+<p>类似于角色，系统可以对有共性&#x2F;权限的多个用户进行统一的管理，所有在一个组的用户都会有这个组的权限</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>groupadd 组名</td>
+<td>新增组</td>
+</tr>
+<tr>
+<td>groupdel 组名</td>
+<td>删除组</td>
+</tr>
+<tr>
+<td>useradd -g 用户组 用户名</td>
+<td>增加用户时直接加上组</td>
+</tr>
+</tbody></table>
+<p>如果直接添加用户而不指定组，则虚拟机会默认创建一个以用户名为名的组并将其放入组中</p>
+<h2 id="5-3、用户和组相关文件"><a href="#5-3、用户和组相关文件" class="headerlink" title="5.3、用户和组相关文件"></a>5.3、用户和组相关文件</h2><ul>
+<li>&#x2F;etc&#x2F;passwd 文件</li>
+</ul>
+<p>用户(user)的配置文件，记录用户的各种信息</p>
+<p>每一行都是一个用户：含义: <strong>用户名:口令:用户标识号:组标识号:注释性描述:主目录:登录shell</strong></p>
+<ul>
+<li>&#x2F;etc&#x2F;shadow文件</li>
+</ul>
+<p>口令配置文件,每行的含义:<strong>登录名:加密口令:最后一次修改时间:最小时间间隔:最大时间间隔:警告时间:不活动时间:失效时间:标志</strong></p>
+<ul>
+<li>&#x2F;etc&#x2F;group文件</li>
+</ul>
+<p>组的配置文件，记录linux中组的信息，每行含义:<strong>组名:口令:组标识号:组内用户列表</strong></p>
+<h1 id="六、实用指令"><a href="#六、实用指令" class="headerlink" title="六、实用指令"></a>六、实用指令</h1><h2 id="6-1、运行级别"><a href="#6-1、运行级别" class="headerlink" title="6.1、运行级别"></a>6.1、运行级别</h2><p>运行级别说明</p>
+<ol>
+<li>关机</li>
+<li>单用户[找回丢失的密码]</li>
+<li>多用户状态没有网络服务</li>
+<li>多用户状态有网络服务</li>
+<li>系统未使用保留给用户</li>
+<li>图形界面</li>
+<li>系统重启</li>
+</ol>
+<p>常用的运行级别是3和5，也可以指定默认运行级别</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>init[0123456]</td>
+<td>切换不同的运行级别</td>
+</tr>
+<tr>
+<td>systemctl get-default</td>
+<td>查看目前的运行级别</td>
+</tr>
+<tr>
+<td>systemctl set-default mult-user.target&#x2F;systemctl set-default graphical.target</td>
+<td>设置运行级别，前者相当于3，后者相当于5（改变默认的级别）</td>
+</tr>
+</tbody></table>
+<h2 id="6-2、找回root密码-Centos7-6-以后"><a href="#6-2、找回root密码-Centos7-6-以后" class="headerlink" title="6.2、找回root密码(Centos7.6 以后)"></a>6.2、找回root密码(Centos7.6 以后)</h2><ol>
+<li>启动系统，进入开机页面，在页面中按‘e’进入编辑界面 (5s之内)</li>
+<li>进入之后使用键盘的上下键移动光标，找到以“Linux 16”开头所在的行数，在行的最后输入<code>:init=/bin/sh</code></li>
+<li>输入之后按快捷键<code>Ctrl + x</code> 进入单用户模式</li>
+<li>在光标闪烁的位置输入<code>mount -o remount,rw /</code> (单词间有空格)，然后按回车</li>
+<li>在新的一行最后面输入<code>passwd</code>。完成后按回车输入密码，然后再次确认密码即可</li>
+<li>接着在鼠标闪烁的位置输入<code>: touch /.autorelabel</code>(touch 后面有空格),之后继续按回车</li>
+<li>接着在光标闪烁的位置输入 <code>exec /sbin/init</code> 之后按回车键，等待系统修改密码(过程时间有点长)，完成后系统会自动重启</li>
+</ol>
+<h2 id="6-3、帮助指令"><a href="#6-3、帮助指令" class="headerlink" title="6.3、帮助指令"></a>6.3、帮助指令</h2><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>man [命令或配置文件]</td>
+<td>获得帮助信息</td>
+</tr>
+<tr>
+<td>help 命令</td>
+<td>获得shell内置命令的帮助信息</td>
+</tr>
+</tbody></table>
+<h2 id="6-4、文件目录类"><a href="#6-4、文件目录类" class="headerlink" title="6.4、文件目录类"></a>6.4、文件目录类</h2><ul>
+<li><strong>pwd</strong> 显示当前工作目录的绝对路径</li>
+<li><strong>ls</strong> 显示目录:常用选项: <strong>-a</strong>,显示所有，包括隐藏的，**-l** 以列表 <strong>-lh</strong> (h是human的意思)指的是按照人类比较容易看的方式显示</li>
+<li><strong>cd</strong> 定位相对路径或绝对路径 **cd~<strong>回到自己的home目录，</strong>cd..**回到上级目录</li>
+<li><strong>mkdir</strong> 创建目录 mkdir [选项] 要创建的目录 <strong>-p</strong>为创建多级目录</li>
+<li><strong>rmdir</strong> 删除目录 mkdir[选项] 要删除的空目录 ，如果需要删除非空目录，需要使用<strong>rm -rf</strong> 要删除的目录 <strong>-r</strong>表示递归，<strong>f</strong>表示强制删除</li>
+<li><strong>touch</strong> 创建空文件</li>
+<li><strong>cp</strong> 拷贝文件到指令目录 <strong>cp [选项] 文件 指定目录</strong> 选项:<strong>-r</strong> 递归复制整个文件夹， **\cp [选项] 文件 指定目录 ** 强制覆盖不提示</li>
+<li><strong>rm</strong> 移除文件或目录 rm[选项] 要删除的文件或目录，**-r**递归 <strong>-f</strong>强制删除不提示</li>
+<li><strong>mv</strong> 移动文件或重命名 重命名（同一个目录）:<strong>mv old文件名 new文件名</strong> 移动: <strong>mv &#x2F;old位置 &#x2F;new位置</strong></li>
+<li><strong>cat</strong> 查看文件内容 <code>-n</code><strong>显示行号</strong> 为了浏览方便一般会加上 <strong>|more</strong>  （管道命令：把前面的结果交给下一个指令）</li>
+<li><strong>more</strong> 要查看的文件 ，指令中内置了快捷键，可以独立使用 也可以与 <strong>cat</strong> 命令一起使用<ul>
+<li>空格键(space) 向下翻一页</li>
+<li>回车键(Enter) 向下翻一行</li>
+<li>q 立刻离开</li>
+<li>Ctrl+f 向下滚动一屏</li>
+<li>Ctrl+B 返回上一屏</li>
+<li>&#x3D; 输出当前行的行号</li>
+<li>:f 输出文件名和当前行的行号</li>
+</ul>
+</li>
+<li><strong>less</strong> 分屏查看文件内容，与more类似却更加强大，他是懒加载模式<ul>
+<li>空格键(space) 向下翻一页</li>
+<li>下键(pagedown) 向下翻一页</li>
+<li>上建(pageup) 向上翻一页</li>
+<li>&#x2F; 向下搜索字串功能 n向下查找；N向上查找</li>
+<li>？ 向上搜索字串功能 n向上查找；N向下查找</li>
+<li>q 立刻离开</li>
+</ul>
+</li>
+<li><strong>echo</strong> 输出内容到控制台，例如要输出环境变量 echo $PATH</li>
+<li><strong>head</strong> 显示文件开头的部分内容，默认十行 <strong>head -n 任意数字</strong>，查看前任意行</li>
+<li><strong>tail</strong> 显示文件中尾部内容，默认十行 <strong>tail -n 任意数字</strong> 查看尾n行 <strong>tail -f</strong> 实时追踪文件更新</li>
+<li><strong>&gt;与&gt;&gt;</strong> 输出重定向(覆盖)和追加<ul>
+<li>ls -l &gt; 文件 列表的内容写入到文件中(覆盖)</li>
+<li>ls -al &gt;&gt;文件 列表内容追加到文件的末尾</li>
+<li>cat 文件1&gt;文件2 文件1内容覆盖到文件2(覆盖)</li>
+<li>echo “内容” &gt;&gt; 文件 将内容追加到文件末尾</li>
+</ul>
+</li>
+<li><strong>cal</strong> 显示当前的日历信息。</li>
+<li><strong>ln</strong> 软连接，也被称为符号链接，类似于Windows的快捷方式 <strong>ln -s [源文件或目录] [软连接名]</strong> 删除软连接<strong>rm</strong>的时候最后不要带上&#x2F;，<strong>ln [源文件或目录] [硬连接名]</strong> <ul>
+<li><em><img src="/2022/06/12/Linux/image-20220612193436262.png" class title="examplename"></em></li>
+<li><strong>注意点:</strong><ul>
+<li><strong>创建硬链接使用相对路径和绝对路径都可以</strong></li>
+<li><strong>删除源文件，硬链接还可以访问到数据。</strong></li>
+<li><strong>创建硬链接，硬链接数会加1，删除源文件或者硬链接，硬链接数会减1。</strong></li>
+<li><strong>创建软链接，硬链接数不会加1</strong></li>
+<li><strong>不能给目录创建硬链接</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>history</strong> 查看已经执行过的历史命令 后面加数字是查看最近的n个命令，查看的命令前会带有参数，可以直接**!+参数（编号）**来执行命令</li>
+</ul>
+<p>ll查询下的：</p>
+<p><em><img src="/2022/06/12/Linux/image-20220612193240750.png" class title="examplename"></em></p>
+<h1 id="十四、Shell编程"><a href="#十四、Shell编程" class="headerlink" title="十四、Shell编程"></a>十四、Shell编程</h1><h2 id="14-1、Shell是什么"><a href="#14-1、Shell是什么" class="headerlink" title="14.1、Shell是什么"></a>14.1、Shell是什么</h2><p>Shell是一个命令行解释器，它为用户提供了一个向Linux内核发生请求以便运行程序的界面系统级程序，用户可以用Shell来启动、挂起、停止甚至是编写一些程序。</p>
+<p><em><img src="/2022/06/12/Linux/image-20220612203240772.png" class title="examplename"></em></p>
+<h2 id="14-2、Shell脚本的执行方式"><a href="#14-2、Shell脚本的执行方式" class="headerlink" title="14.2、Shell脚本的执行方式"></a>14.2、Shell脚本的执行方式</h2><p><strong>脚本格式要求：</strong></p>
+<p>1、脚本以 <strong>#!&#x2F;bin&#x2F;bash</strong> 开头</p>
+<p>2、脚本需要有可执行权限</p>
+<p><strong>脚本的常用执行方式</strong></p>
+<p>方式1：(输入脚本的绝对路径或相对路径)</p>
+<p><strong>说明：</strong>首先要赋予hellowordl.sh脚本的+x权限，在执行脚本</p>
+<p>方式2：(sh+脚本)</p>
+<p><strong>说明：</strong>不用赋予脚本+x权限，直接sh + 脚本执行即可。</p>
+<p><a href="https://www.eliseo.top/2022/05/05/Linux/image-20220531092746464.png"><img src="https://www.eliseo.top/2022/05/05/Linux/image-20220531092746464.png" alt="img"></a></p>
+<h2 id="14-3、Shell的变量"><a href="#14-3、Shell的变量" class="headerlink" title="14.3、Shell的变量"></a>14.3、Shell的变量</h2><hr>
+<p><strong>Shell变量介绍</strong></p>
+<p>1、分为系统变量和用户自定义变量</p>
+<p>2、系统变量：$HOME、$PWD、$SHELL、$USER等</p>
+<p>3、显示当前shell中所有变量：set</p>
+<hr>
+<p><strong>shell变量的定义</strong></p>
+<p><strong>基本语法：</strong><br>1、定义变量：变量名&#x3D;值(不能打空格)</p>
+<p>2、撤销变量：unset 变量</p>
+<p>3、声明静态变量：readonly变量，<strong>注意：不能unset</strong></p>
+<p>4、输出变量：echo $变量名 或者echo 变量名&#x3D;$变量名 或者echo “变量名&#x3D;$变量名”；第一个输出结果为 变量名的值，后两个输出结果一样 都是 变量名&#x3D;值</p>
+<p><strong>定义变量的规则：</strong></p>
+<p>1、变量名称可以有字母、数字、下划线组成，但是不能以数字开头</p>
+<p>2、等号两侧不能有空格</p>
+<p>3、变量名称一般习惯为大写，这是一个规范，也就是说哪怕定义的是小写也不会报错，但是 <code>不好</code></p>
+<p><strong>将命令的返回值赋给变量</strong></p>
+<p>1、A&#x3D;<code>date</code>反引号，运行里面的命令，并且把结果返回给变量A，如果不加反引号，那么就是将date单词赋给A。</p>
+<p>2、A&#x3D;$(date) 等价于反引号</p>
+<h2 id="14-4、设置环境变量"><a href="#14-4、设置环境变量" class="headerlink" title="14.4、设置环境变量"></a>14.4、设置环境变量</h2>]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
       </tags>
   </entry>
 </search>
