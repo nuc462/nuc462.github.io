@@ -2995,7 +2995,40 @@
 </ul>
 <p>ll查询下的：</p>
 <p><em><img src="/2022/06/12/Linux/image-20220612193240750.png" class title="examplename"></em></p>
-<h1 id="十四、Shell编程"><a href="#十四、Shell编程" class="headerlink" title="十四、Shell编程"></a>十四、Shell编程</h1><h2 id="14-1、Shell是什么"><a href="#14-1、Shell是什么" class="headerlink" title="14.1、Shell是什么"></a>14.1、Shell是什么</h2><p>Shell是一个命令行解释器，它为用户提供了一个向Linux内核发生请求以便运行程序的界面系统级程序，用户可以用Shell来启动、挂起、停止甚至是编写一些程序。</p>
+<h2 id="6-5、时间日期类"><a href="#6-5、时间日期类" class="headerlink" title="6.5、时间日期类"></a>6.5、时间日期类</h2><ul>
+<li>date指令-显示当前日期<ul>
+<li>date （功能描述：显示当前时间）</li>
+<li>date + %Y (功能描述：显示当前年份)</li>
+<li>date + %m (功能描述：显示当前月份)</li>
+<li>date + %d (功能描述：显示当前是哪一天)</li>
+<li>date “+%Y-%m-%d %H:%M:%S” (功能描述：显示年月日时分秒)</li>
+<li>date -s 字符串时间 设置日期</li>
+</ul>
+</li>
+<li>cal +选项 查看日历，不加选项默认本月,加了就是参数当年的日历</li>
+</ul>
+<h2 id="6-6、搜索查找类"><a href="#6-6、搜索查找类" class="headerlink" title="6.6、搜索查找类"></a>6.6、搜索查找类</h2><ul>
+<li><p><strong>find</strong>从指定目录<strong>向下递归遍历</strong>其各个子目录，将满足条件的文件或目录显示在终端</p>
+</li>
+<li><p><strong>语法:find [搜索范围] [选项]</strong> </p>
+</li>
+<li><p>选项: </p>
+<ul>
+<li>-name&lt;查询方式&gt; 按照指定的文件名查找模式查找文件</li>
+<li>-user&lt;用户名&gt; 查找属于指定用户名的所有文件</li>
+<li>-size&lt;文件大小&gt; 按照指定的文件大小查找文件</li>
+</ul>
+<p><em><img src="/2022/06/12/Linux/image-20220703113544547.png" class title="examplename"></em></p>
+</li>
+<li><p><strong>locate</strong>快速定位文件路径，locate指令利用事先建立的系统中所有文件名称以及路径的locate数据库实现快速定位给定的文件需遍历整个系统，速度较快，但为了保证查询结果的准确度，管理员必须定期更新locate时刻。 <strong>语法：</strong>locate 搜索文件,<strong>执行之前 必须先执行updatedb</strong></p>
+<p>由于locate指令基于数据库查询，所以第一次查找前必须使用updatedb指令来创建一个新的locate库</p>
+</li>
+<li><p>which 可以查看某个指令在哪个目录下，比如 ls 指令在哪个目录，which ls</p>
+</li>
+<li><p>grep和管道符”|” 过滤查找，管道符”|”表示<strong>将前一个命令的处理结果输出传递给后面的命令</strong>处理，基本语法: grep [选项] 查找内容，源文件 -n显示匹配行及行号，-i忽略字母大小写</p>
+</li>
+</ul>
+<h2 id="6-7、压缩和解压类"><a href="#6-7、压缩和解压类" class="headerlink" title="6.7、压缩和解压类"></a>6.7、压缩和解压类</h2><h1 id="十四、Shell编程"><a href="#十四、Shell编程" class="headerlink" title="十四、Shell编程"></a>十四、Shell编程</h1><h2 id="14-1、Shell是什么"><a href="#14-1、Shell是什么" class="headerlink" title="14.1、Shell是什么"></a>14.1、Shell是什么</h2><p>Shell是一个命令行解释器，它为用户提供了一个向Linux内核发生请求以便运行程序的界面系统级程序，用户可以用Shell来启动、挂起、停止甚至是编写一些程序。</p>
 <p><em><img src="/2022/06/12/Linux/image-20220612203240772.png" class title="examplename"></em></p>
 <h2 id="14-2、Shell脚本的执行方式"><a href="#14-2、Shell脚本的执行方式" class="headerlink" title="14.2、Shell脚本的执行方式"></a>14.2、Shell脚本的执行方式</h2><p><strong>脚本格式要求：</strong></p>
 <p>1、脚本以 <strong>#!&#x2F;bin&#x2F;bash</strong> 开头</p>
@@ -3030,6 +3063,40 @@
       </categories>
       <tags>
         <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数值的整数次方</title>
+    <url>/2022/07/05/%E6%95%B0%E5%80%BC%E7%9A%84%E6%95%B4%E6%95%B0%E6%AC%A1%E6%96%B9/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><em><img src="/2022/07/05/%E6%95%B0%E5%80%BC%E7%9A%84%E6%95%B4%E6%95%B0%E6%AC%A1%E6%96%B9/image-20220705232121664.png" class title="examplename"></em></p>
+<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><ul>
+<li><p><strong>解题思路：</strong></p>
+<p><em><img src="/2022/07/05/%E6%95%B0%E5%80%BC%E7%9A%84%E6%95%B4%E6%95%B0%E6%AC%A1%E6%96%B9/image-20220705232200972.png" class title="examplename"></em></p>
+</li>
+<li><p><strong>复杂度分析：</strong></p>
+<ul>
+<li><strong>时间复杂度 O(log_2 n) ：</strong> 二分的时间复杂度为对数级别。</li>
+<li><strong>空间复杂度 O(1) ：</strong> res, b 等变量占用常数大小额外空间。</li>
+</ul>
+</li>
+<li><p><strong>代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 超时算法</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">double</span> <span class="title function_">myPow</span><span class="params">(<span class="type">double</span> x, <span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (n == <span class="number">0</span>) &#123;</span><br><span class="line">            x = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            x = <span class="number">1</span> / x;</span><br><span class="line">            n = -n;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (n &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="type">double</span> <span class="variable">a</span> <span class="operator">=</span> x;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> n; i &gt; <span class="number">1</span>; i--) &#123;</span><br><span class="line">                x = x * a;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>good算法</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 快速幂法</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">double</span> <span class="title function_">myPow</span><span class="params">(<span class="type">double</span> x, <span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (x == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// -n会溢出，但在long形态里面，还是表示的-2147483648，为什么呢？</span></span><br><span class="line">        <span class="comment">// n = -2147483648(对应计算机里的补码表示)</span></span><br><span class="line">        <span class="comment">// -n 对应计算机里面的真实（补码）表示，和n的补码表示一样，因为已经溢出了，表示不了了。</span></span><br><span class="line">        <span class="comment">// 因为根据求相反数的规则：对n求相反数，就对n进行从右往左数，第1个1不变，其他的二进制位变成相反数即可。</span></span><br><span class="line">        <span class="comment">// 参考百度百科补码表示：https://baike.baidu.com/item/%E8%A1%A5%E7%A0%81</span></span><br><span class="line">        <span class="comment">// int 取值范围  -2^31——2^31-1  -2147483648——2147483647</span></span><br><span class="line">        <span class="comment">// b = -n ; //  b = -2147483648， 错误代码</span></span><br><span class="line">        <span class="comment">// b = -b;  // b = 2147483648，正确代码，-b也可以在  正数范围内进行表示。</span></span><br><span class="line">        <span class="comment">// 所以必须使用long</span></span><br><span class="line">        <span class="type">long</span> <span class="variable">b</span> <span class="operator">=</span> n;</span><br><span class="line">        <span class="type">double</span> <span class="variable">res</span> <span class="operator">=</span> <span class="number">1.0</span>;</span><br><span class="line">        <span class="keyword">if</span> (b &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            x = <span class="number">1</span> / x;</span><br><span class="line">            b = -b;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (b &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// （与操作）：判断末尾的二进制数是1还是0</span></span><br><span class="line">            <span class="keyword">if</span> ((b &amp; <span class="number">1</span>) == <span class="number">1</span>) res *= x;</span><br><span class="line">            x *= x;</span><br><span class="line">            <span class="comment">// （移位操作）： nn 右移一位（可理解为删除最后一位）。</span></span><br><span class="line">            b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>剑指offer</category>
+        <category>分治</category>
+      </categories>
+      <tags>
+        <tag>剑指offer</tag>
+        <tag>面试题</tag>
+        <tag>算法</tag>
       </tags>
   </entry>
 </search>
