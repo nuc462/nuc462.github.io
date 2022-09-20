@@ -3111,8 +3111,8 @@
 </li>
 <li><p><a herf="https://blog.csdn.net/Leon_Jinhai_Sun/article/details/125016637">动态链接</a></p>
 </li>
-<li><p>[动态链接]:<a href="https://blog.csdn.net/Leon_Jinhai_Sun/article/details/125016637">https://blog.csdn.net/Leon_Jinhai_Sun/article/details/125016637</a>	“[动态链接]”</p>
-</li>
+<li></li>
+<li></li>
 <li><p>类装载器子系统</p>
 </li>
 <li><p><strong>符号引用</strong>：包含<strong>字面量</strong>(Literal)和<strong>符号引用量</strong>(Symbolic References)，字面量相当于Java语言层面常量的概念，如<strong>文本字符串，声明为final的常量值</strong>等，符号引用则属于编译原理方面的概念，包括了如下三种类型的常量：<strong>类和接口的全限定名、字段名称和描述符、方法名称和描述符</strong></p>
